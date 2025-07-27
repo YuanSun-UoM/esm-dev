@@ -53,4 +53,4 @@
 
 ## Inquiry For Help & Collaboration
 
-- Please create an [Issues](https://github.com/YuanSun-UoM/WRF-CTSM/issues) and [Discussions](https://github.com/YuanSun-UoM/WRF-CTSM/discussions). The author will try to respond as soon as possible.
+- Please create an [Issues](https://github.com/YuanSun-UoM/esm-dev/issues) and [Discussions](https://github.com/YuanSun-UoM/esm-dev/discussions). The author will try to respond as soon as possible.
