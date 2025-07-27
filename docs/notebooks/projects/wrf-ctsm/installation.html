@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1 Installation &#8212; CESM-LCZ  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">1 Installation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>1 Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<blockquote>
+<div><p>The following scripts are provided by the author for installing WRF-CTSM on a Linux workstation.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Users should adapt these scripts to suit their own systems.</strong></p>
+</div></blockquote>
+<blockquote>
+<div><p>For example, users on HPC systems may choose to load pre-installed modules (e.g., compiler, MPI, and libraries) rather than building them from source.</p>
+</div></blockquote>
+<section id="preparation">
+<h2>1.1 Preparation<a class="headerlink" href="#preparation" title="Link to this heading">¶</a></h2>
+<section id="install-libraries">
+<h3>Install libraries<a class="headerlink" href="#install-libraries" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gcc.gnu.org/">GCC</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcc-8</span></code> or <code class="docutils literal notranslate"><span class="pre">gcc-9</span></code> is recommended.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://git-lfs.com/">git-lfs</a></p></li>
+<li><p><a class="reference external" href="https://www.ncl.ucar.edu/Download/">ncl</a></p></li>
+<li><p><a class="reference external" href="https://nco.sourceforge.net/#bld">nco</a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/72d3c865a39b1b669da08db83a8087e1/mpich-4_0_2.sh"><span class="xref download myst">mpich-4_0_2.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/84c0938d61af6bd53f9534f62dcd1ffc/zlib-1_3_1.sh"><span class="xref download myst">zlib-1_3_1.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/cb2cd38078fec82ce885c2ef6c6891d8/hdf5-1_12_3.sh"><span class="xref download myst">hdf5-1_12_3.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/09d794e838b59f8dc5b80ef53b375385/pnetcdf-1_12_3.sh"><span class="xref download myst">pnetcdf-1_12_3.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/d133d276686a12bdb313c23449871261/netcdfc-4_9_2.sh"><span class="xref download myst">netcdfc-4_9_2.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/31570a6d975aee8d9eaea9ab0c8d2c96/netcdff-4_6_1.sh"><span class="xref download myst">netcdff-4_6_1.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/3eb037aeedb664b274cb680f71fed0da/pio-2_6_6.sh"><span class="xref download myst">pio-2_6_6.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/8dfdecfebc44dbf9d308391cf18ba943/esmf-8_8_1.sh"><span class="xref download myst">esmf-8_8_1.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/8d494730838f453955cd225a1972a858/jasper-4_2_5.sh"><span class="xref download myst">jasper-4_2_5.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/80c7a7552f91267e0a448c1e9d866247/libpng-1_6_39.sh"><span class="xref download myst">libpng-1_6_39.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/a1ab348014da847e2c53b95a376257fe/lapack-3_9_0.sh"><span class="xref download myst">lapack-3_9_0.sh</span></a></p></li>
+</ul>
+</section>
+<section id="set-environment">
+<h3>Set environment<a class="headerlink" href="#set-environment" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">WORK_ROOT</span><span class="o">=</span><span class="s2">&quot;/home/yuansun/&quot;</span>
+<span class="nv">INROOT</span><span class="o">=</span><span class="si">${</span><span class="nv">WORK_ROOT</span><span class="si">}</span>/software
+<span class="nv">COMPILER</span><span class="o">=</span>gcc
+<span class="nb">export</span><span class="w"> </span><span class="nv">MPICHDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/mpich/4.0.2
+<span class="nb">export</span><span class="w"> </span><span class="nv">ZLIBDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/zlib/1.3.1
+<span class="nb">export</span><span class="w"> </span><span class="nv">HDF5DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/hdf5/1.12.3
+<span class="nb">export</span><span class="w"> </span><span class="nv">PNETCDFDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/pnetcdf/1.12.3
+<span class="nb">export</span><span class="w"> </span><span class="nv">NETCDFCDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/netcdf-c/4.9.2
+<span class="nb">export</span><span class="w"> </span><span class="nv">NETCDFFDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/netcdf-fortran/4.6.1
+<span class="nb">export</span><span class="w"> </span><span class="nv">PIODIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/pio/2.6.6
+<span class="nb">export</span><span class="w"> </span><span class="nv">ESMFDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/esmf/8.8.1
+<span class="nb">export</span><span class="w"> </span><span class="nv">JASPERDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/jasper/4.2.5
+<span class="nb">export</span><span class="w"> </span><span class="nv">LIBPNGDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">INROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">COMPILER</span><span class="si">}</span>/libpng/1.6.39
+<span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$ZLIBDIR</span>/lib:<span class="nv">$HDF5DIR</span>/lib:<span class="nv">$NETCDFCDIR</span>/lib:<span class="nv">$NETCDFFDIR</span>/lib:<span class="nv">$MPICHDIR</span>/lib:<span class="nv">$PNETCDFDIR</span>/lib:<span class="nv">$PIODIR</span>/lib:<span class="nv">$ESMFDIR</span>/lib:<span class="nv">$JASPERDIR</span>/lib:<span class="nv">$LIBPNGDIR</span>/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HDF5DIR</span>/bin:<span class="nv">$NETCDFCDIR</span>/bin:<span class="nv">$NETCDFFDIR</span>/bin:<span class="nv">$MPICHDIR</span>/bin:<span class="nv">$PNETCDFDIR</span>/bin:<span class="nv">$ESMFDIR</span>/bin:<span class="nv">$JASPERDIR</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPATH</span><span class="o">=</span><span class="nv">$ZLIBDIR</span>/include:<span class="nv">$HDF5DIR</span>/include:<span class="nv">$NETCDFCDIR</span>/include:<span class="nv">$NETCDFFDIR</span>/include:<span class="nv">$MPICHDIR</span>/include:<span class="nv">$PNETCDFDIR</span>/include:<span class="nv">$PIODIR</span>/include:<span class="nv">$ESMFDIR</span>/include:<span class="nv">$JASPERDIR</span>/include:<span class="nv">$LIBPNGDIR</span>/include:<span class="nv">$CPATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MANPATH</span><span class="o">=</span><span class="nv">$ZLIBDIR</span>/share/man:<span class="nv">$HDF5DIR</span>/share/man:<span class="nv">$NETCDFCDIR</span>/share/man:<span class="nv">$NETCDFFDIR</span>/share/man:<span class="nv">$MPICHDIR</span>/share/man:<span class="nv">$PNETCDFDIR</span>/share/man:<span class="nv">$JASPERDIR</span>/share/man:<span class="nv">$LIBPNGDIR</span>/share/man:<span class="nv">$MANPATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CC</span><span class="o">=</span>gcc-9
+<span class="nb">export</span><span class="w"> </span><span class="nv">CXX</span><span class="o">=</span>g++-9
+<span class="nb">export</span><span class="w"> </span><span class="nv">FC</span><span class="o">=</span>gfortran-9
+<span class="nb">export</span><span class="w"> </span><span class="nv">FCFLAGS</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="nv">$ESMFDIR</span><span class="s2">/mod -I</span><span class="nv">$ESMFDIR</span><span class="s2">/include -I</span><span class="nv">$NETCDFCDIR</span><span class="s2">/include -I</span><span class="nv">$NETCDFFDIR</span><span class="s2">/include -I</span><span class="nv">$PNETCDFDIR</span><span class="s2">/include -I</span><span class="nv">$PIODIR</span><span class="s2">/include -I</span><span class="nv">$ESMFDIR</span><span class="s2">/include -I</span><span class="nv">$JASPERDIR</span><span class="s2">/include -I</span><span class="nv">$LIBPNGDIR</span><span class="s2">/include&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FCFLAGS</span><span class="s2">&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$ZLIBDIR</span><span class="s2">/lib -L</span><span class="nv">$HDF5DIR</span><span class="s2">/lib -L</span><span class="nv">$NETCDFCDIR</span><span class="s2">/lib -L</span><span class="nv">$NETCDFFDIR</span><span class="s2">/lib -L</span><span class="nv">$MPICHDIR</span><span class="s2">/lib -L</span><span class="nv">$PNETCDFDIR</span><span class="s2">/lib -L</span><span class="nv">$PIODIR</span><span class="s2">/lib -L</span><span class="nv">$ESMFDIR</span><span class="s2">/lib -L</span><span class="nv">$ESMFDIR</span><span class="s2">/lib -L</span><span class="nv">$JASPERDIR</span><span class="s2">/lib -L</span><span class="nv">$LIBPNGDIR</span><span class="s2">/lib&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>
+</pre></div>
+</div>
+</section>
+<section id="check-the-environment-optional">
+<h3>Check the environment (optional)<a class="headerlink" href="#check-the-environment-optional" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">git-lfs</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>lfs<span class="w"> </span>version
+</pre></div>
+</div>
+</li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">gcc-9</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>which<span class="w"> </span>gcc-9
+</pre></div>
+</div>
+</li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">ncl</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">which</span> <span class="n">ncl</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">nco</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncks<span class="w"> </span>--version
+</pre></div>
+</div>
+</li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">netcdf-c</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nc-config<span class="w"> </span>--version
+nc-config<span class="w"> </span>--all
+</pre></div>
+</div>
+</li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">netcdf-fortran</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nf-config<span class="w"> </span>--all
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="source-code-download">
+<h2>1.2 Source Code Download<a class="headerlink" href="#source-code-download" title="Link to this heading">¶</a></h2>
+<section id="download-wrf-code">
+<h3>Download WRF code<a class="headerlink" href="#download-wrf-code" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">WRF_ROOT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">WORK_ROOT</span><span class="si">}</span><span class="s2">wrf&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">WRFNAME</span><span class="o">=</span>WRF-CTSM
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wrf-model/WRF.git<span class="w"> </span><span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span><span class="w"> </span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
+git<span class="w"> </span>checkout<span class="w"> </span>release-v4.7.0
+</pre></div>
+</div>
+</section>
+<section id="modify-wrf-code">
+<h3>Modify WRF code<a class="headerlink" href="#modify-wrf-code" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>According to <a class="reference external" href="https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/">CTSM-Norway tutorial</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/phys/module_sf_mynn.F</span></code>, around Line 1149,</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">=</span><span class="n">QSFCMR</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">QV1D</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">-</span><span class="n">QSFCMR</span><span class="p">(</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">PSIQ2</span><span class="o">/</span><span class="n">PSIQ</span>
+<span class="w">   </span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">=</span><span class="w"> </span><span class="nb">MAX</span><span class="p">(</span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="nb">MIN</span><span class="p">(</span><span class="n">QSFCMR</span><span class="p">(</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="n">QV1D</span><span class="p">(</span><span class="n">I</span><span class="p">)))</span>
+<span class="w">   </span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">=</span><span class="w"> </span><span class="nb">MIN</span><span class="p">(</span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="mf">1.05</span><span class="o">*</span><span class="n">QV1D</span><span class="p">(</span><span class="n">I</span><span class="p">))</span>
+
+<span class="w">   </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">debug_code</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="k">      </span><span class="n">yesno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="n">HFX</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">120</span><span class="mf">0.</span><span class="w"> </span><span class="p">.</span><span class="nb">OR</span><span class="p">.</span><span class="w"> </span><span class="n">HFX</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="mi">70</span><span class="mf">0.</span><span class="p">)</span><span class="k">THEN</span>
+<span class="k">            print</span><span class="o">*</span><span class="p">,</span><span class="s2">&quot;SUSPICIOUS VALUES IN MYNN SFCLAYER&quot;</span><span class="p">,&amp;</span>
+<span class="w">            </span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;HFX: &quot;</span><span class="p">,</span><span class="n">HFX</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">            </span><span class="n">yesno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="k">ENDIF</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">=</span><span class="n">QSFCMR</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">QV1D</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">-</span><span class="n">QSFCMR</span><span class="p">(</span><span class="n">I</span><span class="p">))</span><span class="o">*</span><span class="n">PSIQ2</span><span class="o">/</span><span class="n">PSIQ</span>
+<span class="w">   </span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">=</span><span class="w"> </span><span class="nb">MAX</span><span class="p">(</span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="nb">MIN</span><span class="p">(</span><span class="n">QSFCMR</span><span class="p">(</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="n">QV1D</span><span class="p">(</span><span class="n">I</span><span class="p">)))</span>
+<span class="w">   </span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">=</span><span class="w"> </span><span class="nb">MIN</span><span class="p">(</span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">),</span><span class="w"> </span><span class="mf">1.05</span><span class="o">*</span><span class="n">QV1D</span><span class="p">(</span><span class="n">I</span><span class="p">))</span>
+<span class="w">   </span>
+<span class="c">!YS</span>
+<span class="w">   </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="n">LT</span><span class="p">.</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="k">       print</span><span class="o">*</span><span class="p">,</span><span class="s2">&quot;DEBUG: NEGATIVE Q2 VALUE IN MYNN SFCLAYER&quot;</span><span class="p">,&amp;</span>
+<span class="w">       </span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Q2: &quot;</span><span class="p">,</span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">       </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="s2">&quot;WARNING: NEGATIVE Q2 SET TO ZERO&quot;</span>
+<span class="w">       </span><span class="n">Q2</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="w">   </span><span class="k">ENDIF</span>
+<span class="k">   IF</span><span class="w"> </span><span class="p">(</span><span class="n">QSFC</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="n">LT</span><span class="p">.</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="k">       print</span><span class="o">*</span><span class="p">,</span><span class="s2">&quot;DEBUG: NEGATIVE QSFC VALUE IN MYNN SFCLAYER&quot;</span><span class="p">,&amp;</span>
+<span class="w">       </span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;QSFC: &quot;</span><span class="p">,</span><span class="n">QSFC</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">   </span><span class="k">ENDIF</span>
+<span class="c">!YS</span>
+
+<span class="w">   </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">debug_code</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="k">      </span><span class="n">yesno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="n">HFX</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">120</span><span class="mf">0.</span><span class="w"> </span><span class="p">.</span><span class="nb">OR</span><span class="p">.</span><span class="w"> </span><span class="n">HFX</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="mi">70</span><span class="mf">0.</span><span class="p">)</span><span class="k">THEN</span>
+<span class="k">            print</span><span class="o">*</span><span class="p">,</span><span class="s2">&quot;SUSPICIOUS VALUES IN MYNN SFCLAYER&quot;</span><span class="p">,&amp;</span>
+<span class="w">            </span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;HFX: &quot;</span><span class="p">,</span><span class="n">HFX</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="w">            </span><span class="n">yesno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="k">ENDIF</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="download-ctsm-code">
+<h3>Download CTSM code<a class="headerlink" href="#download-ctsm-code" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CTSMdev
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ESCOMP/CTSM<span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
+./bin/git-fleximod<span class="w"> </span>update
+</pre></div>
+</div>
+</section>
+<section id="modify-ctsm-code">
+<h3>Modify CTSM code<a class="headerlink" href="#modify-ctsm-code" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/src/cpl/lilac/lnd_comp_esmf.F90</span></code>, around Line 38,</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="k">use </span><span class="n">clm_varctl</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">nsrStartup</span><span class="p">,</span><span class="w"> </span><span class="n">nsrContinue</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c">!YS</span>
+<span class="w">   </span><span class="c">!use clm_varctl        , only : nsrStartup, nsrContinue</span>
+<span class="w">   </span><span class="k">use </span><span class="n">clm_varctl</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">nsrStartup</span><span class="p">,</span><span class="w"> </span><span class="n">nsrContinue</span><span class="p">,</span><span class="w"> </span><span class="n">nsrBranch</span>
+<span class="w">   </span><span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>According to <a class="reference external" href="https://bb.cgd.ucar.edu/cesm/threads/ctsm-restart-using-lilac-coupler.11510/">WRF-CTSM restart issue</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/src/cpl/lilac/lnd_comp_esmf.F90</span></code>, around Line 293,</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">trim</span><span class="p">(</span><span class="n">starttype</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">trim</span><span class="p">(</span><span class="s1">&#39;startup&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">nsrest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nsrStartup</span>
+<span class="w">    </span><span class="k">else if</span><span class="w"> </span><span class="p">(</span><span class="nb">trim</span><span class="p">(</span><span class="n">starttype</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">trim</span><span class="p">(</span><span class="s1">&#39;continue&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">nsrest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nsrContinue</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">trim</span><span class="p">(</span><span class="n">starttype</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">trim</span><span class="p">(</span><span class="s1">&#39;startup&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">nsrest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nsrStartup</span>
+<span class="w">    </span><span class="k">else if</span><span class="w"> </span><span class="p">(</span><span class="nb">trim</span><span class="p">(</span><span class="n">starttype</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">trim</span><span class="p">(</span><span class="s1">&#39;continue&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="c">!YS    </span>
+<span class="w">       </span><span class="c">!nsrest = nsrContinue</span>
+<span class="w">       </span><span class="n">nsrest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nsrBranch</span>
+<span class="c">!YS       </span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>According to <a class="reference external" href="https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/">CTSM-Norway tutorial</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/src/cpl/utils/lnd_import_export_utils.F90</span></code>, around Line 131,</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">wateratm2lndbulk_inst</span><span class="p">%</span><span class="n">forc_q_not_downscaled_grc</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.0_r8</span><span class="w"> </span><span class="p">)</span><span class="k">then</span>
+<span class="k">          call </span><span class="n">shr_sys_abort</span><span class="p">(</span><span class="w"> </span><span class="n">subname</span><span class="o">//</span><span class="p">&amp;</span>
+<span class="w">          </span><span class="s1">&#39;         ERROR: Bottom layer specific humidty sent from the atmosphere model is less than zero&#39;</span><span class="w"> </span><span class="p">)</span>
+<span class="w">     </span><span class="k">end if</span><span class="w"> </span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="c">!YS       </span>
+<span class="w">     </span><span class="c">!if ( wateratm2lndbulk_inst%forc_q_not_downscaled_grc(g) &lt; 0.0_r8 )then</span>
+<span class="w">         </span><span class="c">!call shr_sys_abort( subname//&amp;</span>
+<span class="w">         </span><span class="c">!        &#39; ERROR: Bottom layer specific humidty sent from the atmosphere model is less than zero&#39; )</span>
+<span class="w">     </span><span class="c">!end if</span>
+<span class="w">     </span><span class="c">!YS </span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify ``${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lake_depth</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LAKE_DEPTH</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
+<span class="n">lu_index</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LU_INDEX</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
+<span class="n">lakemask</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">lu_index</span><span class="o">.</span><span class="n">eq</span><span class="mf">.21</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> 
+<span class="n">landmask</span> <span class="o">=</span> <span class="n">where</span> <span class="p">(</span><span class="n">lakemask</span><span class="o">.</span><span class="n">eq</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">landmask</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>According to <a class="reference external" href="https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/">CTSM-Norway tutorial</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/mkunitymap.ncl</span></code>, around Line 74:</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span> <span class="n">n_a</span> <span class="o">.</span><span class="n">ne</span><span class="o">.</span> <span class="n">n_b</span> <span class="p">)</span><span class="n">then</span>
+     <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;ERROR: dimensions of input SCRIP grid files is NOT the same!&quot;</span> <span class="p">);</span>
+     <span class="n">exit</span>
+  <span class="n">end</span> <span class="k">if</span>
+  
+  <span class="k">if</span> <span class="p">(</span> <span class="nb">any</span><span class="p">(</span><span class="n">ncb</span><span class="o">-&gt;</span><span class="n">grid_imask</span> <span class="o">.</span><span class="n">ne</span><span class="o">.</span> <span class="mf">1.0</span><span class="n">d00</span><span class="p">)</span> <span class="p">)</span><span class="n">then</span>
+     <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;ERROR: the mask of the second file isn&#39;t identically 1!&quot;</span> <span class="p">);</span>
+     <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;(second file should be land grid file)&quot;</span><span class="p">);</span>
+     <span class="n">exit</span>
+  <span class="n">end</span> <span class="k">if</span>
+  
+  <span class="n">chkvars</span> <span class="o">=</span> <span class="p">(</span><span class="o">/</span> <span class="s2">&quot;grid_center_lat&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_center_lon&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_corner_lat&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_corner_lon&quot;</span> <span class="o">/</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span> <span class="n">n_a</span> <span class="o">.</span><span class="n">ne</span><span class="o">.</span> <span class="n">n_b</span> <span class="p">)</span><span class="n">then</span>
+     <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;ERROR: dimensions of input SCRIP grid files is NOT the same!&quot;</span> <span class="p">);</span>
+     <span class="n">exit</span>
+  <span class="n">end</span> <span class="k">if</span>
+<span class="p">;</span><span class="n">YS</span>  
+<span class="p">;</span>  <span class="k">if</span> <span class="p">(</span> <span class="nb">any</span><span class="p">(</span><span class="n">ncb</span><span class="o">-&gt;</span><span class="n">grid_imask</span> <span class="o">.</span><span class="n">ne</span><span class="o">.</span> <span class="mf">1.0</span><span class="n">d00</span><span class="p">)</span> <span class="p">)</span><span class="n">then</span>
+<span class="p">;</span>     <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;ERROR: the mask of the second file isn&#39;t identically 1!&quot;</span> <span class="p">);</span>
+<span class="p">;</span>     <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;(second file should be land grid file)&quot;</span><span class="p">);</span>
+<span class="p">;</span>     <span class="n">exit</span>
+<span class="p">;</span>  <span class="n">end</span> <span class="k">if</span>
+<span class="p">;</span><span class="n">YS</span>  
+  <span class="n">chkvars</span> <span class="o">=</span> <span class="p">(</span><span class="o">/</span> <span class="s2">&quot;grid_center_lat&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_center_lon&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_corner_lat&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_corner_lon&quot;</span> <span class="o">/</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="download-wps-code">
+<h3>Download WPS code<a class="headerlink" href="#download-wps-code" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">WPSNAME</span><span class="o">=</span>WPS
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wrf-model/WPS<span class="w"> </span><span class="si">${</span><span class="nv">WPSNAME</span><span class="si">}</span><span class="w"> </span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WPSNAME</span><span class="si">}</span>
+git<span class="w"> </span>checkout<span class="w"> </span>v4.3
+</pre></div>
+</div>
+</section>
+</section>
+<section id="build-model">
+<h2>1.3 Build Model<a class="headerlink" href="#build-model" title="Link to this heading">¶</a></h2>
+<section id="build-ctsm">
+<h3>Build CTSM<a class="headerlink" href="#build-ctsm" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Customize machine configuration files under <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/ccs_config/machines/${MACHINENAME}</span></code></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../scripts/machines/e-10uxx4b9fmw3/config_machines.xml.sh"><span class="xref myst">config_machines.xml</span></a></p></li>
+<li><p><a class="reference internal" href="#../scripts/machines/e-10uxx4b9fmw3/e-10uxx4b9fmw3.cmake.sh"><span class="xref myst">MACHINEANME.cmake</span></a></p></li>
+</ul>
+</li>
+<li><p>Compile CTSM code</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MACHINENAME</span><span class="o">=</span>e-10uxx4b9fmw3
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/lilac/
+./build_ctsm<span class="w"> </span>ctsm_build_dir<span class="w"> </span>--machine<span class="w"> </span><span class="si">${</span><span class="nv">MACHINENAME</span><span class="si">}</span><span class="w"> </span>--compiler<span class="w"> </span>gnu<span class="w"> </span>&gt;build_ctsm.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check if compiled successully. The end of <code class="docutils literal notranslate"><span class="pre">build_ctsm.log</span></code> should be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clm</span> <span class="n">built</span> <span class="ow">in</span> <span class="mf">42.152718</span> <span class="n">seconds</span>
+<span class="n">Initial</span> <span class="n">setup</span> <span class="n">complete</span><span class="p">;</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">safe</span> <span class="n">to</span> <span class="n">work</span> <span class="k">with</span> <span class="n">the</span> <span class="n">runtime</span> <span class="n">inputs</span> <span class="ow">in</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">yuansun</span><span class="o">/</span><span class="n">wrf</span><span class="o">/</span><span class="n">WRFnoleap</span><span class="o">-</span><span class="n">CTSMbranch</span><span class="o">/</span><span class="n">CTSMdev</span><span class="o">/</span><span class="n">lilac</span><span class="o">/</span><span class="n">ctsm_build_dir</span><span class="o">/</span><span class="n">runtime_inputs</span>
+</pre></div>
+</div>
+</li>
+<li><p>Set CTSM path for building WRF-CTSM</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>ctsm_build_dir/ctsm_build_environment.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">WRF_CTSM_MKFILE</span><span class="o">=</span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/lilac/ctsm_build_dir/ctsm.mk
+<span class="nb">export</span><span class="w"> </span><span class="nv">WRF_EM_CORE</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NETCDF_classic</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">WRFIO_NCD_LARGE_FILE_SUPPORT</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="build-mksurfdata-esmf">
+<h3>Build mksurfdata_esmf<a class="headerlink" href="#build-mksurfdata-esmf" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Compile mksurfdata_esmf</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/mksurfdata_esmf
+./gen_mksurfdata_build --machine ${MACHINENAME} &gt;gen_mksurfdata_build.log 2&gt;&amp;1
+</pre></div>
+</div>
+</li>
+<li><p>Check if compiled successfully. The end of <code class="docutils literal notranslate"><span class="pre">gen_mksurfdata_build.log</span></code> should be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">created</span> <span class="nb">input</span> <span class="n">namelist</span> <span class="n">file</span> <span class="n">surfdata</span><span class="o">.</span><span class="n">namelist</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="build-geo-domain">
+<h3>Build geo_domain<a class="headerlink" href="#build-geo-domain" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>According to <a class="reference external" href="https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/">CTSM-Norway tutorial</a>, build the <code class="docutils literal notranslate"><span class="pre">gen_domain</span></code> tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools
+touch configure_wrf-ctsm
+</pre></div>
+</div>
+</li>
+<li><p>Copy scripts below to <code class="docutils literal notranslate"><span class="pre">configure_wrf-ctsm</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="sd">&quot;&quot;&quot;This script writes CIME build information to a directory.</span>
+
+<span class="sd">The pieces of information that will be written include:</span>
+
+<span class="sd">1. Machine-specific build settings (i.e. the &quot;Macros&quot; file).</span>
+<span class="sd">2. File-specific build settings (i.e. &quot;Depends&quot; files).</span>
+<span class="sd">3. Environment variable loads (i.e. the env_mach_specific files).</span>
+
+<span class="sd">The .env_mach_specific.sh and .env_mach_specific.csh files are specific to a</span>
+<span class="sd">given compiler, MPI library, and DEBUG setting. By default, these will be the</span>
+<span class="sd">machine&#39;s default compiler, the machine&#39;s default MPI library, and FALSE,</span>
+<span class="sd">respectively. These can be changed by setting the environment variables</span>
+<span class="sd">COMPILER, MPILIB, and DEBUG, respectively.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># pylint: disable=W1505</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="n">real_file_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="n">cimeroot</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">real_file_dir</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cimeroot</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">CIME.Tools.standard_script_setup</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">CIME.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">get_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">CIME.BuildTools.configure</span><span class="w"> </span><span class="kn">import</span> <span class="n">configure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">CIME.XML.machines</span><span class="w"> </span><span class="kn">import</span> <span class="n">Machines</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_command_line</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Command line argument parser for configure.&quot;&quot;&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="vm">__doc__</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
+    <span class="n">CIME</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">setup_standard_logging_options</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--machine&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The machine to create build information for.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--machines-dir&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The machines directory to take build information &quot;</span>
+        <span class="s2">&quot;from. Overrides the CIME_MODEL environment variable, &quot;</span>
+        <span class="s2">&quot;and must be specified if that variable is not set.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--macros-format&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Makefile&quot;</span><span class="p">,</span> <span class="s2">&quot;CMake&quot;</span><span class="p">],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The format of Macros file to generate. If &quot;</span>
+        <span class="s2">&quot;&#39;Makefile&#39; is passed in, a file called &#39;Macros.make&#39; &quot;</span>
+        <span class="s2">&quot;is generated. If &#39;CMake&#39; is passed in, a file called &quot;</span>
+        <span class="s2">&quot;&#39;Macros.cmake&#39; is generated. This option can be &quot;</span>
+        <span class="s2">&quot;specified multiple times to generate multiple files. &quot;</span>
+        <span class="s2">&quot;If not used at all, Macros generation is skipped. &quot;</span>
+        <span class="s2">&quot;Note that Depends files are currently always in &quot;</span>
+        <span class="s2">&quot;Makefile format, regardless of this option.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--output-dir&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The directory to write files to. If not &quot;</span>
+        <span class="s2">&quot;specified, defaults to the current working directory.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--compiler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-compiler&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specify a compiler. &quot;</span>
+        <span class="s2">&quot;To see list of supported compilers for each machine, use the utility query_config in this directory&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--mpilib&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-mpilib&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specify the mpilib. &quot;</span>
+        <span class="s2">&quot;To see list of supported mpilibs for each machine, use the utility query_config in this directory. &quot;</span>
+        <span class="s2">&quot;The default is the first listing in MPILIBS in config_machines.xml&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--clean&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Remove old Macros and env files before attempting to create new ones&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--comp-interface&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;mct&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;The cime driver/cpl interface to use.&quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">argcnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">CIME</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">parse_args_and_handle_standard_logging_options</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">machines_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">machines_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">machines_dir</span><span class="p">,</span> <span class="s2">&quot;config_machines.xml&quot;</span><span class="p">)</span>
+        <span class="n">machobj</span> <span class="o">=</span> <span class="n">Machines</span><span class="p">(</span><span class="n">infile</span><span class="o">=</span><span class="n">machines_file</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">machine</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">machobj</span> <span class="o">=</span> <span class="n">Machines</span><span class="p">(</span><span class="n">machine</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">machine</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;Either --mach-dir or the CIME_MODEL environment &quot;</span>
+                <span class="s2">&quot;variable must be specified!&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;machobj&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">machobj</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">macros_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;macros_format&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;macros_format&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">macros_format</span>
+
+    <span class="n">expect</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_dir</span><span class="p">),</span>
+        <span class="s2">&quot;Output directory &#39;</span><span class="si">%s</span><span class="s2">&#39; does not exist.&quot;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;output_dir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">output_dir</span>
+
+    <span class="c1"># Set compiler.</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">compiler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">compiler</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">compiler</span>
+    <span class="k">elif</span> <span class="s2">&quot;COMPILER&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="n">compiler</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;COMPILER&quot;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">compiler</span> <span class="o">=</span> <span class="n">machobj</span><span class="o">.</span><span class="n">get_default_compiler</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;COMPILER&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">compiler</span>
+    <span class="n">expect</span><span class="p">(</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;machobj&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_valid_compiler</span><span class="p">(</span><span class="n">compiler</span><span class="p">),</span>
+        <span class="s2">&quot;Invalid compiler vendor given in COMPILER environment variable: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">compiler</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;compiler&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">compiler</span>
+    <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;os&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">machobj</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="s2">&quot;OS&quot;</span><span class="p">)</span>
+    <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;comp_interface&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">comp_interface</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">clean</span><span class="p">:</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;Macros.make&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Macros.cmake&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;env_mach_specific.xml&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.env_mach_specific.sh&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.env_mach_specific.csh&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Depends.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">compiler</span><span class="p">,</span>
+            <span class="s2">&quot;Depends.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">machine</span><span class="p">,</span>
+            <span class="s2">&quot;Depends.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">machine</span><span class="p">,</span> <span class="n">compiler</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">file_</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Removing file </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">file_</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">argcnt</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;clean_only&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="n">opts</span>
+
+    <span class="c1"># Set MPI library.</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">mpilib</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mpilib</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mpilib</span>
+    <span class="k">elif</span> <span class="s2">&quot;MPILIB&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="n">mpilib</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;MPILIB&quot;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mpilib</span> <span class="o">=</span> <span class="n">machobj</span><span class="o">.</span><span class="n">get_default_MPIlib</span><span class="p">(</span><span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;compiler&quot;</span><span class="p">:</span> <span class="n">compiler</span><span class="p">})</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;MPILIB&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mpilib</span>
+
+    <span class="n">expect</span><span class="p">(</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;machobj&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_valid_MPIlib</span><span class="p">(</span><span class="n">mpilib</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;compiler&quot;</span><span class="p">:</span> <span class="n">compiler</span><span class="p">}),</span>
+        <span class="s2">&quot;Invalid MPI library name given in MPILIB environment variable: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mpilib</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;mpilib&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mpilib</span>
+
+    <span class="c1"># Set DEBUG flag.</span>
+    <span class="k">if</span> <span class="s2">&quot;DEBUG&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="n">expect</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;false&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;Invalid DEBUG environment variable value (must be &#39;TRUE&#39; or &quot;</span>
+            <span class="s2">&quot;&#39;FALSE&#39;): </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">debug</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;FALSE&quot;</span>
+    <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;debug&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">debug</span>
+
+    <span class="k">return</span> <span class="n">opts</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_main</span><span class="p">():</span>
+    <span class="n">opts</span> <span class="o">=</span> <span class="n">parse_command_line</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;clean_only&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">opts</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;clean_only&quot;</span><span class="p">]:</span>
+        <span class="n">configure</span><span class="p">(</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;machobj&quot;</span><span class="p">],</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;output_dir&quot;</span><span class="p">],</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;macros_format&quot;</span><span class="p">],</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;compiler&quot;</span><span class="p">],</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;mpilib&quot;</span><span class="p">],</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;debug&quot;</span><span class="p">],</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;comp_interface&quot;</span><span class="p">],</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s2">&quot;os&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_main</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the scripts</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>chmod +x configure_wrf-ctsm
+
+cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/mapping/gen_domain_files/src/
+../../../configure_wrf-ctsm --machine ${MACHINENAME} --compiler gnu --mpilib mpich --macros-format Makefile 
+
+. ./.env_mach_specific.sh ; make 
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="build-wrf">
+<h3>Build WRF<a class="headerlink" href="#build-wrf" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Create a configuration file named <code class="docutils literal notranslate"><span class="pre">configure.wrf</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">NETCDF_C</span><span class="o">=</span>/home/yuansun/software/gcc/netcdf-c/4.9.2
+<span class="nb">export</span><span class="w"> </span><span class="nv">NETCDF</span><span class="o">=</span>/home/yuansun/software/gcc/netcdf-fortran/4.6.1
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
+./clean<span class="w"> </span>-a
+./configure
+<span class="c1"># - 34: (dmpar: distributed memory parallelization)</span>
+<span class="c1"># - 1: nesting option (basic)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">configure.wrf</span></code></p>
+<ul>
+<li><p>Link libraries:</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> LIB_EXTERNAL    = \
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/yuansun/software/gcc/netcdf-fortran/4.6.1/lib -lnetcdff -lnetcdf     
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>LIB_EXTERNAL    = \
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf \
+                      -L /home/yuansun/software/gcc/netcdf-c/4.9.2/lib -L /home/yuansun/software/gcc/netcdf-fortran/4.6.1/lib -lnetcdff -lnetcdf \
+                      -L /home/yuansun/software/gcc/hdf5/1.12.3/lib -lhdf5_hl -lhdf5 \
+                      -L /home/yuansun/software/gcc/pnetcdf/1.12.3/lib -lpnetcdf \
+                      -L /home/yuansun/software/gcc/jasper/4.2.5/lib -ljasper \
+                      -L /home/yuansun/software/gcc/libpng/1.6.39/lib -lpng \
+                      -L /home/yuansun/software/gcc/zlib/1.3.1/lib -lz \
+                      -L /home/yuansun/software/gcc/lapack/3.9.0 -llapack -lblas \
+                      -lgomp -lm -ldl 
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Setting:</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SFC             =       gfortran
+SCC             =       gcc
+CCOMP           =       gcc
+
+DM_CC           =       mpicc -cc=$(SCC)
+CC              =       $(DM_CC)
+
+ARCH_LOCAL      =       -DNONSTANDARD_SYSTEM_SUBR  -DWRF_USE_CTSM -DNO_IEEE_MODULE -DNO_ISO_C_SUPPORT -DNO_FLUSH_SUPPORT -DNO_GAMMA_SUPPORT
+
+FCCOMPAT        =        -fallow-argument-mismatch -fallow-invalid-boz
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SFC             =       gfortran-9
+SCC             =       gcc-9
+CCOMP           =       gcc-9
+
+DM_CC           =       mpicc
+CC              =       $(DM_CC) -DFSEEKO64_OK 
+
+ARCH_LOCAL      =       -DNONSTANDARD_SYSTEM_SUBR  -DWRF_USE_CTSM
+FCCOMPAT        = 
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Adding include path</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INCLUDE_MODULES =    $(MODULE_SRCH_FLAG) \
+                     $(ESMF_MOD_INC) $(ESMF_LIB_FLAGS) \
+                      -I$(WRF_SRC_ROOT_DIR)/main \
+                      -I$(WRF_SRC_ROOT_DIR)/external/io_netcdf \
+                      -I$(WRF_SRC_ROOT_DIR)/external/io_int \
+                      -I$(WRF_SRC_ROOT_DIR)/frame \
+                      -I$(WRF_SRC_ROOT_DIR)/share \
+                      -I$(WRF_SRC_ROOT_DIR)/phys \
+                      -I$(WRF_SRC_ROOT_DIR)/wrftladj \
+                      -I$(WRF_SRC_ROOT_DIR)/chem -I$(WRF_SRC_ROOT_DIR)/inc \
+                      -I$(NETCDFPATH)/include \
+                      $(CTSM_INCLUDES)
+HDF5PATH        =
+PNETCDFPATH     =
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INCLUDE_MODULES =    $(MODULE_SRCH_FLAG) \
+                     $(ESMF_MOD_INC) $(ESMF_LIB_FLAGS) \
+                      -I$(WRF_SRC_ROOT_DIR)/main \
+                      -I$(WRF_SRC_ROOT_DIR)/external/io_netcdf \
+                      -I$(WRF_SRC_ROOT_DIR)/external/io_int \
+                      -I$(WRF_SRC_ROOT_DIR)/frame \
+                      -I$(WRF_SRC_ROOT_DIR)/share \
+                      -I$(WRF_SRC_ROOT_DIR)/phys \
+                      -I$(WRF_SRC_ROOT_DIR)/wrftladj \
+                      -I$(WRF_SRC_ROOT_DIR)/chem -I$(WRF_SRC_ROOT_DIR)/inc \
+                      -I$(NETCDFPATH)/include \
+                      -I${HDF5PATH}/include \
+                      -I${JASPERPATH}/include \
+                      -I${PNETCDFPATH}/include \
+                      -I${LIBPNGPATH}/include \
+                       $(CTSM_INCLUDES)
+                       
+HDF5PATH        =    /home/yuansun/software/gcc/hdf5/1.12.3                     PNETCDFPATH     =    /home/yuansun/software/gcc/pnetcdf/1.12.3
+JASPERPATH      =    /home/yuansun/software/gcc/jasper/4.2.5
+LIBPNGPATH      =    /home/yuansun/software/gcc/libpng/1.6.39
+LAPACKPATH      =    /home/yuansun/software/gcc/lapack/3.9.0
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Compile WRF (taking around 20 minutes)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nohup<span class="w"> </span>./compile<span class="w"> </span>em_real<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>compile.log<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check if compiled successfully by listing excutable files. Must be four files:  <code class="docutils literal notranslate"><span class="pre">ndown.exe</span></code>, <code class="docutils literal notranslate"><span class="pre">real.exe</span></code>, <code class="docutils literal notranslate"><span class="pre">tc.exe</span></code>, <code class="docutils literal notranslate"><span class="pre">wrf.</span> <span class="pre">exe</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>main/*exe<span class="w"> </span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="build-wps">
+<h3>Build WPS<a class="headerlink" href="#build-wps" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Compile WPS</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">WRF_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
+./clean<span class="w"> </span>-a
+./configure
+<span class="c1"># - 3</span>
+./compile<span class="w"> </span>&gt;<span class="p">&amp;</span><span class="w"> </span>compile.log
+</pre></div>
+</div>
+</li>
+<li><p>Check if compiled successfully by listing excutable files. Must be three files: <code class="docutils literal notranslate"><span class="pre">geogrid.exe</span></code>  <code class="docutils literal notranslate"><span class="pre">metgrid.exe</span> </code>, <code class="docutils literal notranslate"><span class="pre">ungrib.exe</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*exe
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">1 Installation</a><ul>
+<li><a class="reference internal" href="#preparation">1.1 Preparation</a><ul>
+<li><a class="reference internal" href="#install-libraries">Install libraries</a></li>
+<li><a class="reference internal" href="#set-environment">Set environment</a></li>
+<li><a class="reference internal" href="#check-the-environment-optional">Check the environment (optional)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#source-code-download">1.2 Source Code Download</a><ul>
+<li><a class="reference internal" href="#download-wrf-code">Download WRF code</a></li>
+<li><a class="reference internal" href="#modify-wrf-code">Modify WRF code</a></li>
+<li><a class="reference internal" href="#download-ctsm-code">Download CTSM code</a></li>
+<li><a class="reference internal" href="#modify-ctsm-code">Modify CTSM code</a></li>
+<li><a class="reference internal" href="#download-wps-code">Download WPS code</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-model">1.3 Build Model</a><ul>
+<li><a class="reference internal" href="#build-ctsm">Build CTSM</a></li>
+<li><a class="reference internal" href="#build-mksurfdata-esmf">Build mksurfdata_esmf</a></li>
+<li><a class="reference internal" href="#build-geo-domain">Build geo_domain</a></li>
+<li><a class="reference internal" href="#build-wrf">Build WRF</a></li>
+<li><a class="reference internal" href="#build-wps">Build WPS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/wrf-ctsm/installation.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">1 Installation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

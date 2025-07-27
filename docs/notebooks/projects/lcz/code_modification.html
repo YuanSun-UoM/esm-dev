@@ -1,0 +1,977 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1 Code Modification &#8212; CESM-LCZ  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Surface Input" href="inputdata.html" />
+    <link rel="prev" title="CESM-LCZ documentation" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="inputdata.html" title="Surface Input"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="CESM-LCZ documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CESM-LCZ documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">1 Code Modification</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="code-modification">
+<h1>1 Code Modification<a class="headerlink" href="#code-modification" title="Link to this heading">¶</a></h1>
+<blockquote>
+<div><p>The following scripts are provided by the author to enable urban LCZ (Local Climate Zone) classification within the <a class="reference external" href="https://github.com/ESCOMP/CTSM">Community Terrestrial Systems Model (CTSM)</a>, the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend <strong>manual code modification</strong> to ensure compatibility.</p>
+</div></blockquote>
+<section id="use-modified-code-based-on-ctsm5-2-005">
+<h2>1.1 Use Modified Code Based on CTSM5.2.005<a class="headerlink" href="#use-modified-code-based-on-ctsm5-2-005" title="Link to this heading">¶</a></h2>
+<p>The author provides modified source files based on CTSM version 5.2.005. Users may directly replace the corresponding original files in their CTSM codebase with the modified versions listed below.</p>
+<section id="download-source-code">
+<h3>Download Source Code<a class="headerlink" href="#download-source-code" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CTSMdev
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
+git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>ctsm5.2.025<span class="w"> </span>https://github.com/ESCOMP/CTSM<span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals<span class="w"> </span>-S
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Note:</strong> ctsm5.2.025 is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using.</p></li>
+</ul>
+</section>
+<section id="replace-modified-files">
+<h3>Replace Modified Files<a class="headerlink" href="#replace-modified-files" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/bld/namelist_files/namelist_definition_ctsm.xml">‎bld/namelist_files/namelist_definition_ctsm.xml</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/landunit_varcon.F90">src/main/landunit_varcon.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/initGridCellsMod.F90">src/main/initGridCellsMod.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/subgridMod.F90">src/main/subgridMod.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/LandunitType.F90">src/main/LandunitType.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/cpl/share_esmf/UrbanTimeVarType.F90">src/cpl/share_esmf/UrbanTimeVarType.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/cpl/mct/UrbanTimeVarType.F90">src/cpl/mct/UrbanTimeVarType.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/dyn_subgrid/dynInitColumnsMod.F90">src/dyn_subgrid/dynInitColumnsMod.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/clm_varctl.F90">src/main/clm_varctl.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/controlMod.F90">src/main/controlMod.F90</a></p></li>
+</ul>
+</section>
+</section>
+<section id="manual-code-modifications-for-specific-ctsm-versions">
+<h2>1.2 Manual Code Modifications for Specific CTSM Versions<a class="headerlink" href="#manual-code-modifications-for-specific-ctsm-versions" title="Link to this heading">¶</a></h2>
+<p>For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language.</p>
+<p><strong>Modified code sections are denoted using the following markers:</strong></p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="n">MODIFICATION</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Download Source Code<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export CTSMNAME=CTSMdev
+cd ${WRF_ROOT}/${WRFNAME}
+git clone https://github.com/ESCOMP/CTSM ${CTSMNAME}
+cd ${CTSMNAME}
+git checkout ctsm5.3.024
+./bin/git-fleximod update
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Note:</strong> The latest CTSM updates model infrastructure and removes the <code class="docutils literal notranslate"><span class="pre">mct</span></code> coupler.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Code Modification<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">bld/namelist_files/namelist_definition_ctsm.xml</span></code> at the bottom line,</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;entry</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;max_tillage_depth&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;real&quot;</span><span class="w"> </span><span class="na">category=</span><span class="s">&quot;physics&quot;</span>
+<span class="w">       </span><span class="na">group=</span><span class="s">&quot;tillage_inparm&quot;</span><span class="w"> </span><span class="na">valid_values=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.26d00&quot;</span><span class="nt">&gt;</span>
+Maximum<span class="w"> </span>depth<span class="w"> </span>to<span class="w"> </span>till<span class="w"> </span>soil<span class="w"> </span>(m).<span class="w"> </span>Default<span class="w"> </span>0.26;<span class="w"> </span>original<span class="w"> </span>(Graham<span class="w"> </span>et<span class="w"> </span>al.,<span class="w"> </span>2021)<span class="w"> </span>value<span class="w"> </span>was<span class="w"> </span>unintentionally<span class="w"> </span>0.32.
+<span class="nt">&lt;/entry&gt;</span>
+
+<span class="nt">&lt;/namelist_definition&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;entry</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;max_tillage_depth&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;real&quot;</span><span class="w"> </span><span class="na">category=</span><span class="s">&quot;physics&quot;</span>
+<span class="w">       </span><span class="na">group=</span><span class="s">&quot;tillage_inparm&quot;</span><span class="w"> </span><span class="na">valid_values=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.26d00&quot;</span><span class="nt">&gt;</span>
+Maximum<span class="w"> </span>depth<span class="w"> </span>to<span class="w"> </span>till<span class="w"> </span>soil<span class="w"> </span>(m).<span class="w"> </span>Default<span class="w"> </span>0.26;<span class="w"> </span>original<span class="w"> </span>(Graham<span class="w"> </span>et<span class="w"> </span>al.,<span class="w"> </span>2021)<span class="w"> </span>value<span class="w"> </span>was<span class="w"> </span>unintentionally<span class="w"> </span>0.32.
+<span class="nt">&lt;/entry&gt;</span>
+!YS
+<span class="cm">&lt;!-- ========================================================================================  --&gt;</span>
+<span class="cm">&lt;!-- Namelist options related to the urban land-unit                                           --&gt;</span>
+<span class="cm">&lt;!-- ========================================================================================  --&gt;</span>
+<span class="nt">&lt;entry</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;use_lcz&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;logical&quot;</span><span class="w"> </span><span class="na">category=</span><span class="s">&quot;clm_physics&quot;</span>
+<span class="w">       </span><span class="na">group=</span><span class="s">&quot;clm_inparm&quot;</span><span class="w"> </span><span class="na">valid_values=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;.false.&quot;</span><span class="nt">&gt;</span>
+If<span class="w"> </span>TRUE,<span class="w"> </span>urban<span class="w"> </span>local<span class="w"> </span>climate<span class="w"> </span>zone<span class="w"> </span>landunits<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>activated<span class="w"> </span>(Currently<span class="w"> </span>NOT<span class="w"> </span>implemented).
+<span class="nt">&lt;/entry&gt;</span>
+!YS
+<span class="nt">&lt;/namelist_definition&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">src/cpl/share_esmf/UrbanTimeVarType.F90</span></code></p>
+<ul>
+<li><p>After around Line 18 <code class="docutils literal notranslate">&#160; <span class="pre">use</span> <span class="pre">GridcellType</span>&#160;&#160;&#160; <span class="pre">,</span> <span class="pre">only</span> <span class="pre">:</span> <span class="pre">grc</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">  </span><span class="k">use </span><span class="n">clm_varctl</span><span class="w">      </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">use_lcz</span><span class="w">  </span>
+<span class="c">!YS </span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 80 <code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">if</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">stream_varname_MAX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="k">       </span><span class="n">stream_varname_MAX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="k">end if</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 124 <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">UrbanParamsType</span>&#160; <span class="pre">,</span> <span class="pre">only</span> <span class="pre">:</span> <span class="pre">urban_explicit_ac</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="k">use </span><span class="n">landunit_varcon</span><span class="w">  </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">isturb_lcz1</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz2</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz3</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">isturb_lcz4</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz5</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz6</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">isturb_lcz7</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz8</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz9</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">isturb_lcz10</span>
+<span class="c">!YS </span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 167 <code class="docutils literal notranslate"><span class="pre">stream_meshfile_urbantv</span>&#160;&#160;&#160; <span class="pre">=</span> <span class="pre">'</span> <span class="pre">'</span></code>, change</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">stream_varnames</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_TBD&quot;</span>
+<span class="w">    </span><span class="n">stream_varnames</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_HD&quot;</span>
+<span class="w">    </span><span class="n">stream_varnames</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_MD&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS    </span>
+<span class="w">   </span><span class="k">if</span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_tbd</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_TBD&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_hd</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_HD&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_md</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_MD&quot;</span>
+<span class="w">   </span><span class="k">else if</span><span class="p">(</span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz1</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ1&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz2</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ2&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz3</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ3&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz4</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ4&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz5</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ5&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz6</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ6&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz7</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ7&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz8</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ8&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz9</span><span class="w"> </span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ9&quot;</span>
+<span class="w">     </span><span class="n">stream_varnames</span><span class="p">(</span><span class="n">isturb_lcz10</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tbuildmax_LCZ10&quot;</span><span class="w">  </span>
+<span class="w">   </span><span class="k">end if</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">src/dyn_subgrid/dynInitColumnsMod.F90</span></code></p>
+<ul>
+<li><p>After around Line 129, change</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">case</span><span class="p">(</span><span class="n">isturb_MIN</span><span class="p">:</span><span class="n">isturb_MAX</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS    case(isturb_MIN:isturb_MAX)</span>
+<span class="c">!YS</span>
+<span class="w">    </span><span class="k">case</span><span class="p">(</span><span class="n">isturb_MIN</span><span class="p">:)</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">src/main/clm_varctl.F90</span></code></p>
+<ul>
+<li><p>After around Line 413 <code class="docutils literal notranslate"><span class="pre">logical,</span> <span class="pre">public</span> <span class="pre">::</span> <span class="pre">use_biomass_heat_storage</span> <span class="pre">=</span> <span class="pre">.false.</span> <span class="pre">!</span> <span class="pre">true</span> <span class="pre">=&gt;</span> <span class="pre">include</span> <span class="pre">biomass</span> <span class="pre">heat</span> <span class="pre">storage</span> <span class="pre">in</span> <span class="pre">canopy</span> <span class="pre">energy</span> <span class="pre">budget</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS  </span>
+<span class="w">  </span><span class="c">!----------------------------------------------------------</span>
+<span class="w">  </span><span class="c">! urban landunit based on LCZs</span>
+<span class="w">  </span><span class="c">!----------------------------------------------------------</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="kt">logical</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">use_lcz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="n">false</span><span class="p">.</span>
+<span class="c">!YS  </span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">src/main/controlMod.F90</span></code></p>
+<ul class="simple">
+<li><p>After around Line 215 <code class="docutils literal notranslate"><span class="pre">z0param_method,</span> <span class="pre">use_z0m_snowmelt</span></code>, add:</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS    </span>
+<span class="w">    </span><span class="c">! flag for urban LCZs</span>
+<span class="w">    </span><span class="k">namelist</span><span class="w"> </span><span class="o">/</span><span class="n">clm_inparm</span><span class="o">/</span><span class="w"> </span><span class="n">use_lcz</span>
+<span class="c">!YS </span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>After Line 896 <code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">if</span></code>, add</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="c">! urban landunit</span>
+<span class="w">    </span><span class="k">call </span><span class="n">mpi_bcast</span><span class="p">(</span><span class="n">use_lcz</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_LOGICAL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">mpicom</span><span class="p">,</span><span class="w"> </span><span class="n">ier</span><span class="p">)</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">src/main/initGridCellsMod.F90</span></code></p>
+<ul>
+<li><p>After around Line 63 <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">shr_const_mod</span>&#160;&#160;&#160;&#160; <span class="pre">,</span> <span class="pre">only</span> <span class="pre">:</span> <span class="pre">SHR_CONST_PI</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS    </span>
+<span class="w">    </span><span class="k">use </span><span class="n">clm_varctl</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">use_lcz</span>
+<span class="w">    </span><span class="k">use </span><span class="n">landunit_varcon</span><span class="w">   </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">isturb_lcz1</span><span class="p">,</span><span class="n">isturb_lcz2</span><span class="p">,</span><span class="n">isturb_lcz3</span><span class="p">,</span><span class="n">isturb_lcz4</span><span class="p">,&amp;</span>
+<span class="w">                                   </span><span class="n">isturb_lcz5</span><span class="p">,</span><span class="n">isturb_lcz6</span><span class="p">,</span><span class="n">isturb_lcz7</span><span class="p">,</span><span class="n">isturb_lcz8</span><span class="p">,&amp;</span>
+<span class="w">                                   </span><span class="n">isturb_lcz9</span><span class="p">,</span><span class="n">isturb_lcz10</span><span class="w"> </span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 139 <code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">do</span></code>, change</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c">! Determine urban tall building district landunit</span>
+<span class="w">    </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">       </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_tbd</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">end do</span>
+
+<span class="w">    </span><span class="c">! Determine urban high density landunit</span>
+<span class="w">    </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">       </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_hd</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end do</span>
+
+<span class="w">    </span><span class="c">! Determine urban medium density landunit</span>
+<span class="w">    </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">       </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_md</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end do</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="c">! Determine urban tall building district landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_tbd</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban high density landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_hd</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban medium density landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_md</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+<span class="k">    else if</span><span class="w"> </span><span class="p">(</span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="c">! Determine urban LCZ1 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz1</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+<span class="w">   </span>
+<span class="w">        </span><span class="c">! Determine urban LCZ2 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz2</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban LCZ3 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz3</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban LCZ4 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz4</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban LCZ5 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz5</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban LCZ6 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz6</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+<span class="w">      </span>
+<span class="w">        </span><span class="c">! Determine urban LCZ7 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz7</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban LCZ8 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz8</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban LCZ9 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz9</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="w">        </span><span class="c">! Determine urban LCZ10 landunit</span>
+<span class="w">        </span><span class="k">do </span><span class="n">gdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">begg</span><span class="p">,</span><span class="n">bounds_clump</span><span class="p">%</span><span class="n">endg</span>
+<span class="w">           </span><span class="k">call </span><span class="n">set_landunit_urban</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                  </span><span class="n">ltype</span><span class="o">=</span><span class="n">isturb_lcz10</span><span class="p">,</span><span class="w"> </span><span class="n">gi</span><span class="o">=</span><span class="n">gdc</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">=</span><span class="n">li</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="o">=</span><span class="n">ci</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+<span class="k">    end if</span><span class="w">   </span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>After around Line 593 <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">pftconMod</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">,</span> <span class="pre">only</span> <span class="pre">:</span> <span class="pre">noveg</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS </span>
+<span class="w">    </span><span class="k">use </span><span class="n">clm_varctl</span><span class="w">      </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">use_lcz</span>
+<span class="w">    </span><span class="k">use </span><span class="n">landunit_varcon</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">isturb_lcz1</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz2</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz3</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">isturb_lcz4</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz5</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz6</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">isturb_lcz7</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz8</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz9</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">isturb_lcz10</span>
+<span class="w">    </span><span class="k">use </span><span class="n">subgridMod</span><span class="w">      </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz1</span><span class="p">,</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz2</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">subgrid_get_info_urban_lcz3</span><span class="p">,</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz4</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">subgrid_get_info_urban_lcz5</span><span class="p">,</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz6</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">subgrid_get_info_urban_lcz7</span><span class="p">,</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz8</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                 </span><span class="n">subgrid_get_info_urban_lcz9</span><span class="p">,</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz10</span><span class="w"> </span>
+<span class="c">!YS    </span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 628 <code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">Set</span> <span class="pre">decomposition</span> <span class="pre">properties,</span> <span class="pre">and</span> <span class="pre">set</span> <span class="pre">variables</span> <span class="pre">specific</span> <span class="pre">to</span> <span class="pre">urban</span> <span class="pre">density</span> <span class="pre">type</span></code>, change</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">select case</span><span class="w"> </span><span class="p">(</span><span class="n">ltype</span><span class="p">)</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_tbd</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_tbd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_hd</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_hd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_md</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_md</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="k">case </span><span class="n">default</span>
+<span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="n">iulog</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39; set_landunit_urban: unknown ltype: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ltype</span>
+<span class="w">       </span><span class="k">call </span><span class="n">endrun</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">errMsg</span><span class="p">(</span><span class="n">sourcefile</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">))</span>
+<span class="w">    </span><span class="k">end select</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then </span>
+<span class="k">        select case</span><span class="w"> </span><span class="p">(</span><span class="n">ltype</span><span class="p">)</span><span class="w">   </span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_tbd</span><span class="p">)</span>
+<span class="w">           </span><span class="k">call </span><span class="n">subgrid_get_info_urban_tbd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_hd</span><span class="p">)</span>
+<span class="w">           </span><span class="k">call </span><span class="n">subgrid_get_info_urban_hd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_md</span><span class="p">)</span>
+<span class="w">           </span><span class="k">call </span><span class="n">subgrid_get_info_urban_md</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">        </span><span class="k">case </span><span class="n">default</span>
+<span class="w">            </span><span class="k">write</span><span class="p">(</span><span class="n">iulog</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39; set_landunit_urban: unknown ltype: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ltype</span>
+<span class="w">            </span><span class="k">call </span><span class="n">endrun</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">errMsg</span><span class="p">(</span><span class="n">sourcefile</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">))</span><span class="w">                </span>
+<span class="w">        </span><span class="k">end select        </span>
+<span class="k">    else if</span><span class="w"> </span><span class="p">(</span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       select case</span><span class="w"> </span><span class="p">(</span><span class="n">ltype</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz1</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz1</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz2</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz2</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz3</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz3</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz4</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz4</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz5</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz5</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz6</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz6</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span><span class="w"> </span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz7</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz7</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz8</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz8</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz9</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz9</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">       </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">isturb_lcz10</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz10</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                 </span><span class="n">npatches</span><span class="o">=</span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="o">=</span><span class="n">nlunits</span><span class="p">)</span><span class="w">     </span>
+<span class="w">       </span><span class="k">case </span><span class="n">default</span>
+<span class="w">            </span><span class="k">write</span><span class="p">(</span><span class="n">iulog</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39; set_landunit_urban: unknown ltype: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ltype</span>
+<span class="w">            </span><span class="k">call </span><span class="n">endrun</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">errMsg</span><span class="p">(</span><span class="n">sourcefile</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">))</span>
+<span class="w">       </span><span class="k">end select                                           </span>
+<span class="k">    end if</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">src/main/landunit_varcon.F90</span></code></p>
+<ul>
+<li><p>After around Line 8 <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&quot;shr_assert.h&quot;</span></code>, add</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">  </span><span class="k">use </span><span class="n">clm_varctl</span><span class="w">      </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">use_lcz</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 30 <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">parameter,</span> <span class="pre">public</span> <span class="pre">::</span> <span class="pre">isturb_md</span>&#160; <span class="pre">=</span> <span class="pre">9</span>&#160; <span class="pre">!urban</span> <span class="pre">md</span>&#160;&#160;&#160;&#160; <span class="pre">landunit</span> <span class="pre">type</span></code>, change</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_MAX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="w">  </span><span class="c">!maximum urban type index</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">max_lunit</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="w">  </span><span class="c">!maximum value that lun%itype can have</span>
+<span class="w">                                        </span><span class="c">!(i.e., largest value in the above list)  </span>
+
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w">                   </span><span class="kd">::</span><span class="w"> </span><span class="n">landunit_name_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span><span class="w">  </span><span class="c">! max length of landunit names</span>
+<span class="w">  </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">landunit_name_length</span><span class="p">),</span><span class="w"> </span><span class="k">public</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">max_lunit</span><span class="p">)</span><span class="w">  </span><span class="c">! name of each landunit type</span>
+<span class="w">  </span><span class="c">! parameters that depend on the above constants</span>
+
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">numurbl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isturb_MAX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">isturb_MIN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c">! number of urban landunits  </span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS  integer, parameter, public :: isturb_MAX = 9  !maximum urban type index</span>
+<span class="c">!YS  integer, parameter, public :: max_lunit  = 9  !maximum value that lun%itype can have</span>
+<span class="w">                                        </span><span class="c">!(i.e., largest value in the above</span>
+<span class="c">!YS  integer, parameter, public                   :: landunit_name_length = 40  ! max length of landunit names</span>
+<span class="c">!YS  character(len=landunit_name_length), public  :: landunit_names(max_lunit)  ! name of each landunit type</span>
+<span class="c">!YS</span>
+<span class="w">  </span><span class="c">! 10 lCZs urban landunits  </span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz1</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="w">     </span><span class="c">!LCZ 1      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w">     </span><span class="c">!LCZ 2      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz3</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="w">     </span><span class="c">!LCZ 3      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w">    </span><span class="c">!LCZ 4      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz5</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="w">    </span><span class="c">!LCZ 5      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz6</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="w">    </span><span class="c">!LCZ 6      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz7</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">13</span><span class="w">    </span><span class="c">!LCZ 7      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz8</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">14</span><span class="w">    </span><span class="c">!LCZ 8      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz9</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="w">    </span><span class="c">!LCZ 9      urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_lcz10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="w">    </span><span class="c">!LCZ 10     urban landunit type</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">landunit_name_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span><span class="w">  </span><span class="c">! max length of landunit names</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w">            </span><span class="kd">::</span><span class="w"> </span><span class="n">max_lunit</span><span class="w">                  </span><span class="c">!maximum value that lun%itype can have</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w">            </span><span class="kd">::</span><span class="w"> </span><span class="n">isturb_MAX</span><span class="w">                 </span><span class="c">!maximum urban type index</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w">            </span><span class="kd">::</span><span class="w"> </span><span class="n">numurbl</span><span class="w"> </span>
+<span class="w">  </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">landunit_name_length</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">landunit_names</span><span class="p">(:)</span><span class="w">  </span><span class="c">! name of each landunit type</span>
+<span class="c">!YS</span>
+<span class="w">  </span><span class="c">! parameters that depend on the above constants</span>
+<span class="c">!YS  integer, parameter, public :: numurbl = isturb_MAX - isturb_MIN + 1   ! number of urban landunits  </span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>After around Line 86 <code class="docutils literal notranslate"><span class="pre">character(len=*),</span> <span class="pre">parameter</span> <span class="pre">::</span> <span class="pre">subname</span> <span class="pre">=</span> <span class="pre">'landunit_varcon_init'</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="c">! parameters that depend on the above constants</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">max_lunit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span>
+<span class="w">       </span><span class="n">isturb_MAX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span>
+<span class="w">    </span><span class="k">else if</span><span class="w"> </span><span class="p">(</span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">max_lunit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span>
+<span class="w">       </span><span class="n">isturb_MAX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span>
+<span class="w">    </span><span class="k">end if </span>
+
+<span class="k">    </span><span class="n">numurbl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isturb_MAX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">isturb_MIN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span>
+<span class="w">    </span><span class="k">allocate</span><span class="p">(</span><span class="n">landunit_names</span><span class="p">(</span><span class="n">max_lunit</span><span class="p">))</span><span class="w"> </span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 155 <code class="docutils literal notranslate"><span class="pre">landunit_names(istwet)</span> <span class="pre">=</span> <span class="pre">'wetland'</span></code>, change</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_tbd</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_tbd&#39;</span>
+<span class="w">    </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_hd</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_hd&#39;</span>
+<span class="w">    </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_md</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_md&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_tbd</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_tbd&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_hd</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_hd&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_md</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_md&#39;</span>
+<span class="w">    </span><span class="k">else if</span><span class="w"> </span><span class="p">(</span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz1</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz1&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz2</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz2&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz3</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz3&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz4</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz4&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz5</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz5&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz6</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz6&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz7</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz7&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz8</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz8&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz9</span><span class="p">)</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz9&#39;</span>
+<span class="w">       </span><span class="n">landunit_names</span><span class="p">(</span><span class="n">isturb_lcz10</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;urban_lcz10&#39;</span>
+<span class="w">       </span><span class="c">!landunit_names(isturb_lcz11) = &#39;urban_lcz11&#39;</span>
+<span class="w">    </span><span class="k">end if</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">src/main/subgridMod.F90</span></code></p>
+<ul>
+<li><p>After around Line 20 <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">FatesInterfaceTypesMod,</span> <span class="pre">only</span> <span class="pre">:</span> <span class="pre">fates_maxElementsPerSite</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">  </span><span class="k">use </span><span class="n">clm_varctl</span><span class="w">     </span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">use_lcz</span>
+<span class="w">  </span><span class="k">use </span><span class="n">landunit_varcon</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">isturb_lcz1</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz2</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz3</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz4</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                              </span><span class="n">isturb_lcz5</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz6</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz7</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                              </span><span class="n">isturb_lcz8</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz9</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz10</span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 47 <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">::</span> <span class="pre">urban_landunit_exists</span> <span class="pre">!</span> <span class="pre">returns</span> <span class="pre">true</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">urban</span> <span class="pre">landunit</span> <span class="pre">should</span> <span class="pre">be</span> <span class="pre">created</span> <span class="pre">in</span> <span class="pre">memory</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz1</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz2</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz3</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz4</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz5</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz6</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz7</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz8</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz9</span>
+<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subgrid_get_info_urban_lcz10</span>
+<span class="c">!YS  </span>
+</pre></div>
+</div>
+</li>
+<li><p>After around Line 95, change</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban_tbd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">    </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban_hd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">    </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban_md</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">    </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       call </span><span class="n">subgrid_get_info_urban_tbd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_hd</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_md</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">    </span><span class="k">else if</span><span class="w"> </span><span class="p">(</span><span class="n">use_lcz</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">       call </span><span class="n">subgrid_get_info_urban_lcz1</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz2</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz3</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz4</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz5</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz6</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz7</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz8</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz9</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">       </span><span class="k">call </span><span class="n">subgrid_get_info_urban_lcz10</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches_temp</span><span class="p">,</span><span class="w"> </span><span class="n">ncols_temp</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits_temp</span><span class="p">)</span>
+<span class="w">       </span><span class="k">call </span><span class="n">accumulate_counters</span><span class="p">()</span>
+<span class="w">    </span><span class="k">end if</span><span class="w"> </span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>After aound Line 370 <code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">subroutine</span> <span class="pre">subgrid_get_info_urban_md</span></code>, add:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz1</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz1 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz1 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz1 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz1 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz1&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz1</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz1</span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz2</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz2 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz2 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz2 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz2 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz2&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz2</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz2</span><span class="w">  </span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz3</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz3 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz3 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz3 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz3 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz3&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz3</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz3</span><span class="w">  </span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz4</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz4 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz4 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz4 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz4 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz4&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz4</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz4</span><span class="w">  </span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz5</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz5 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz5 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz5 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz5 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz5&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz5</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz5</span><span class="w">  </span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz6</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz6 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz6 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz6 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz6 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz6&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz6</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz6</span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz7</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz7 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz7 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz7 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz7 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz7&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz7</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz7</span><span class="w">  </span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz8</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz8 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz8 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz8 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz8 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz8&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz8</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz8</span><span class="w">  </span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz9</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz9 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz9 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz9 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz9 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz9&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz9</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz9</span><span class="w">  </span>
+
+<span class="c">!-----------------------------------------------------------------------</span>
+<span class="w">  </span><span class="k">subroutine </span><span class="n">subgrid_get_info_urban_lcz10</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !DESCRIPTION:</span>
+<span class="w">    </span><span class="c">! Obtain properties for urban lcz10 landunit in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !ARGUMENTS:</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">gi</span><span class="w">        </span><span class="c">! grid cell index</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npatches</span><span class="w">  </span><span class="c">! number of urban lcz10 patches in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncols</span><span class="w">     </span><span class="c">! number of urban lcz10 columns in this grid cell</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nlunits</span><span class="w">   </span><span class="c">! number of urban lcz10 landunits in this grid cell</span>
+<span class="w">    </span><span class="c">!</span>
+<span class="w">    </span><span class="c">! !LOCAL VARIABLES:</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;subgrid_get_info_urban_lcz10&#39;</span>
+<span class="w">    </span><span class="c">!-----------------------------------------------------------------------</span>
+
+<span class="w">    </span><span class="k">call </span><span class="n">subgrid_get_info_urban</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span><span class="w"> </span><span class="n">isturb_lcz10</span><span class="p">,</span><span class="w"> </span><span class="n">npatches</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">,</span><span class="w"> </span><span class="n">nlunits</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">end subroutine </span><span class="n">subgrid_get_info_urban_lcz10</span><span class="w"> </span>
+<span class="c">!YS</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">1 Code Modification</a><ul>
+<li><a class="reference internal" href="#use-modified-code-based-on-ctsm5-2-005">1.1 Use Modified Code Based on CTSM5.2.005</a><ul>
+<li><a class="reference internal" href="#download-source-code">Download Source Code</a></li>
+<li><a class="reference internal" href="#replace-modified-files">Replace Modified Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#manual-code-modifications-for-specific-ctsm-versions">1.2 Manual Code Modifications for Specific CTSM Versions</a><ul>
+<li><a class="reference internal" href="#id1">Download Source Code</a></li>
+<li><a class="reference internal" href="#id2">Code Modification</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">CESM-LCZ documentation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="inputdata.html"
+                          title="next chapter">Surface Input</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/lcz/code_modification.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="inputdata.html" title="Surface Input"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="CESM-LCZ documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >CESM-LCZ documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">1 Code Modification</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

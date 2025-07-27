@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4 Nest Simulation &#8212; CESM-LCZ  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">4 Nest Simulation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="nest-simulation">
+<h1>4 Nest Simulation<a class="headerlink" href="#nest-simulation" title="Link to this heading">¶</a></h1>
+<blockquote>
+<div><p>The following scripts are provided by the author for running a <strong>one-way nesting</strong> WRF-CTSM simulation. This is suitable for high-resolution WRF-CTSM simulations.</p>
+</div></blockquote>
+<blockquote>
+<div><p>As described in <a class="reference external" href="https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf-nesting.html">Using CTSM with WRF (Nested Model Runs)</a>, <strong>one-way nesting</strong> means that boundary conditions are passed from the outer (parent) domain to the inner (child) domain, but not vice versa.</p>
+</div></blockquote>
+<p>In a case of 4 nested domains, we run a WRF simulation for the outer 3 domains (i.e., d01, d02, d03) as dynamic downscaling, and then run a WRF-CTSM simulation for the innermost domain (i.e., d04).</p>
+<p>The workflow is:</p>
+<ul class="simple">
+<li><p>Run WPS for all domains</p>
+<ul>
+<li><p>Get <code class="docutils literal notranslate"><span class="pre">met_em.d0*</span></code>, <code class="docutils literal notranslate"><span class="pre">geo_em.d0*</span></code></p></li>
+</ul>
+</li>
+<li><p>Run WRF for d01, d02, and d03 as dynamic downscaling</p>
+<ul>
+<li><p>Get <code class="docutils literal notranslate"><span class="pre">wrfout_d03_*</span></code></p></li>
+</ul>
+</li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">real.exe</span></code> for d03 and d04</p>
+<ul>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">met_em.d03.*.nc</span></code> as <code class="docutils literal notranslate"><span class="pre">met_em.d01.*.nc</span></code> and rename <code class="docutils literal notranslate"><span class="pre">met_em.d04.*.nc</span></code> as <code class="docutils literal notranslate"><span class="pre">met_em.d02.*.nc</span></code>  for running <code class="docutils literal notranslate"><span class="pre">real.exe</span></code> (here, the original <code class="docutils literal notranslate"><span class="pre">d03</span></code> is the outer domain and the original <code class="docutils literal notranslate"><span class="pre">d04</span></code> is the inner domain)</p></li>
+<li><p>Get <code class="docutils literal notranslate"><span class="pre">wrfinput_d02</span></code></p></li>
+</ul>
+</li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">ndown.exe</span></code>  for d04</p>
+<ul>
+<li><p>To extract data from <code class="docutils literal notranslate"><span class="pre">wrfout_d03_*</span></code> as input for the inner domain</p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">wrfinput_d02</span></code> as <code class="docutils literal notranslate"><span class="pre">wrfndi_d02</span></code> for running <code class="docutils literal notranslate"><span class="pre">ndown.exe</span></code></p></li>
+<li><p>Get <code class="docutils literal notranslate"><span class="pre">wrfinput_d02</span></code> and <code class="docutils literal notranslate"><span class="pre">wrfbdy_d02</span></code></p></li>
+</ul>
+</li>
+<li><p>Run WRF-CTSM for d04 (single domain)</p>
+<ul>
+<li><p>Generate CTSM surface data based on <code class="docutils literal notranslate"><span class="pre">geo_em.d04</span></code></p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">wrfinput_d02</span></code> as <code class="docutils literal notranslate"><span class="pre">wrfinput_d01</span></code> and rename <code class="docutils literal notranslate"><span class="pre">wrfbdy_d02</span></code> as <code class="docutils literal notranslate"><span class="pre">wrfbdy_d01</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Please refer to the official tutorials for using <code class="docutils literal notranslate"><span class="pre">ndown.exe</span></code>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www2.mmm.ucar.edu/wrf/OnLineTutorial/CASES/NestRuns/ndown4.php">Run ndown.exe</a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/wrf-ctsm/nest_simulation.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">4 Nest Simulation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

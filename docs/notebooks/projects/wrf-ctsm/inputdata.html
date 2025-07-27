@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2 Input data &#8212; CESM-LCZ  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">2 Input data</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="input-data">
+<h1>2 Input data<a class="headerlink" href="#input-data" title="Link to this heading">¶</a></h1>
+<blockquote>
+<div><p>The following scripts are provided by the author for creating input data for a <strong>single-domain</strong> simulation. Instructions for generating input data for nested, multi-domain simulations are described in a separate section.</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CASE_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/cases/
+<span class="nb">export</span><span class="w"> </span><span class="nv">CASENAME</span><span class="o">=</span>TestSingleDomain
+<span class="nb">export</span><span class="w"> </span><span class="nv">CASEINPUT_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">CASE_DIR</span><span class="si">}${</span><span class="nv">CASENAME</span><span class="si">}</span>/input/
+<span class="nb">export</span><span class="w"> </span><span class="nv">WPSINPUT_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">CASEINPUT_DIR</span><span class="si">}</span>wps/
+<span class="nb">export</span><span class="w"> </span><span class="nv">CTSMINPUT_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">CASEINPUT_DIR</span><span class="si">}</span>ctsm/
+<span class="nb">export</span><span class="w"> </span><span class="nv">WRFINPUT_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">CASEINPUT_DIR</span><span class="si">}</span>wrf/
+</pre></div>
+</div>
+<section id="define-a-single-domain">
+<h2>2.1 Define A Single Domain<a class="headerlink" href="#define-a-single-domain" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Go to <a class="reference external" href="https://wrfdomainwizard.net/">https://wrfdomainwizard.net/</a></p>
+<ul class="simple">
+<li><p>Modify grid parameters</p></li>
+<li><p>For example, grid spacing <code class="docutils literal notranslate"><span class="pre">dx</span></code>, <code class="docutils literal notranslate"><span class="pre">dy</span></code>. 36000 means 3.6 km.</p></li>
+</ul>
+<p><img alt="single_domain" src="../../../_images/single_domain.png" /></p>
+</li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">save</span></code> button at the bottom to save the <code class="docutils literal notranslate"><span class="pre">namelist.input</span></code></p></li>
+<li><p>Or, click <code class="docutils literal notranslate"><span class="pre">namelist.input</span></code> button to get content</p></li>
+</ul>
+</section>
+<section id="run-wps">
+<h2>2.2 Run WPS<a class="headerlink" href="#run-wps" title="Link to this heading">¶</a></h2>
+<p>Please refer to official resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/wps.html">WPS user guide</a></p></li>
+<li><p><a class="reference external" href="https://www2.mmm.ucar.edu/wrf/OnLineTutorial/">WRF-ARW online tutorials</a></p></li>
+</ul>
+<p>Running WPS with <code class="docutils literal notranslate"><span class="pre">namelist.wps</span></code> should generate <code class="docutils literal notranslate"><span class="pre">met_em.d01.*</span></code> and <code class="docutils literal notranslate"><span class="pre">geo_em.d01.nc</span></code></p>
+</section>
+<section id="run-create-scrip-file-ncl">
+<h2>2.3 Run <code class="docutils literal notranslate"><span class="pre">create_scrip_file.ncl</span></code><a class="headerlink" href="#run-create-scrip-file-ncl" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/tools/contrib/create_scrip_file.ncl/
+ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">WPSINPUT_DIR</span><span class="si">}</span>geo_em.d01.nc<span class="w"> </span>.
+ncl<span class="w"> </span>create_scrip_file.ncl<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>/create_scrip_file.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+mv<span class="w"> </span>*nc<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>
+rm<span class="w"> </span>geo_em.d01.nc
+</pre></div>
+</div>
+<ul>
+<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">wrf2clm_land.nc</span></code> and <code class="docutils literal notranslate"><span class="pre">wrf2clm_ocean.nc</span></code> should be created.</p></li>
+<li><p>Then, unstructure the <code class="docutils literal notranslate"><span class="pre">wrf2cl_land.nc</span></code> to get unstructured mesh</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ESMF</span><span class="o">=</span><span class="si">${</span><span class="nv">ESMFDIR</span><span class="si">}</span>/bin
+<span class="nb">export</span><span class="w"> </span><span class="nv">GRIDFILE</span><span class="o">=</span>wrf2clm_land.nc
+<span class="nb">export</span><span class="w"> </span><span class="nv">LANDMESHFILE</span><span class="o">=</span>lnd_mesh.nc
+<span class="si">${</span><span class="nv">ESMF</span><span class="si">}</span>/ESMF_Scrip2Unstruct<span class="w"> </span><span class="si">${</span><span class="nv">GRIDFILE</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">LANDMESHFILE</span><span class="si">}</span><span class="w"> </span><span class="m">0</span>
+ncap2<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;elementMask(:)=0&#39;</span><span class="w"> </span><span class="si">${</span><span class="nv">LANDMESHFILE</span><span class="si">}</span><span class="w"> </span>mask_<span class="si">${</span><span class="nv">LANDMESHFILE</span><span class="si">}</span><span class="w"> </span>--overwrite
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">lnd_mesh.nc</span></code> and <code class="docutils literal notranslate"><span class="pre">mask_lnd_mesh.nc</span></code> should be created</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="run-mkunitymap-ncl">
+<h2>2.4 Run <code class="docutils literal notranslate"><span class="pre">mkunitymap.ncl</span></code><a class="headerlink" href="#run-mkunitymap-ncl" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/tools/site_and_regional/mkunitymap.ncl/
+<span class="nb">export</span><span class="w"> </span><span class="nv">GRIDFILE1</span><span class="o">=</span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>/wrf2clm_ocean.nc
+<span class="nb">export</span><span class="w"> </span><span class="nv">GRIDFILE2</span><span class="o">=</span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>/wrf2clm_land.nc
+<span class="nb">export</span><span class="w"> </span><span class="nv">MAPFILE</span><span class="o">=</span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>/wrf2clm_mapping.nc
+<span class="nv">PRINT</span><span class="o">=</span>TRUE
+ncl<span class="w"> </span>mkunitymap.ncl<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>/mkunitymap.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">wrf2clm_mapping.nc</span></code> should be created.</p></li>
+</ul>
+</section>
+<section id="run-gen-domain">
+<h2>2.5 Run <code class="docutils literal notranslate"><span class="pre">gen_domain</span></code><a class="headerlink" href="#run-gen-domain" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/tools/mapping/gen_domain_files
+./gen_domain<span class="w"> </span>-m<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>/wrf2clm_mapping.nc<span class="w"> </span>-o<span class="w"> </span>wrf2clm_ocn_noneg<span class="w"> </span>-l<span class="w"> </span>wrf2clm_lnd_noneg<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">runs_ctsm</span><span class="si">}</span>/gen_domain.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+mv<span class="w"> </span>domain.*<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If run successfully, three files should be created as follows (<code class="docutils literal notranslate"><span class="pre">250510</span></code> is the date of running):</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">domain.lnd.wrf2clm_lnd_noneg_wrf2clm_ocn_noneg.250510.nc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">domain.ocn.wrf2clm_lnd_noneg_wrf2clm_ocn_noneg.250510.nc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">domain.ocn.wrf2clm_ocn_noneg.250510.nc</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="run-gen-mksurfdata-namelist">
+<h2>2.6 Run <code class="docutils literal notranslate"><span class="pre">gen_mksurfdata_namelist</span></code><a class="headerlink" href="#run-gen-mksurfdata-namelist" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/tools/mksurfdata_esmf
+<span class="nb">export</span><span class="w"> </span><span class="nv">START_YEAR</span><span class="o">=</span><span class="m">2022</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">END_YEAR</span><span class="o">=</span><span class="m">2022</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">INPUT_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">CESM_ROOT</span><span class="si">}</span>/cesm_inputdata
+<span class="nb">export</span><span class="w"> </span><span class="nv">RES</span><span class="o">=</span><span class="m">3</span>.6x3.6
+./gen_mksurfdata_namelist<span class="w"> </span>--start-year<span class="w"> </span><span class="si">${</span><span class="nv">START_YEAR</span><span class="si">}</span><span class="w"> </span>--end-year<span class="w"> </span><span class="si">${</span><span class="nv">END_YEAR</span><span class="si">}</span><span class="w"> </span>--res<span class="w"> </span><span class="si">${</span><span class="nv">RES</span><span class="si">}</span><span class="w"> </span>--model-mesh<span class="w"> </span><span class="si">${</span><span class="nv">runs_ctsm</span><span class="si">}</span>/<span class="si">${</span><span class="nv">LANDMESHFILE</span><span class="si">}</span><span class="w"> </span>--rawdata-dir<span class="w"> </span><span class="si">${</span><span class="nv">INPUT_PATH</span><span class="si">}</span><span class="w"> </span>--model-mesh-nx<span class="w"> </span><span class="m">60</span><span class="w"> </span>--model-mesh-ny<span class="w"> </span><span class="m">81</span><span class="w"> </span>&gt;<span class="w"> </span>gen_mksurfdata_namelist.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+mv<span class="w"> </span>surfdata*<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">surfdata.namelist</span></code> should be created.</p></li>
+</ul>
+</section>
+<section id="run-mksurfdata-esmf">
+<h2>2.7 Run <code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code><a class="headerlink" href="#run-mksurfdata-esmf" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Download raw data required in <code class="docutils literal notranslate"><span class="pre">surfdata.namelist</span></code> for creating CTSM surface data from <a class="reference external" href="https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/lnd/clm2/rawdata/">CESM raw data svn</a></p></li>
+<li><p>Create a job script to run <code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code> (taking hours), for example,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># This script is used for make surface region in Archer2</span>
+
+<span class="c1">#SBATCH --job-name mksurfdata_jobscript_single</span>
+<span class="c1">#SBATCH --partition=standard</span>
+<span class="c1">#SBATCH --qos=long</span>
+<span class="c1">#SBATCH --account=</span>
+<span class="c1">#SBATCH --time=48:00:00</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --ntasks-per-node=1</span>
+<span class="c1">#SBATCH --cpus-per-task=128</span>
+<span class="c1">#SBATCH --output=mksurfdata_jobscript_single.out</span>
+<span class="c1">#SBATCH --error=mksurfdata_jobscript_single.err</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="nv">$SLURM_CPUS_PER_TASK</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CASENAME</span><span class="o">=</span>wrf_GM3d
+<span class="nb">export</span><span class="w"> </span><span class="nv">WORKDIR</span><span class="o">=</span>/work/n02/n02/yuansun/wrf/runs/<span class="si">${</span><span class="nv">CASENAME</span><span class="si">}</span>/configuration/CTSM
+<span class="nb">export</span><span class="w"> </span><span class="nv">ESMFTOOL</span><span class="o">=</span>/work/n02/n02/yuansun/wrf/WRFnoleap-CTSM/CTSMdev/tools/mksurfdata_esmf
+
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">ESMFTOOL</span><span class="si">}</span>
+.<span class="w"> </span><span class="si">${</span><span class="nv">ESMFTOOL</span><span class="si">}</span>/tool_bld/.env_mach_specific.sh
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error running env_mach_specific script&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span>-4<span class="p">;</span><span class="w"> </span><span class="k">fi</span><span class="w"> </span>
+<span class="nb">time</span><span class="w"> </span>srun<span class="w">  </span>--hint<span class="o">=</span>nomultithread<span class="w"> </span>--distribution<span class="o">=</span>block:block<span class="w"> </span><span class="si">${</span><span class="nv">ESMFTOOL</span><span class="si">}</span>/tool_bld/mksurfdata<span class="w"> </span>&lt;<span class="w"> </span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}</span>/surfdata.namelist<span class="w"> </span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error running for namelist  </span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}</span><span class="s2">/surfdata.namelist&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span>-4<span class="p">;</span><span class="w"> </span><span class="k">fi</span><span class="w"> </span>
+<span class="nb">echo</span><span class="w"> </span>Successfully<span class="w"> </span>ran<span class="w"> </span>resolution
+</pre></div>
+</div>
+</li>
+<li><p>If run successfully, surface data like <code class="docutils literal notranslate"><span class="pre">surfdata_1.2x1.2_SSP5-8.5_2022_78pfts_c250607.nc</span></code> should be generated with <code class="docutils literal notranslate"><span class="pre">surfdata_1.2x1.2_SSP5-8.5_2022_78pfts_c250607.log</span></code> ended with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">created</span> <span class="n">surface</span> <span class="n">data</span> <span class="n">output</span> <span class="n">file</span> <span class="o">=</span> <span class="n">surfdata_1</span><span class="mf">.2</span><span class="n">x1</span><span class="mf">.2</span><span class="n">_SSP5</span><span class="o">-</span><span class="mf">8.5_2022_78</span><span class="n">pfts_c250607</span><span class="o">.</span><span class="n">nc</span>
+   <span class="n">This</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">land</span> <span class="n">model</span> <span class="n">surface</span> <span class="n">data</span>
+
+<span class="n">Successfully</span> <span class="n">ran</span> <span class="n">mksurfdata_esmf</span>
+</pre></div>
+</div>
+</li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">END_YEAR</span></code>&gt;<code class="docutils literal notranslate"><span class="pre">START_YEAR</span></code>, a time-series land use data should also be created, like <code class="docutils literal notranslate"><span class="pre">landuse.timeseries_1.2x1.2_SSP5-8.5_2022-2023_78pfts_c250607.nc</span></code>.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">2 Input data</a><ul>
+<li><a class="reference internal" href="#define-a-single-domain">2.1 Define A Single Domain</a></li>
+<li><a class="reference internal" href="#run-wps">2.2 Run WPS</a></li>
+<li><a class="reference internal" href="#run-create-scrip-file-ncl">2.3 Run <code class="docutils literal notranslate"><span class="pre">create_scrip_file.ncl</span></code></a></li>
+<li><a class="reference internal" href="#run-mkunitymap-ncl">2.4 Run <code class="docutils literal notranslate"><span class="pre">mkunitymap.ncl</span></code></a></li>
+<li><a class="reference internal" href="#run-gen-domain">2.5 Run <code class="docutils literal notranslate"><span class="pre">gen_domain</span></code></a></li>
+<li><a class="reference internal" href="#run-gen-mksurfdata-namelist">2.6 Run <code class="docutils literal notranslate"><span class="pre">gen_mksurfdata_namelist</span></code></a></li>
+<li><a class="reference internal" href="#run-mksurfdata-esmf">2.7 Run <code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/wrf-ctsm/inputdata.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">2 Input data</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

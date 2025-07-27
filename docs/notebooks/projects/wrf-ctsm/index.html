@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>WRF-CTSM User Guide &#8212; CESM-LCZ  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="1 Installation" href="installation.html" />
+    <link rel="prev" title="2 Surface Input" href="../lcz/inputdata.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="1 Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../lcz/inputdata.html" title="2 Surface Input"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">WRF-CTSM User Guide</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="wrf-ctsm-user-guide">
+<h1>WRF-CTSM User Guide<a class="headerlink" href="#wrf-ctsm-user-guide" title="Link to this heading">¶</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You are viewing the WRF-CTSM documentation based on <a class="reference external" href="https://github.com/wrf-model/WRF/releases/tag/v4.7.0">WRFv4.7.0</a> and <a class="reference external" href="https://github.com/ESCOMP/CTSM/releases/tag/ctsm5.3.024">CTSMv5.3.024</a>. Similar versions may work; however, please note that major infrastructure changes were introduced in CTSM compared to earlier versions (e.g., CLM5.0 or CTSM5.1), which may not be compatible with this documentation.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">WRF-CTSM User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">1 Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#preparation">1.1 Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#source-code-download">1.2 Source Code Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#build-model">1.3 Build Model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inputdata.html">2 Input data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#define-a-single-domain">2.1 Define A Single Domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#run-wps">2.2 Run WPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#run-create-scrip-file-ncl">2.3 Run <code class="docutils literal notranslate"><span class="pre">create_scrip_file.ncl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#run-mkunitymap-ncl">2.4 Run <code class="docutils literal notranslate"><span class="pre">mkunitymap.ncl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#run-gen-domain">2.5 Run <code class="docutils literal notranslate"><span class="pre">gen_domain</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#run-gen-mksurfdata-namelist">2.6 Run <code class="docutils literal notranslate"><span class="pre">gen_mksurfdata_namelist</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#run-mksurfdata-esmf">2.7 Run <code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="simulation.html">3 Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="simulation.html#run-make-runtime-inputs">3.1 Run <code class="docutils literal notranslate"><span class="pre">make_runtime_inputs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simulation.html#modify-namelist-input">3.2 Modify <code class="docutils literal notranslate"><span class="pre">namelist.input</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simulation.html#run-wrf-ctsm">3.3 Run WRF-CTSM</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nest_simulation.html">4 Nest Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restart.html">5 Restart Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="restart.html#set-ctsm-restart">5.1 Set CTSM Restart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restart.html#run-real-exe">5.2 Run <code class="docutils literal notranslate"><span class="pre">real.exe</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="restart.html#run-wrf-ctsm-restart-simulation">5.3 Run WRF-CTSM Restart Simulation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../lcz/inputdata.html"
+                          title="previous chapter">2 Surface Input</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="installation.html"
+                          title="next chapter">1 Installation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/wrf-ctsm/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="1 Installation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../lcz/inputdata.html" title="2 Surface Input"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">WRF-CTSM User Guide</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

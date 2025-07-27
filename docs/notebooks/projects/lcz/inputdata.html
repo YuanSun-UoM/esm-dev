@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2 Surface Input &#8212; CESM-LCZ  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="WRF-CTSM documentation" href="../wrf-ctsm/index.html" />
+    <link rel="prev" title="1 Code Modification" href="code_modification.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="code_modification.html" title="1 Code Modification"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CESM-LCZ User Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">2 Surface Input</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="surface-input">
+<h1>2 Surface Input<a class="headerlink" href="#surface-input" title="Link to this heading">¶</a></h1>
+<blockquote>
+<div><p>The following Python scripts are provided by the author for generating LCZ-based Surface Input by modifying the default surface dataset containing three urban classes.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rasterio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyproj</span><span class="w"> </span><span class="kn">import</span> <span class="n">CRS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.warp</span><span class="w"> </span><span class="kn">import</span> <span class="n">transform</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rasterio.features</span><span class="w"> </span><span class="kn">import</span> <span class="n">geometry_mask</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nc</span>
+</pre></div>
+</div>
+<section id="prepare-default-surface-dataset">
+<h2>2.1 Prepare Default Surface Dataset<a class="headerlink" href="#prepare-default-surface-dataset" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Option 1: Using existing surface data provided by NCAR. <a class="reference external" href="https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/lnd/clm2/surfdata_esmf/">Download</a></p></li>
+<li><p>Option 2: Using CTSM tools to generate surface data for a certain area and time (series)</p>
+<ul>
+<li><p>Generating regional surface input using <a class="reference external" href="https://github.com/ESCOMP/CTSM/tree/master/tools/mksurfdata_esmf">mksurfdata_esmf</a></p></li>
+<li><p>Extract regional/single-point surface data from global surface data using <a class="reference external" href="https://github.com/ESCOMP/CTSM/tree/master/tools/site_and_regional">site_and_regional</a></p></li>
+</ul>
+</li>
+</ul>
+<p>The default surface dataset, for example, <code class="docutils literal notranslate"><span class="pre">surfdata_001x001_MCR_SSP3-7.0_2022_78pfts_c240930.nc</span></code>, includes multiple urban parameters. In this dataset, numurbl=3, indicating that three urban land unit types are defined. Our target is to replace default urban parameters by LCZ-based urban parameters with numurbl=10.</p>
+</section>
+<section id="construct-grid-cell-boxes">
+<h2>2.2 Construct Grid Cell Boxes<a class="headerlink" href="#construct-grid-cell-boxes" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Construct the rectangular bounding box for each cell</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds_std</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;surfdata_001x001_MCR_SSP3-7.0_2022_78pfts_c240930.nc&#39;</span><span class="p">)</span>
+<span class="n">ds_lon</span> <span class="o">=</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;LONGXY&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> 
+<span class="n">ds_lat</span> <span class="o">=</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;LATIXY&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">lon_min</span> <span class="o">=</span> <span class="n">ds_lon</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">lon_max</span> <span class="o">=</span> <span class="n">ds_lon</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">lat_min</span> <span class="o">=</span> <span class="n">ds_lat</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">lat_max</span> <span class="o">=</span> <span class="n">ds_lat</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">gridcell</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">half_gridcell</span> <span class="o">=</span> <span class="n">gridcell</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">grid_cells</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">lat</span> <span class="ow">in</span> <span class="n">ds_lat</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">lon</span> <span class="ow">in</span> <span class="n">ds_lon</span><span class="p">:</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([</span>
+            <span class="p">(</span><span class="n">lon</span><span class="o">-</span><span class="n">half_gridcell</span><span class="p">,</span> <span class="n">lat</span><span class="o">-</span><span class="n">half_gridcell</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">lon</span><span class="o">+</span><span class="n">half_gridcell</span><span class="p">,</span> <span class="n">lat</span><span class="o">-</span><span class="n">half_gridcell</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">lon</span><span class="o">+</span><span class="n">half_gridcell</span><span class="p">,</span> <span class="n">lat</span><span class="o">-</span><span class="n">half_gridcell</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">lon</span><span class="o">-</span><span class="n">half_gridcell</span><span class="p">,</span> <span class="n">lat</span><span class="o">-</span><span class="n">half_gridcell</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="n">grid_cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">grid_cells</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="mi">4326</span><span class="p">))</span>    
+</pre></div>
+</div>
+</li>
+<li><p>Alternatively, use grid information from <code class="docutils literal notranslate"><span class="pre">SCRIPgrid_*</span></code> file</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
+<span class="n">ds_mesh</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;SCRIPgrid_001x001_MCR_nomask_c240930.nc&#39;</span><span class="p">)</span>
+<span class="n">grid_cells</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ds_mesh</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="s1">&#39;grid_size&#39;</span><span class="p">]):</span> 
+    <span class="n">lats</span> <span class="o">=</span> <span class="n">ds_mesh</span><span class="p">[</span><span class="s1">&#39;grid_corner_lat&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> 
+    <span class="n">lons</span> <span class="o">=</span> <span class="n">ds_mesh</span><span class="p">[</span><span class="s1">&#39;grid_corner_lon&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> 
+    
+    <span class="n">minx</span> <span class="o">=</span> <span class="n">lons</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">maxx</span> <span class="o">=</span> <span class="n">lons</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">miny</span> <span class="o">=</span> <span class="n">lats</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">maxy</span> <span class="o">=</span> <span class="n">lats</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    
+    <span class="n">cell_box</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span><span class="p">)</span> 
+    <span class="n">grid_cells</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell_box</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="calculate-lcz-fraction">
+<h2>2.2 Calculate LCZ fraction<a class="headerlink" href="#calculate-lcz-fraction" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>We calculate LCZ fractions by aggregating LCZ pixels from a high-resolution LCZ map.</p></li>
+<li><p>Scripts below use a clipped TIFF from <a class="reference external" href="https://doi.org/10.5194/essd-14-3835-2022">a global 100 m LCZ map</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;LCZ_MCR.tif&#39;</span> 
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">band</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Read the first band</span>
+    <span class="n">transform</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span>  <span class="c1"># Transformation matrix (affine)</span>
+    <span class="n">crs</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">crs</span>  <span class="c1"># Coordinate Reference System</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">bounds</span>  <span class="c1"># Geospatial bounds (left, bottom, right, top)</span>
+
+<span class="n">band_list</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">numband</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">band_list</span><span class="p">)</span> 
+<span class="n">value_counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">band_list</span><span class="p">}</span>
+
+<span class="c1"># For each grid cell, count the occurrence of each pixel value (1 to 16)</span>
+<span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]:</span>
+    <span class="c1"># Mask the pixels that fall within the current grid cell</span>
+    <span class="n">pixel_mask</span> <span class="o">=</span> <span class="n">geometry_mask</span><span class="p">([</span><span class="n">cell</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out_shape</span><span class="o">=</span><span class="n">band</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="c1"># Apply the mask to the band data</span>
+    <span class="n">masked_pixels</span> <span class="o">=</span> <span class="n">band</span><span class="p">[</span><span class="n">pixel_mask</span><span class="p">]</span>
+    <span class="c1"># Step 6: Calculate the percentage for each value (1 to 16) in each grid cell</span>
+    <span class="n">total_pixels_in_cell</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">masked_pixels</span><span class="p">)</span>
+    
+    <span class="c1"># Count the occurrences of each band value (1 to 16) in the masked pixels</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">band_list</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">masked_pixels</span> <span class="o">==</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">percent</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">count</span> <span class="o">/</span> <span class="n">total_pixels_in_cell</span>
+        <span class="n">value_counts</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">percent</span><span class="p">)</span>  
+        
+<span class="c1"># Create a 3D array to hold the percentage values</span>
+<span class="n">pct_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">numband</span><span class="p">,</span> <span class="n">lsmlat</span><span class="p">,</span> <span class="n">lsmlon</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">band_list</span><span class="p">):</span>
+    <span class="n">pct_values</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value_counts</span><span class="p">[</span><span class="n">value</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lsmlat</span><span class="p">,</span> <span class="n">lsmlon</span><span class="p">)</span>
+
+<span class="c1"># Create xarray DataArray</span>
+<span class="n">pct_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">pct_values</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;numband&quot;</span><span class="p">,</span> <span class="s2">&quot;lsmlat&quot;</span><span class="p">,</span> <span class="s2">&quot;lsmlon&quot;</span><span class="p">],</span>
+                      <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;numband&quot;</span><span class="p">:</span> <span class="n">band_list</span><span class="p">,</span><span class="s2">&quot;lsmlat&quot;</span><span class="p">:</span> <span class="n">lsmlat</span><span class="p">,</span><span class="s2">&quot;lsmlon&quot;</span><span class="p">:</span> <span class="n">lsmlon</span><span class="p">},</span>
+                      <span class="n">name</span><span class="o">=</span><span class="s2">&quot;PCT&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="fit-ctsm-land-fraction">
+<h2>2.3 Fit CTSM land fraction<a class="headerlink" href="#fit-ctsm-land-fraction" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Different from the LCZ classification, CTSM has natural vegetation, crop, glacier, lake, and three urban classes. The sum of land fractions is 100%. That is,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">check_sum</span> <span class="o">=</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_CROP&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_CROP&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_LAKE&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;PCT_URBAN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;numurbl&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_OCEAN&#39;</span><span class="p">]</span> 
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCT_URBAN</span></code> is a variable with three dimensions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numurbl</span></code>: number of urban</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsmlat</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsmlon</span></code></p></li>
+</ul>
+</li>
+<li><p>The rest land classes are variables with two dimensions (lsmlat, lsmlon)</p></li>
+<li><p>Since we have calculated LCZ fractions, the <code class="docutils literal notranslate"><span class="pre">PCT_URBAN</span></code> is assigned as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pct_urban</span> <span class="o">=</span> <span class="n">pct_da</span><span class="p">[</span><span class="s1">&#39;PCT&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="assign-lcz-urban-parameters">
+<h2>2.4 Assign LCZ Urban Parameters<a class="headerlink" href="#assign-lcz-urban-parameters" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Currently, LCZ urban parameters are assigned from look-up tables that vary by LCZ type (i.e., <code class="docutils literal notranslate"><span class="pre">numurbl</span></code>) but do not account for spatial variations. However, users can customize these parameters using three-dimensional arrays with dimensions (i.e.,  <code class="docutils literal notranslate"><span class="pre">numurbl</span></code>, <code class="docutils literal notranslate"><span class="pre">lsmlat</span></code>, <code class="docutils literal notranslate"><span class="pre">lsmlon</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ht_roof</span> <span class="o">=</span> <span class="p">[</span><span class="mf">37.50</span> <span class="p">,</span> <span class="mf">17.50</span> <span class="p">,</span> <span class="mf">6.50</span> <span class="p">,</span> <span class="mf">37.50</span> <span class="p">,</span> <span class="mf">17.50</span> <span class="p">,</span> <span class="mf">6.50</span> <span class="p">,</span> <span class="mf">3.00</span> <span class="p">,</span> <span class="mf">6.50</span> <span class="p">,</span> <span class="mf">6.50</span> <span class="p">,</span> <span class="mf">10.00</span><span class="p">]</span> 
+<span class="n">em_improad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">]</span>
+<span class="n">em_perroad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span>
+<span class="n">em_roof</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.91</span><span class="p">]</span>
+<span class="n">em_wall</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">]</span>
+<span class="n">alb_improad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">]</span>
+<span class="n">alb_perroad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+<span class="n">alb_roof</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">]</span>
+<span class="n">alb_wall</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+<span class="n">canyon_hwr</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.35</span> <span class="p">]</span>
+<span class="n">tbuilding_min</span> <span class="o">=</span> <span class="p">[</span><span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">,</span> <span class="mi">291</span><span class="p">]</span>
+<span class="n">thick_roof</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">]</span>
+<span class="n">thick_wall</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">]</span>
+<span class="n">tk_improad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+<span class="n">tk_roof</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.70</span> <span class="p">,</span> <span class="mf">1.70</span><span class="p">,</span> <span class="mf">1.09</span> <span class="p">,</span> <span class="mf">1.25</span> <span class="p">,</span> <span class="mf">1.70</span> <span class="p">,</span> <span class="mf">1.09</span> <span class="p">,</span> <span class="mf">1.09</span> <span class="p">,</span> <span class="mf">1.07</span> <span class="p">,</span> <span class="mf">1.09</span> <span class="p">,</span> <span class="mf">2.00</span><span class="p">]</span>
+<span class="n">tk_wall</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.27</span> <span class="p">,</span> <span class="mf">2.60</span> <span class="p">,</span> <span class="mf">1.66</span> <span class="p">,</span> <span class="mf">1.45</span> <span class="p">,</span> <span class="mf">1.88</span> <span class="p">,</span> <span class="mf">1.66</span> <span class="p">,</span> <span class="mf">1.00</span> <span class="p">,</span> <span class="mf">1.07</span> <span class="p">,</span> <span class="mf">1.66</span> <span class="p">,</span> <span class="mf">1.42</span><span class="p">]</span>
+<span class="n">cv_improad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">]</span>
+<span class="n">cv_roof</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.32</span> <span class="p">,</span> <span class="mf">1.32</span> <span class="p">,</span> <span class="mf">1.32</span> <span class="p">,</span> <span class="mf">1.80</span> <span class="p">,</span> <span class="mf">1.32</span> <span class="p">,</span> <span class="mf">1.32</span> <span class="p">,</span> <span class="mf">2.00</span> <span class="p">,</span> <span class="mf">2.11</span> <span class="p">,</span> <span class="mf">1.32</span> <span class="p">,</span> <span class="mf">2.00</span><span class="p">]</span>
+<span class="n">cv_wall</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.54</span> <span class="p">,</span> <span class="mf">1.54</span> <span class="p">,</span> <span class="mf">1.54</span> <span class="p">,</span> <span class="mf">2.00</span> <span class="p">,</span> <span class="mf">1.54</span> <span class="p">,</span> <span class="mf">1.54</span> <span class="p">,</span> <span class="mf">2.00</span> <span class="p">,</span> <span class="mf">2.11</span> <span class="p">,</span> <span class="mf">1.54</span> <span class="p">,</span> <span class="mf">1.59</span><span class="p">]</span>
+<span class="n">wtroad_perv</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.10</span> <span class="p">,</span> <span class="mf">0.20</span> <span class="p">,</span> <span class="mf">0.33</span> <span class="p">,</span> <span class="mf">0.50</span> <span class="p">,</span> <span class="mf">0.43</span> <span class="p">,</span> <span class="mf">0.43</span> <span class="p">,</span> <span class="mf">0.60</span> <span class="p">,</span> <span class="mf">0.25</span> <span class="p">,</span> <span class="mf">0.82</span> <span class="p">,</span> <span class="mf">0.60</span><span class="p">]</span>
+<span class="n">wtlunit_roof</span><span class="o">=</span><span class="p">[</span><span class="mf">0.53</span> <span class="p">,</span> <span class="mf">0.61</span> <span class="p">,</span> <span class="mf">0.65</span> <span class="p">,</span> <span class="mf">0.46</span> <span class="p">,</span> <span class="mf">0.43</span> <span class="p">,</span> <span class="mf">0.50</span> <span class="p">,</span> <span class="mf">0.88</span> <span class="p">,</span> <span class="mf">0.47</span> <span class="p">,</span> <span class="mf">0.50</span> <span class="p">,</span> <span class="mf">0.45</span><span class="p">]</span>
+<span class="n">nlev_improad</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">3</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span><span class="p">]</span> 
+</pre></div>
+</div>
+</li>
+<li><p>Generate LCZ-based surface data</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">output_file</span> <span class="o">=</span> <span class="s1">&#39;surfdata_001x001_MCR_LCZ_2022_78pfts_c240930.nc&#39;</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
+
+<span class="n">numurbl</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">lsmlat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_std</span><span class="o">.</span><span class="n">lsmlat</span><span class="p">)</span>
+<span class="n">lsmlon</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_std</span><span class="o">.</span><span class="n">lsmlon</span><span class="p">)</span>
+<span class="n">numrad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_std</span><span class="o">.</span><span class="n">numrad</span><span class="p">)</span>
+<span class="n">nlevurb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_std</span><span class="o">.</span><span class="n">nlevurb</span><span class="p">)</span>
+
+<span class="n">urban_variables</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;EM_IMPROAD&#39;</span><span class="p">:</span> <span class="n">em_improad</span><span class="p">,</span>
+    <span class="s1">&#39;EM_PERROAD&#39;</span><span class="p">:</span> <span class="n">em_perroad</span><span class="p">,</span>
+    <span class="s1">&#39;EM_ROOF&#39;</span><span class="p">:</span> <span class="n">em_roof</span><span class="p">,</span>
+    <span class="s1">&#39;EM_WALL&#39;</span><span class="p">:</span> <span class="n">em_wall</span><span class="p">,</span>
+    <span class="s1">&#39;CANYON_HWR&#39;</span><span class="p">:</span> <span class="n">canyon_hwr</span><span class="p">,</span>
+    <span class="s1">&#39;T_BUILDING_MIN&#39;</span><span class="p">:</span> <span class="n">tbuilding_min</span><span class="p">,</span>
+    <span class="s1">&#39;THICK_ROOF&#39;</span><span class="p">:</span> <span class="n">thick_roof</span><span class="p">,</span>
+    <span class="s1">&#39;THICK_WALL&#39;</span><span class="p">:</span> <span class="n">thick_wall</span><span class="p">,</span>
+    <span class="s1">&#39;WTROAD_PERV&#39;</span><span class="p">:</span> <span class="n">wtroad_perv</span><span class="p">,</span>
+    <span class="s1">&#39;WTLUNIT_ROOF&#39;</span><span class="p">:</span> <span class="n">wtlunit_roof</span><span class="p">,</span>
+    <span class="s1">&#39;NLEV_IMPROAD&#39;</span><span class="p">:</span> <span class="n">nlev_improad</span>
+<span class="p">}</span>
+
+<span class="n">alb_variables</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ALB_IMPROAD_DIR&#39;</span><span class="p">:</span> <span class="n">alb_improad</span><span class="p">,</span>
+    <span class="s1">&#39;ALB_IMPROAD_DIF&#39;</span><span class="p">:</span> <span class="n">alb_improad</span><span class="p">,</span>
+    <span class="s1">&#39;ALB_PERROAD_DIR&#39;</span><span class="p">:</span> <span class="n">alb_perroad</span><span class="p">,</span>
+    <span class="s1">&#39;ALB_PERROAD_DIF&#39;</span><span class="p">:</span> <span class="n">alb_perroad</span><span class="p">,</span>
+    <span class="s1">&#39;ALB_ROOF_DIR&#39;</span><span class="p">:</span> <span class="n">alb_roof</span><span class="p">,</span>
+    <span class="s1">&#39;ALB_ROOF_DIF&#39;</span><span class="p">:</span> <span class="n">alb_roof</span><span class="p">,</span>
+    <span class="s1">&#39;ALB_WALL_DIR&#39;</span><span class="p">:</span> <span class="n">alb_wall</span><span class="p">,</span>
+    <span class="s1">&#39;ALB_WALL_DIF&#39;</span><span class="p">:</span> <span class="n">alb_wall</span>
+<span class="p">}</span>
+
+<span class="n">tk_cv_variables</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;TK_IMPROAD&#39;</span><span class="p">:</span> <span class="n">tk_improad</span><span class="p">,</span>
+    <span class="s1">&#39;TK_ROOF&#39;</span><span class="p">:</span> <span class="n">tk_roof</span><span class="p">,</span>
+    <span class="s1">&#39;TK_WALL&#39;</span><span class="p">:</span> <span class="n">tk_wall</span><span class="p">,</span>
+    <span class="s1">&#39;CV_IMPROAD&#39;</span><span class="p">:</span> <span class="n">cv_improad</span><span class="p">,</span>
+    <span class="s1">&#39;CV_ROOF&#39;</span><span class="p">:</span> <span class="n">cv_roof</span><span class="p">,</span>
+    <span class="s1">&#39;CV_WALL&#39;</span><span class="p">:</span> <span class="n">cv_wall</span>
+<span class="p">}</span>
+
+<span class="k">with</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds_std_nc</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;NETCDF3_CLASSIC&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds_lcz_nc</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dim_name</span> <span class="ow">in</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dim_name</span> <span class="o">!=</span> <span class="s1">&#39;numurbl&#39;</span><span class="p">:</span>
+               <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="n">dim_name</span><span class="p">,</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">dim_name</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">var_name</span> <span class="o">==</span> <span class="s1">&#39;mxsoil_color&#39;</span><span class="p">:</span>
+                <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">,</span> <span class="p">())</span>
+                <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:]</span> <span class="o">=</span> <span class="mi">20</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;numurbl&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds_std_nc</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+                    <span class="n">var</span> <span class="o">=</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+                    <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dimensions</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">ds_lcz_nc</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:]</span>
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">ds_lcz_nc</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:,:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,:]</span>
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                        <span class="n">ds_lcz_nc</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:,:,:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,:,:]</span>   
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="n">ds_lcz_nc</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:,:,:,:]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[:,:,:,:]</span>         
+        <span class="c1"># Add &#39;numurbl&#39; dimension with size 10 to the output dataset</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s1">&#39;numurbl&#39;</span><span class="p">,</span> <span class="n">numurbl</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">var_values</span> <span class="ow">in</span> <span class="n">urban_variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;numurbl&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlat&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlon&#39;</span><span class="p">))</span>
+            <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:,:,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">var_values</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lsmlat</span><span class="p">,</span> <span class="n">lsmlon</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">var_values</span> <span class="ow">in</span> <span class="n">alb_variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;numrad&#39;</span><span class="p">,</span> <span class="s1">&#39;numurbl&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlat&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlon&#39;</span><span class="p">))</span>
+            <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:,:,:,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">var_values</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="p">(</span><span class="n">numrad</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lsmlat</span><span class="p">,</span> <span class="n">lsmlon</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">var_values</span> <span class="ow">in</span> <span class="n">tk_cv_variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;nlevurb&#39;</span><span class="p">,</span> <span class="s1">&#39;numurbl&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlat&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlon&#39;</span><span class="p">))</span>
+            <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">][:,:,:,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">var_values</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="p">(</span><span class="n">nlevurb</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lsmlat</span><span class="p">,</span> <span class="n">lsmlon</span><span class="p">))</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;HT_ROOF&#39;</span><span class="p">,</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;HT_ROOF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;numurbl&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlat&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlon&#39;</span><span class="p">))</span>    
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;HT_ROOF&#39;</span><span class="p">][:,:,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ht_roof</span><span class="p">[</span><span class="s1">&#39;HT_ROOF&#39;</span><span class="p">][:,:,:],</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;WIND_HGT_CANYON&#39;</span><span class="p">,</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;WIND_HGT_CANYON&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;numurbl&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlat&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlon&#39;</span><span class="p">))</span>    
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;WIND_HGT_CANYON&#39;</span><span class="p">][:,:,:]</span> <span class="o">=</span> <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;HT_ROOF&#39;</span><span class="p">][:,:,:]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;PCT_URBAN&#39;</span><span class="p">,</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_URBAN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datatype</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;numurbl&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlat&#39;</span><span class="p">,</span> <span class="s1">&#39;lsmlon&#39;</span><span class="p">))</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_URBAN&#39;</span><span class="p">][:,:,:]</span> <span class="o">=</span> <span class="n">pct_urban</span><span class="p">[:,:,:]</span>
+        
+        <span class="c1"># manipulate non-urban fraction</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_CROP&#39;</span><span class="p">][:,:]</span> <span class="o">=</span> <span class="n">ds_crop</span><span class="p">[</span><span class="s1">&#39;PCT_CROP&#39;</span><span class="p">][:,:]</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_NATVEG&#39;</span><span class="p">][:,:]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_URBAN&#39;</span><span class="p">][:,:,:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_CROP&#39;</span><span class="p">][:,:]</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_LAKE&#39;</span><span class="p">][:,:]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_WETLAND&#39;</span><span class="p">][:,:]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_GLACIER&#39;</span><span class="p">][:,:]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;PCT_OCEAN&#39;</span><span class="p">][:,:]</span> <span class="o">=</span> <span class="mi">0</span> 
+        <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="n">ds_lcz_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">setncatts</span><span class="p">(</span><span class="n">ds_std_nc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> After changing the urban fraction, we need to manipulate the rest of the fractions to ensure the sum of all fractions is 100%.</p>
+</li>
+<li><p>In addition to surface data, CTSM requires separate data for the time-varying <code class="docutils literal notranslate"><span class="pre">T_BUILDING_MAX</span></code> stream (maximum building indoor temperature) for calculating air conditioning flux.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds_std_tmax</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">home_path</span><span class="si">}</span><span class="s1">dataset/inputdata/lnd/clm2/urbandata/CTSM52_tbuildmax_OlesonFeddema_2020_0.9x1.25_simyr1849-2106_c200605.nc&#39;</span><span class="p">)</span>
+<span class="n">ds_template</span> <span class="o">=</span> <span class="n">ds_all</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">171</span><span class="p">,</span> <span class="mi">177</span><span class="p">))</span> <span class="c1"># 2020-2025</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;CTSM52_tbuildmax_LCZ_0.9x1.25_simyr2020-2025_c240930.nc&#39;</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_filename</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">output_filename</span><span class="p">)</span>
+
+<span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;days since 0000-01-01 00:00:00&quot;</span>
+<span class="n">calendar</span> <span class="o">=</span> <span class="s2">&quot;noleap&quot;</span>
+<span class="n">time_values</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="n">time_units</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">)</span> 
+<span class="n">time_bnds_units</span> <span class="o">=</span> <span class="s2">&quot;days since 2020-01-01 00:00:00&quot;</span>
+<span class="n">time_bnds_values</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;time_bnds&#39;</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="n">time_bnds_units</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">output_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;NETCDF3_CLASSIC&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s1">&#39;nv&#39;</span><span class="p">,</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;nv&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,))</span>
+    <span class="n">lat</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">lat</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+    <span class="n">lat</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+    
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,))</span>
+    <span class="n">lon</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">lon</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+    <span class="n">lon</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="n">calendar</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">time_units</span>
+    <span class="n">time</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">time_values</span>
+    
+    <span class="n">time_bnds</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;time_bnds&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;nv&#39;</span><span class="p">))</span>
+    <span class="n">time_bnds</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;time_bnds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">time_bnds</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="n">calendar</span>
+    <span class="n">time_bnds</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">time_bnds_units</span>
+    <span class="n">time_bnds</span><span class="p">[:,:]</span> <span class="o">=</span> <span class="n">time_bnds_values</span>
+
+    <span class="n">year</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,))</span>
+    <span class="n">year</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">year</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+    <span class="n">year</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span>
+
+    <span class="n">latitudes</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;LATIXY&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+    <span class="n">latitudes</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LATIXY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">latitudes</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LATIXY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+    <span class="n">latitudes</span><span class="p">[:,:]</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LATIXY&#39;</span><span class="p">]</span>
+
+    <span class="n">longitudes</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;LONGXY&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+    <span class="n">longitudes</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LONGXY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">longitudes</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LONGXY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+    <span class="n">longitudes</span><span class="p">[:,:]</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LONGXY&#39;</span><span class="p">]</span>
+
+    <span class="n">area</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+    <span class="n">area</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">area</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+    <span class="n">area</span><span class="p">[:,:]</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+
+    <span class="n">landmask</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s1">&#39;LANDMASK&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+    <span class="n">landmask</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LANDMASK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span>
+    <span class="n">landmask</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LANDMASK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+    <span class="n">landmask</span><span class="p">[:,:]</span> <span class="o">=</span> <span class="n">ds_template</span><span class="p">[</span><span class="s1">&#39;LANDMASK&#39;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numurbl</span><span class="p">):</span>
+      <span class="n">lcz_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;LCZ</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span>
+      <span class="n">T_BUILDING_LCZ</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;tbuildmax_</span><span class="si">{</span><span class="n">lcz_string</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+      <span class="n">T_BUILDING_LCZ</span><span class="o">.</span><span class="n">long_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;maximum interior building temperature for </span><span class="si">{</span><span class="n">lcz_string</span><span class="si">}</span><span class="s1"> class&#39;</span>
+      <span class="n">T_BUILDING_LCZ</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;K&#39;</span>
+      <span class="n">T_BUILDING_LCZ</span><span class="p">[:,:,:]</span> <span class="o">=</span> <span class="mi">350</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> 350 K is a dummy value for maximum indoor temperature, effectively disabling air conditioning. Users should assign more realistic T_BUILDING_MAX values tailored to each LCZ class.</p>
+</li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">2 Surface Input</a><ul>
+<li><a class="reference internal" href="#prepare-default-surface-dataset">2.1 Prepare Default Surface Dataset</a></li>
+<li><a class="reference internal" href="#construct-grid-cell-boxes">2.2 Construct Grid Cell Boxes</a></li>
+<li><a class="reference internal" href="#calculate-lcz-fraction">2.2 Calculate LCZ fraction</a></li>
+<li><a class="reference internal" href="#fit-ctsm-land-fraction">2.3 Fit CTSM land fraction</a></li>
+<li><a class="reference internal" href="#assign-lcz-urban-parameters">2.4 Assign LCZ Urban Parameters</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="code_modification.html"
+                          title="previous chapter">1 Code Modification</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../wrf-ctsm/index.html"
+                          title="next chapter">WRF-CTSM documentation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/lcz/inputdata.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="code_modification.html" title="1 Code Modification"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >CESM-LCZ User Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">2 Surface Input</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>
