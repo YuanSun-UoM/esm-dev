@@ -1,9 +1,4 @@
-.. CESM-LCZ documentation master file, created by
-   sphinx-quickstart on Sun Jul 27 14:40:13 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-esm-dev documentation
+Homepage
 ======================
 
 .. important::

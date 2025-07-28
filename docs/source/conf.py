@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'CESM-LCZ'
+project = 'esm-dev'
 copyright = '2025, Yuan Sun'
 author = 'Yuan Sun'
 
