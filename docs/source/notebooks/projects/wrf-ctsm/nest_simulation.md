@@ -1,12 +1,8 @@
 # 4 Nest Simulation
 
-> The following scripts are provided by the author for running a **one-way nesting** WRF-CTSM simulation. This is suitable for high-resolution WRF-CTSM simulations. 
+The following scripts are provided by the author for running a **one-way nesting** WRF-CTSM simulation. This is suitable for high-resolution WRF-CTSM simulations. As described in [Using CTSM with WRF (Nested Model Runs)](https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf-nesting.html), **one-way nesting** means that boundary conditions are passed from the outer (parent) domain to the inner (child) domain, but not vice versa.
 
-> As described in [Using CTSM with WRF (Nested Model Runs)](https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf-nesting.html), **one-way nesting** means that boundary conditions are passed from the outer (parent) domain to the inner (child) domain, but not vice versa.
-
-In a case of 4 nested domains, we run a WRF simulation for the outer 3 domains (i.e., d01, d02, d03) as dynamic downscaling, and then run a WRF-CTSM simulation for the innermost domain (i.e., d04). 
-
-The workflow is:
+In a case of 4 nested domains, we run a WRF simulation for the outer 3 domains (i.e., d01, d02, d03) as dynamic downscaling, and then run a WRF-CTSM simulation for the innermost domain (i.e., d04). The workflow is:
 
 - Run WPS for all domains
   - Get `met_em.d0*`, `geo_em.d0*`

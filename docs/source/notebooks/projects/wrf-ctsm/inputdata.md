@@ -1,6 +1,6 @@
 # 2 Input data
 
-> The following scripts are provided by the author for creating input data for a **single-domain** simulation. Instructions for generating input data for nested, multi-domain simulations are described in a separate section.
+The following scripts are provided by the author for creating input data for a **single-domain** simulation. Instructions for generating input data for nested, multi-domain simulations are described in a separate section.
 
 ```bash
 export CASE_DIR=${WRF_ROOT}/cases/

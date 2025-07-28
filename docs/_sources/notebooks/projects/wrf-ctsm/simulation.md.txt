@@ -1,8 +1,6 @@
 # 3 Simulation
 
-> The following scripts are provided by the author for running WRF-CTSM in a **single-domain** configuration.
-
-> Guidance for running nested, multi-domain simulations is provided in a separate section.
+The following scripts are provided by the author for running WRF-CTSM in a **single-domain** configuration. Guidance for running nested, multi-domain simulations is provided in a separate section.
 
 ```
 export CASERUN_DIR=${CASE_DIR}${CASENAME}/runs/

@@ -1,6 +1,6 @@
 # 2 Surface Input
 
-> The following Python scripts are provided by the author for generating LCZ-based Surface Input by modifying the default surface dataset containing three urban classes. 
+The following Python scripts are provided by the author for generating LCZ-based Surface Input by modifying the default surface dataset containing three urban classes. 
 
 ```python
 import rasterio

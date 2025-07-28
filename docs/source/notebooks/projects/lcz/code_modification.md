@@ -1,6 +1,6 @@
 # 1 Code Modification
 
-> The following scripts are provided by the author to enable urban LCZ (Local Climate Zone) classification within the [Community Terrestrial Systems Model (CTSM)](https://github.com/ESCOMP/CTSM), the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend **manual code modification** to ensure compatibility.
+The following scripts are provided by the author to enable urban LCZ (Local Climate Zone) classification within the [Community Terrestrial Systems Model (CTSM)](https://github.com/ESCOMP/CTSM), the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend **manual code modification** to ensure compatibility.
 
 ## 1.1 Use Modified Code Based on CTSM5.2.005
 

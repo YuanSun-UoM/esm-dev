@@ -1,10 +1,6 @@
 # 5 Restart Simulation
 
-> The following scripts are provided by the author to restart a WRF-CTSM simulation.
-
-> This procedure is **experimental** and not officially documented by the CTSM or WRF development teams; therefore, it comes **without any guarantee**. 
->
-> Please check the conversation on the [WRF-CSTM restart issue](https://bb.cgd.ucar.edu/cesm/threads/ctsm-restart-using-lilac-coupler.11510/).
+The following scripts are provided by the author to restart a WRF-CTSM simulation. This procedure is **experimental** and not officially documented by the CTSM or WRF development teams; therefore, it comes **without any guarantee**. Please check the conversation on the [WRF-CSTM restart issue](https://bb.cgd.ucar.edu/cesm/threads/ctsm-restart-using-lilac-coupler.11510/).
 
 ## 5.1 Set CTSM Restart
 

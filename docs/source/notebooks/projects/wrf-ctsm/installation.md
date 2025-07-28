@@ -1,10 +1,6 @@
 # 1 Installation
 
-> The following scripts are provided by the author for installing WRF-CTSM on a Linux workstation.
-
-> **Users should adapt these scripts to suit their own systems.**
-
-> For example, users on HPC systems may choose to load pre-installed modules (e.g., compiler, MPI, and libraries) rather than building them from source.
+The following scripts are provided by the author for installing WRF-CTSM on a Linux workstation. Users should adapt these scripts to suit their own systems. For example, users on HPC systems may choose to load pre-installed modules (e.g., compiler, MPI, and libraries) rather than building them from source.
 
 ## 1.1 Preparation
 

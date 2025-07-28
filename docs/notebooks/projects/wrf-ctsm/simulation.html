@@ -18,6 +18,8 @@
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="4 Nest Simulation" href="nest_simulation.html" />
+    <link rel="prev" title="2 Input data" href="inputdata.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
@@ -29,7 +31,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="nest_simulation.html" title="4 Nest Simulation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inputdata.html" title="2 Input data"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">WRF-CTSM User Guide</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
       </ul>
     </div>  
@@ -41,12 +50,7 @@
             
   <section id="simulation">
 <h1>3 Simulation<a class="headerlink" href="#simulation" title="Link to this heading">¶</a></h1>
-<blockquote>
-<div><p>The following scripts are provided by the author for running WRF-CTSM in a <strong>single-domain</strong> configuration.</p>
-</div></blockquote>
-<blockquote>
-<div><p>Guidance for running nested, multi-domain simulations is provided in a separate section.</p>
-</div></blockquote>
+<p>The following scripts are provided by the author for running WRF-CTSM in a <strong>single-domain</strong> configuration. Guidance for running nested, multi-domain simulations is provided in a separate section.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export CASERUN_DIR=${CASE_DIR}${CASENAME}/runs/
 export WRFARCHIVE_DIR=${CASERUN_DIR}archive/
 export LILAC_DIR=${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/lilac/ctsm_build_dir/runtime_inputs/
@@ -227,6 +231,16 @@ mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">6</span
 </ul>
 
   </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="inputdata.html"
+                          title="previous chapter">2 Input data</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="nest_simulation.html"
+                          title="next chapter">4 Nest Simulation</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -254,7 +268,14 @@ mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">6</span
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="nest_simulation.html" title="4 Nest Simulation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inputdata.html" title="2 Input data"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">CESM-LCZ  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >WRF-CTSM User Guide</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
       </ul>
     </div>
