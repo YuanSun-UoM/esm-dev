@@ -15,10 +15,16 @@ The following scripts are provided by the author for installing WRF-CTSM on a Li
 - [zlib-1_3_1.sh](scripts/software/zlib-1_3_1.sh)
 - [hdf5-1_12_3.sh](scripts/software/hdf5-1_12_3.sh)
 - [pnetcdf-1_12_3.sh](scripts/software/pnetcdf-1_12_3.sh)
+  - To support netcdf-c and netcdf-fortran with parallel enabled.
+
 - [netcdfc-4_9_2.sh](scripts/software/netcdfc-4_9_2.sh)
 - [netcdff-4_6_1.sh](scripts/software/netcdff-4_6_1.sh)
 - [pio-2_6_6.sh](scripts/software/pio-2_6_6.sh)
+  - To support ESMF.
+
 - [esmf-8_8_1.sh](scripts/software/esmf-8_8_1.sh)
+  - Required by CTSM5.2 and later versions. 
+
 - [jasper-4_2_5.sh](scripts/software/jasper-4_2_5.sh)
 - [libpng-1_6_39.sh](scripts/software/libpng-1_6_39.sh)
 - [lapack-3_9_0.sh](scripts/software/lapack-3_9_0.sh)
@@ -229,7 +235,7 @@ git checkout ctsm5.3.024
          !YS 
     ```
   
-- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify ``${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding:
+- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding:
 
   ```
   lake_depth = wrf_file->LAKE_DEPTH(0,:,:) 

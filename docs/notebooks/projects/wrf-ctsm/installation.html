@@ -18,7 +18,7 @@
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="2 Input data" href="inputdata.html" />
+    <link rel="next" title="2 Input Data" href="inputdata.html" />
     <link rel="prev" title="WRF-CTSM User Guide" href="index.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="inputdata.html" title="2 Input data"
+          <a href="inputdata.html" title="2 Input Data"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="WRF-CTSM User Guide"
@@ -284,7 +284,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
 </li>
 </ul>
 </li>
-<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify ``${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding:</p>
+<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl</span></code> by adding:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lake_depth</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LAKE_DEPTH</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
 <span class="n">lu_index</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LU_INDEX</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
 <span class="n">lakemask</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">lu_index</span><span class="o">.</span><span class="n">eq</span><span class="mf">.21</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> 
@@ -830,7 +830,7 @@ LAPACKPATH      =    /home/yuansun/software/gcc/lapack/3.9.0
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="inputdata.html"
-                          title="next chapter">2 Input data</a></p>
+                          title="next chapter">2 Input Data</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -860,7 +860,7 @@ LAPACKPATH      =    /home/yuansun/software/gcc/lapack/3.9.0
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="inputdata.html" title="2 Input data"
+          <a href="inputdata.html" title="2 Input Data"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="WRF-CTSM User Guide"

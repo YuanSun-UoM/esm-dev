@@ -229,7 +229,7 @@ git checkout ctsm5.3.024
          !YS 
     ```
   
-- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify ``${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding:
+- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding:
 
   ```
   lake_depth = wrf_file->LAKE_DEPTH(0,:,:) 

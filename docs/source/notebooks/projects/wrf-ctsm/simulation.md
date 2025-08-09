@@ -92,6 +92,8 @@ Please refer to official resources:
 - [WRF user guide](https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/index.html)
 - [WRF-ARW online tutorials](https://www2.mmm.ucar.edu/wrf/OnLineTutorial/)
 
+To enable WRF-CTSM, set `sf_surface_physics = 6` in the `namelist.input`.
+
 ## 3.3 Run WRF-CTSM
 
 ```bash

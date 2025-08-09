@@ -79,7 +79,8 @@
 <h2>2.2 Construct Grid Cell Boxes<a class="headerlink" href="#construct-grid-cell-boxes" title="Link to this heading">¶</a></h2>
 <ul>
 <li><p>Construct the rectangular bounding box for each cell</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds_std</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;surfdata_001x001_MCR_SSP3-7.0_2022_78pfts_c240930.nc&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># this is an example of regional surface data</span>
+<span class="n">ds_std</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;surfdata_001x001_MCR_SSP3-7.0_2022_78pfts_c240930.nc&#39;</span><span class="p">)</span>
 <span class="n">ds_lon</span> <span class="o">=</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;LONGXY&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> 
 <span class="n">ds_lat</span> <span class="o">=</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;LATIXY&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">lon_min</span> <span class="o">=</span> <span class="n">ds_lon</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
@@ -165,6 +166,21 @@
                       <span class="n">name</span><span class="o">=</span><span class="s2">&quot;PCT&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<ul>
+<li><p>Note that CTSM uses a  ‘’mosaic’’ representation, where every grid cell has 10 LCZ classes. For high-resolution urban climate simulation, we may want each grid cell to represent a single dominant LCZ class (a “dominant” representation). In this case, please add <code class="docutils literal notranslate"><span class="pre">collapse_urban</span> <span class="pre">=</span> <span class="pre">.true.</span></code> into the <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>.</p>
+<ul>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">CTSM/bld/namelist_files/namelist_definition_ctsm.xml</span></code>, <code class="docutils literal notranslate"><span class="pre">collapse_urban</span></code> is defined as:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;entry</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;collapse_urban&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;logical&quot;</span><span class="w"> </span><span class="na">category=</span><span class="s">&quot;physics&quot;</span>
+<span class="w">       </span><span class="na">group=</span><span class="s">&quot;clm_inparm&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;.false.&quot;</span><span class="nt">&gt;</span>
+If<span class="w"> </span>true,<span class="w"> </span>this<span class="w"> </span>directs<span class="w"> </span>the<span class="w"> </span>model<span class="w"> </span>to<span class="w"> </span>collapse<span class="w"> </span>the<span class="w"> </span>urban<span class="w"> </span>landunits<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>dominant<span class="w"> </span>urban<span class="w"> </span>landunit.<span class="w"> </span>Selecting<span class="w"> </span>.false.<span class="w"> </span>means<span class="w"> </span>DO<span class="w"> </span>NOTHING,<span class="w"> </span>ie<span class="w"> </span>all<span class="w"> </span>urban<span class="w"> </span>landunits<span class="w"> </span>found<span class="w"> </span>in<span class="w"> </span>the<span class="w"> </span>input<span class="w"> </span>data<span class="w"> </span>are<span class="w"> </span>active.
+<span class="nt">&lt;default&gt;</span>Default:<span class="w"> </span>.false.<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/entry&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </section>

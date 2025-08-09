@@ -16,3 +16,4 @@ CESM-LCZ User Guide
 
    code_modification.md
    inputdata.md
+   simulation.md

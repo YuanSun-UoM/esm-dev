@@ -4,7 +4,7 @@
 
 - Paper "Sun, Y., et al. (2024). Improving Urban Climate Adaptation Modelling in the Community Earth System Model (CESM) Through Transient Urban Surface Albedo Representation. *Journal of Advances in Modeling Earth Systems*, 16(12), e2024MS004380. [10.1029/2024MS004380](https://doi.org/10.1029/2024MS004380)"
   - [GitHub Repository](https://github.com/envdes/code_DynamicUrbanAlbedo)
-  - [Open Access Data](https://doi.org/10.48420/27867357)
+  - [(Open Access) Simulation Input and Output Data & Job Scripts](https://doi.org/10.48420/27867357)
   
   - Presentation: [29th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2024-06/2024cesmlmwgsun.pdf), [12th ICUC](../files/ICUC12-33.pdf)
 
@@ -16,11 +16,14 @@
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
   - Presentation: [21st AOGS](../files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf)
   
+- Paper ""
+  - [GitHub Repository]()
+
 - [CESM-LCZ User Guide](projects/lcz/index.rst)
 
 ## Modeling Urban Traffic Heat Flux in CESM
 
-- Paper
+- Paper ""
   - [GitHub Repository]()
   - Presentation: [30th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2025-06/2025cesmsun.pdf)
 
@@ -28,7 +31,7 @@
 
 ## Coupling WRF and CTSM (WRF-CTSM)
 
-- Paper 
+- Paper ""
   - [GitHub Repository]()
 - [WRF-CTSM User Guide](projects/wrf-ctsm/index.rst)
 

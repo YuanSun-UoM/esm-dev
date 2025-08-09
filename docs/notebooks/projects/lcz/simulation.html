@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3 Simulation &#8212; esm-dev  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="WRF-CTSM User Guide" href="../wrf-ctsm/index.html" />
+    <link rel="prev" title="2 Surface Input" href="inputdata.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM User Guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inputdata.html" title="2 Surface Input"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CESM-LCZ User Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="simulation">
+<h1>3 Simulation<a class="headerlink" href="#simulation" title="Link to this heading">¶</a></h1>
+<p>The following scripts are provided by the author for running CESM with LCZs.</p>
+<section id="modify-job-script">
+<h2>Modify job script<a class="headerlink" href="#modify-job-script" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">use_lcz</span></code>: If true, use 10-LCZ urban land cover representation instead of the default 3-class scheme.</p></li>
+<li><p>Define the LCZ-based surface input. Refer to <a class="reference internal" href="inputdata.html"><span class="std std-doc">Inputdata</span></a>.</p></li>
+<li><p>Define the LCZ-based <code class="docutils literal notranslate"><span class="pre">T_BUILDING_MAX</span></code> stream and set the stream start and end time covering the simulation period.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>echo<span class="w"> </span>&quot;use_lcz<span class="w"> </span>=<span class="w"> </span>.true.&quot;&gt;&gt;<span class="w"> </span>user_nl_clm
+echo<span class="w"> </span>&quot;fsurdat=&#39;${SURF}&#39;&quot;<span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+echo<span class="w"> </span>&quot;stream_fldfilename_urbantv<span class="w"> </span>=<span class="w"> </span>&#39;${INPUT}/project2/CTSM52_tbuildmax_OlesonFeddema_2020_0.9x1.25_simyr1849-2106_c240520.nc&#39;&quot;&gt;&gt;<span class="w"> </span>user_nl_clm<span class="w"> </span>
+echo<span class="w"> </span>&quot;stream_year_first_urbantv<span class="w"> </span>=<span class="w"> </span>1849&quot;<span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+echo<span class="w"> </span>&quot;stream_year_last_urbantv<span class="w"> </span>=<span class="w"> </span>2106&quot;<span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+echo<span class="w"> </span>&quot;model_year_align_urbantv<span class="w"> </span>=<span class="w"> </span>1849&quot;<span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+</pre></div>
+</div>
+</li>
+<li><p>(optional) Enable <code class="docutils literal notranslate"><span class="pre">collapse_urban</span> <span class="pre">=</span> <span class="pre">.true.</span></code> to represent a single dominant LCZ class for each grid cell containing urban fractions.</p>
+<ul class="simple">
+<li><p>This is cost-efficient for high-resolution simulations.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="surface-initial-data">
+<h2>Surface initial data<a class="headerlink" href="#surface-initial-data" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Currently, we do not have global initial data that fits well for LCZ urban classes. Thus, we need to spin up the model from a cold start.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">3 Simulation</a><ul>
+<li><a class="reference internal" href="#modify-job-script">Modify job script</a></li>
+<li><a class="reference internal" href="#surface-initial-data">Surface initial data</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="inputdata.html"
+                          title="previous chapter">2 Surface Input</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../wrf-ctsm/index.html"
+                          title="next chapter">WRF-CTSM User Guide</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/lcz/simulation.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM User Guide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inputdata.html" title="2 Surface Input"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >CESM-LCZ User Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

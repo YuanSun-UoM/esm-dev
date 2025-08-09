@@ -28,6 +28,7 @@ The default surface dataset, for example, `surfdata_001x001_MCR_SSP3-7.0_2022_78
 - Construct the rectangular bounding box for each cell
 
   ```python
+  # this is an example of regional surface data
   ds_std = xr.open_dataset('surfdata_001x001_MCR_SSP3-7.0_2022_78pfts_c240930.nc')
   ds_lon = ds_std['LONGXY'][0] 
   ds_lat = ds_std['LATIXY'][:,0]
@@ -114,7 +115,20 @@ The default surface dataset, for example, `surfdata_001x001_MCR_SSP3-7.0_2022_78
                         name="PCT")
   ```
 
-  
+  - Note that CTSM uses a  ''mosaic'' representation, where every grid cell has 10 LCZ classes. For high-resolution urban climate simulation, we may want each grid cell to represent a single dominant LCZ class (a "dominant" representation). In this case, please add `collapse_urban = .true.` into the `user_nl_clm`.
+
+    - In `CTSM/bld/namelist_files/namelist_definition_ctsm.xml`, `collapse_urban` is defined as:
+
+      ```xml
+      <entry id="collapse_urban" type="logical" category="physics"
+             group="clm_inparm" value=".false.">
+      If true, this directs the model to collapse the urban landunits to the dominant urban landunit. Selecting .false. means DO NOTHING, ie all urban landunits found in the input data are active.
+      <default>Default: .false.</default>
+      </entry>
+      ```
+
+      
+
 
 ## 2.3 Fit CTSM land fraction
 

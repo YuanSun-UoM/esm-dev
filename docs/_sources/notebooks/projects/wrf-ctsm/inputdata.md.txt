@@ -1,4 +1,4 @@
-# 2 Input data
+# 2 Input Data
 
 The following scripts are provided by the author for creating input data for a **single-domain** simulation. Instructions for generating input data for nested, multi-domain simulations are described in a separate section.
 
