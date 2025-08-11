@@ -6,9 +6,9 @@ set -e
 WORK=/home/yuansun
 INROOT=${WORK}/software
 NAME=jasper
-APPVER=4.2.5
+APPVER=1.900.1
 COMPILER=gcc
-APP=4_2_5
+APP=1_900_1
 FLODER=${NAME}-${APP}
 
 # set the install & executable directory
@@ -31,17 +31,24 @@ mkdir $APPVER build archive
 cd archive
 
 # download the JASPER code
-wget -c -4 https://github.com/jasper-software/jasper/releases/download/version-${APPVER}/jasper-${APPVER}.tar.gz
-tar zxvf jasper-${APPVER}.tar.gz
+wget https://www.ece.uvic.ca/~frodo/jasper/software/jasper-${APPVER}.zip
+unzip jasper-${APPVER}.zip
 mv ${NAME}-${APPVER} $APPROOT/build/${FLODER}
 cd $APPROOT/build/$FLODER
 SOURCE_DIR=${APPROOT}/build/jasper-${APP}
 BUILD=${APPROOT}/build/jasper-${APP}-build
+MPICHDIR=${INROOT}/${COMPILER}/mpich/4.0.2
+HDF5DIR=${INROOT}/${COMPILER}/hdf5/1.12.3
+NETCDFCDIR=${INROOT}/${COMPILER}/netcdf-c/4.9.2
+NETCDFFDIR=${INROOT}/${COMPILER}/netcdf-fortran/4.6.1
+export CPPFLAGS="-I$MPICHDIR/include -I$HDF5DIR/include -I$NETCDFCDIR/include -I$NETCDFFDIR/include"
+export LDFLAGS="-L$MPICHDIR/lib -L$HDF5DIR/lib -L$NETCDFCDIR/lib -L$NETCDFFDIR/lib"
+export PATH="$MPICHDIR/bin:$HDF5DIR/bin:$NETCDFCDIR/bin:$NETCDFFDIR/bin:$PATH"
+export CC=mpicc
+export FC=mpifort
+export MPICXX=mpicxx
+MY_INSTALL=${APPROOT}/${APPVER}
 
-cmake -G "Unix Makefiles" -H$SOURCE_DIR -B$BUILD -DCMAKE_INSTALL_PREFIX=$JASPERDIR \
-                          -DJAS_ENABLED_SHARED=ON -DJAS_ENABLE_LIBJPEG=ON \
-                          -DCMAKE_C_COMPILER=gcc-9 \
-                          -DCMAKE_CXX_COMPILER=g++-9
-cd $BUILD
-make -j$(nproc)
-make install              
+./configure --prefix=${MY_INSTALL}
+make -j 4
+make install            

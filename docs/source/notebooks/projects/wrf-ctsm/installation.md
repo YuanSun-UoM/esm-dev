@@ -25,7 +25,10 @@ The following scripts are provided by the author for installing WRF-CTSM on a Li
 - [esmf-8_8_1.sh](scripts/software/esmf-8_8_1.sh)
   - Required by CTSM5.2 and later versions. 
 
-- [jasper-4_2_5.sh](scripts/software/jasper-4_2_5.sh)
+- [jasper-1_900_1.sh](scripts/software/jasper-1_900_1.sh)
+  - WPS requires old jasper versions. 
+
+
 - [libpng-1_6_39.sh](scripts/software/libpng-1_6_39.sh)
 - [lapack-3_9_0.sh](scripts/software/lapack-3_9_0.sh)
 
