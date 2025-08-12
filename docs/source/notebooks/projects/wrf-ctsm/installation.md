@@ -238,15 +238,14 @@ git checkout ctsm5.3.024
          !YS 
     ```
   
-- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding:
+- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding code below after Line around 21:
 
   ```
-  lake_depth = wrf_file->LAKE_DEPTH(0,:,:) 
   lu_index = wrf_file->LU_INDEX(0,:,:) 
   lakemask = where(lu_index.eq.21, 1,0) 
   landmask = where (lakemask.eq.1,1,landmask)
   ```
-
+  
 - According to [CTSM-Norway tutorial](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/mkunitymap.ncl`, around Line 74:
 
   - From:
@@ -349,7 +348,7 @@ git checkout v4.3
 - According to [CTSM-Norway tutorial](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/), build the `gen_domain` tool:
 
   ```
-  cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools
+  cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/cime/tools
   touch configure_wrf-ctsm
   ```
 
@@ -575,11 +574,16 @@ git checkout v4.3
   ```
   chmod +x configure_wrf-ctsm
   
-  cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/mapping/gen_domain_files/src/
+  export NETCDF_PATH=${NETCDFFDIR}
+  cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/cime/tools/mapping/gen_domain_files/src/
   ../../../configure_wrf-ctsm --machine ${MACHINENAME} --compiler gnu --mpilib mpich --macros-format Makefile 
   
   . ./.env_mach_specific.sh ; make 
   ```
+  
+  - Note: if build fails, run `make clean` before re-build.
+
+
 
 ### Build WRF
 

@@ -37,7 +37,7 @@ Running WPS with `namelist.wps` should generate `met_em.d01.*` and `geo_em.d01.n
 ## 2.3 Run `create_scrip_file.ncl`
 
 ```bash
-cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/create_scrip_file.ncl/
+cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/
 ln -sf ${WPSINPUT_DIR}geo_em.d01.nc .
 ncl create_scrip_file.ncl > ${CTSMINPUT_DIR}/create_scrip_file.log 2>&1
 mv *nc ${CTSMINPUT_DIR}
@@ -46,7 +46,7 @@ rm geo_em.d01.nc
 
 - If run successfully, `wrf2clm_land.nc` and `wrf2clm_ocean.nc` should be created.
 
-- Then, unstructure the `wrf2cl_land.nc` to get unstructured mesh
+- Then, unstructure the `wrf2cl_land.nc` to get unstructured mesh files. 
 
   ```bash
   cd ${CTSMINPUT_DIR}
@@ -62,7 +62,7 @@ rm geo_em.d01.nc
 ## 2.4 Run `mkunitymap.ncl`
 
 ```bash
-cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/mkunitymap.ncl/
+cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/
 export GRIDFILE1=${CTSMINPUT_DIR}/wrf2clm_ocean.nc
 export GRIDFILE2=${CTSMINPUT_DIR}/wrf2clm_land.nc
 export MAPFILE=${CTSMINPUT_DIR}/wrf2clm_mapping.nc
@@ -71,6 +71,21 @@ ncl mkunitymap.ncl > ${CTSMINPUT_DIR}/mkunitymap.log 2>&1
 ```
 
 - If run successfully, `wrf2clm_mapping.nc` should be created.
+
+Then, unstructure the file:
+
+```bash
+cd ${CTSMINPUT_DIR}
+export ESMF=${ESMFDIR}/bin
+export GRIDFILE=wrf2clm_land.nc
+export LANDMESHFILE=lnd_mesh.nc
+${ESMF}/ESMF_Scrip2Unstruct ${GRIDFILE} ${LANDMESHFILE} 0
+ncap2 -s 'elementMask(:)=0' ${LANDMESHFILE} mask_${LANDMESHFILE} --overwrite
+```
+
+- Check `PET0.ESMF_logFile` to see if `ESMF_Scrip2Unstruct` works successfully.
+
+
 
 ## 2.5 Run `gen_domain`
 
@@ -88,6 +103,9 @@ mv domain.* ${CTSMINPUT_DIR}
 ## 2.6 Run `gen_mksurfdata_namelist`
 
 ```bash
+# activate a Python virtual environment
+source /home/yuansun/.venv/bin/activate
+
 cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/mksurfdata_esmf
 export START_YEAR=2022
 export END_YEAR=2022
@@ -97,7 +115,11 @@ export RES=3.6x3.6
 mv surfdata* ${CTSMINPUT_DIR}
 ```
 
+- `model-mesh-nx` is equal to `e_we`-1 from the `namelist.wps` and `model-mesh-ny`  as `e_sn`-1.
 - If run successfully, `surfdata.namelist` should be created.
+- Note: `if start-year > 2023 must add an --ssp_rcp argument that is not none: valid opts for ssp-rcp are {'ssp-rcp': ['SSP1-2.6', 'SSP3-7.0', 'SSP5-3.4', 'SSP2-4.5', 'SSP1-1.9', 'SSP4-3.4', 'SSP4-6.0', 'SSP5-8.5', 'none']}`
+
+
 
 ## 2.7 Run `mksurfdata_esmf`
 
