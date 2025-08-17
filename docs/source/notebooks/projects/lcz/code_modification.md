@@ -2,7 +2,7 @@
 
 The following scripts are provided by the author to enable urban LCZ (Local Climate Zone) classification within the [Community Terrestrial Systems Model (CTSM)](https://github.com/ESCOMP/CTSM), the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend **manual code modification** to ensure compatibility.
 
-## 1.1 Use Modified Code Based on CTSM5.2.005
+## 1.1 Method 1: Use Modified Code Based on CTSM5.2.005
 
 The author provides modified source files based on CTSM version 5.2.005. Users may directly replace the corresponding original files in their CTSM codebase with the modified versions listed below.
 
@@ -22,8 +22,11 @@ cd ${CTSMNAME}
 ### Replace Modified Files
 
 - [‎bld/namelist_files/namelist_definition_ctsm.xml](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/bld/namelist_files/namelist_definition_ctsm.xml)
+  - To add `use_lcz` to the namelist.
 
 - [src/main/landunit_varcon.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/landunit_varcon.F90)
+  - To define LCZ-based urban landunit types.
+
 - [src/main/initGridCellsMod.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/initGridCellsMod.F90)
 - [src/main/subgridMod.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/subgridMod.F90)
 - [src/main/LandunitType.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/LandunitType.F90)
@@ -33,7 +36,7 @@ cd ${CTSMNAME}
 - [src/main/clm_varctl.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/clm_varctl.F90)
 - [src/main/controlMod.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/controlMod.F90)
 
-## 1.2 Manual Code Modifications for Specific CTSM Versions
+## 1.2 Method 2: Manual Code Modifications for Specific CTSM Versions
 
 For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language. 
 
@@ -41,7 +44,7 @@ For a specific CTSM version, users need to manually modify the source code, whic
 
 ```fortran
 !YS
-MODIFICATION
+MODIFICATION CODE
 !YS
 ```
 
@@ -60,6 +63,29 @@ git checkout ctsm5.3.024
 
 ### Code Modification
 
+- Modify `bld/namelist_files/namelist_defaults_ctsm.xml` at the bottom line,
+
+  - From:
+
+    ```xml
+    <use_original_tillage_phases>.false.</use_original_tillage_phases>
+    <max_tillage_depth>0.26d00</max_tillage_depth>
+    </namelist_defaults>
+    ```
+  
+  - To:
+  
+    ```
+    <use_original_tillage_phases>.false.</use_original_tillage_phases>
+    <max_tillage_depth>0.26d00</max_tillage_depth>
+    <!--!YS-->
+    <!-- LCZ Landunit -->
+    <use_lcz>.false.</use_lcz>
+    </namelist_defaults>
+    ```
+  
+    - This is used to set `use_lcz = .false.` by default.
+  
 - Modify `bld/namelist_files/namelist_definition_ctsm.xml` at the bottom line,
 
   - From:

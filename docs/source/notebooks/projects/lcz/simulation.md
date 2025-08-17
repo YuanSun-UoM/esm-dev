@@ -10,7 +10,7 @@ The following scripts are provided by the author for running CESM with LCZs.
 
 - Define the LCZ-based `T_BUILDING_MAX` stream and set the stream start and end time covering the simulation period. 
 
-  ```xml
+  ```bash
   echo "use_lcz = .true.">> user_nl_clm
   echo "fsurdat='${SURF}'" >> user_nl_clm
   echo "stream_fldfilename_urbantv = '${INPUT}/project2/CTSM52_tbuildmax_OlesonFeddema_2020_0.9x1.25_simyr1849-2106_c240520.nc'">> user_nl_clm 

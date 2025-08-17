@@ -8,7 +8,9 @@
   
   - Presentation: [29th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2024-06/2024cesmlmwgsun.pdf), [12th ICUC](../files/ICUC12-33.pdf)
 
-- [CESM-TranUrbAlb User Guide]()
+- [CESM-TranUrbAlb User Guide](./transient_urban_albedo/index.rst)
+
+
 
 ## Representing Urban LCZ Land Cover in CESM (CESM-LCZ)
 
@@ -23,8 +25,8 @@
 
 ## Modeling Urban Traffic Heat Flux in CESM
 
-- Paper ""
-  - [GitHub Repository]()
+- Paper "Modeling urban traffic heat flux in the Community Earth System Model"
+  - [GitHub Repository](https://github.com/envdes/code_CLMU_traffic)
   - Presentation: [30th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2025-06/2025cesmsun.pdf)
 
 - [CESM-Traffic User Guide]()
