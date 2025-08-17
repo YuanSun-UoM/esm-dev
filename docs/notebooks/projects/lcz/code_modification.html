@@ -51,8 +51,8 @@
   <section id="code-modification">
 <h1>1 Code Modification<a class="headerlink" href="#code-modification" title="Link to this heading">¶</a></h1>
 <p>The following scripts are provided by the author to enable urban LCZ (Local Climate Zone) classification within the <a class="reference external" href="https://github.com/ESCOMP/CTSM">Community Terrestrial Systems Model (CTSM)</a>, the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend <strong>manual code modification</strong> to ensure compatibility.</p>
-<section id="use-modified-code-based-on-ctsm5-2-005">
-<h2>1.1 Use Modified Code Based on CTSM5.2.005<a class="headerlink" href="#use-modified-code-based-on-ctsm5-2-005" title="Link to this heading">¶</a></h2>
+<section id="method-1-use-modified-code-based-on-ctsm5-2-005">
+<h2>1.1 Method 1: Use Modified Code Based on CTSM5.2.005<a class="headerlink" href="#method-1-use-modified-code-based-on-ctsm5-2-005" title="Link to this heading">¶</a></h2>
 <p>The author provides modified source files based on CTSM version 5.2.005. Users may directly replace the corresponding original files in their CTSM codebase with the modified versions listed below.</p>
 <section id="download-source-code">
 <h3>Download Source Code<a class="headerlink" href="#download-source-code" title="Link to this heading">¶</a></h3>
@@ -71,8 +71,16 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 <section id="replace-modified-files">
 <h3>Replace Modified Files<a class="headerlink" href="#replace-modified-files" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/bld/namelist_files/namelist_definition_ctsm.xml">‎bld/namelist_files/namelist_definition_ctsm.xml</a></p></li>
-<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/landunit_varcon.F90">src/main/landunit_varcon.F90</a></p></li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/bld/namelist_files/namelist_definition_ctsm.xml">‎bld/namelist_files/namelist_definition_ctsm.xml</a></p>
+<ul>
+<li><p>To add <code class="docutils literal notranslate"><span class="pre">use_lcz</span></code> to the namelist.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/landunit_varcon.F90">src/main/landunit_varcon.F90</a></p>
+<ul>
+<li><p>To define LCZ-based urban landunit types.</p></li>
+</ul>
+</li>
 <li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/initGridCellsMod.F90">src/main/initGridCellsMod.F90</a></p></li>
 <li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/subgridMod.F90">src/main/subgridMod.F90</a></p></li>
 <li><p><a class="reference external" href="https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/LandunitType.F90">src/main/LandunitType.F90</a></p></li>
@@ -84,12 +92,12 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 </ul>
 </section>
 </section>
-<section id="manual-code-modifications-for-specific-ctsm-versions">
-<h2>1.2 Manual Code Modifications for Specific CTSM Versions<a class="headerlink" href="#manual-code-modifications-for-specific-ctsm-versions" title="Link to this heading">¶</a></h2>
+<section id="method-2-manual-code-modifications-for-specific-ctsm-versions">
+<h2>1.2 Method 2: Manual Code Modifications for Specific CTSM Versions<a class="headerlink" href="#method-2-manual-code-modifications-for-specific-ctsm-versions" title="Link to this heading">¶</a></h2>
 <p>For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language.</p>
 <p><strong>Modified code sections are denoted using the following markers:</strong></p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
-<span class="n">MODIFICATION</span>
+<span class="n">MODIFICATION</span><span class="w"> </span><span class="n">CODE</span>
 <span class="c">!YS</span>
 </pre></div>
 </div>
@@ -110,6 +118,30 @@ git checkout ctsm5.3.024
 <section id="id2">
 <h3>Code Modification<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <ul>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">bld/namelist_files/namelist_defaults_ctsm.xml</span></code> at the bottom line,</p>
+<ul>
+<li><p>From:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;use_original_tillage_phases&gt;</span>.false.<span class="nt">&lt;/use_original_tillage_phases&gt;</span>
+<span class="nt">&lt;max_tillage_depth&gt;</span>0.26d00<span class="nt">&lt;/max_tillage_depth&gt;</span>
+<span class="nt">&lt;/namelist_defaults&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>To:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;use_original_tillage_phases&gt;.false.&lt;/use_original_tillage_phases&gt;
+&lt;max_tillage_depth&gt;0.26d00&lt;/max_tillage_depth&gt;
+&lt;!--!YS--&gt;
+&lt;!-- LCZ Landunit --&gt;
+&lt;use_lcz&gt;.false.&lt;/use_lcz&gt;
+&lt;/namelist_defaults&gt;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>This is used to set <code class="docutils literal notranslate"><span class="pre">use_lcz</span> <span class="pre">=</span> <span class="pre">.false.</span></code> by default.</p></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>Modify <code class="docutils literal notranslate"><span class="pre">bld/namelist_files/namelist_definition_ctsm.xml</span></code> at the bottom line,</p>
 <ul>
 <li><p>From:</p>
@@ -904,12 +936,12 @@ If<span class="w"> </span>TRUE,<span class="w"> </span>urban<span class="w"> </s
     <h3><a href="../../../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">1 Code Modification</a><ul>
-<li><a class="reference internal" href="#use-modified-code-based-on-ctsm5-2-005">1.1 Use Modified Code Based on CTSM5.2.005</a><ul>
+<li><a class="reference internal" href="#method-1-use-modified-code-based-on-ctsm5-2-005">1.1 Method 1: Use Modified Code Based on CTSM5.2.005</a><ul>
 <li><a class="reference internal" href="#download-source-code">Download Source Code</a></li>
 <li><a class="reference internal" href="#replace-modified-files">Replace Modified Files</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#manual-code-modifications-for-specific-ctsm-versions">1.2 Manual Code Modifications for Specific CTSM Versions</a><ul>
+<li><a class="reference internal" href="#method-2-manual-code-modifications-for-specific-ctsm-versions">1.2 Method 2: Manual Code Modifications for Specific CTSM Versions</a><ul>
 <li><a class="reference internal" href="#id1">Download Source Code</a></li>
 <li><a class="reference internal" href="#id2">Code Modification</a></li>
 </ul>

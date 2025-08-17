@@ -8,7 +8,7 @@
   
   - Presentation: [29th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2024-06/2024cesmlmwgsun.pdf), [12th ICUC](../files/ICUC12-33.pdf)
 
-- [CESM-TranUrbAlb User Guide](./transient_urban_albedo/index.rst)
+- [CESM-TranUrbAlb User Guide](projects/transient_urban_albedo/index.rst)
 
 
 

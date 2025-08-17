@@ -54,7 +54,7 @@ The following scripts are provided by the author to restart a WRF-CTSM simulatio
 
 - In case we want to restart based on `wrfrst_d01_2022-03-04_00:00:00`, we need to change the time for `*.clm2.r.*` and `*.lilac.r.*` .
 
-  ```
+  ```bash
   export RESTART_DATE="2022-03-10"
   export start_ymd=20220310
   

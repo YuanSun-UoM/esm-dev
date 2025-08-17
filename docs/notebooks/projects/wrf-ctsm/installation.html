@@ -67,12 +67,28 @@
 <li><p><a class="reference download internal" download="" href="../../../_downloads/72d3c865a39b1b669da08db83a8087e1/mpich-4_0_2.sh"><span class="xref download myst">mpich-4_0_2.sh</span></a></p></li>
 <li><p><a class="reference download internal" download="" href="../../../_downloads/84c0938d61af6bd53f9534f62dcd1ffc/zlib-1_3_1.sh"><span class="xref download myst">zlib-1_3_1.sh</span></a></p></li>
 <li><p><a class="reference download internal" download="" href="../../../_downloads/cb2cd38078fec82ce885c2ef6c6891d8/hdf5-1_12_3.sh"><span class="xref download myst">hdf5-1_12_3.sh</span></a></p></li>
-<li><p><a class="reference download internal" download="" href="../../../_downloads/09d794e838b59f8dc5b80ef53b375385/pnetcdf-1_12_3.sh"><span class="xref download myst">pnetcdf-1_12_3.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/09d794e838b59f8dc5b80ef53b375385/pnetcdf-1_12_3.sh"><span class="xref download myst">pnetcdf-1_12_3.sh</span></a></p>
+<ul>
+<li><p>To support netcdf-c and netcdf-fortran with parallel enabled.</p></li>
+</ul>
+</li>
 <li><p><a class="reference download internal" download="" href="../../../_downloads/d133d276686a12bdb313c23449871261/netcdfc-4_9_2.sh"><span class="xref download myst">netcdfc-4_9_2.sh</span></a></p></li>
 <li><p><a class="reference download internal" download="" href="../../../_downloads/31570a6d975aee8d9eaea9ab0c8d2c96/netcdff-4_6_1.sh"><span class="xref download myst">netcdff-4_6_1.sh</span></a></p></li>
-<li><p><a class="reference download internal" download="" href="../../../_downloads/3eb037aeedb664b274cb680f71fed0da/pio-2_6_6.sh"><span class="xref download myst">pio-2_6_6.sh</span></a></p></li>
-<li><p><a class="reference download internal" download="" href="../../../_downloads/8dfdecfebc44dbf9d308391cf18ba943/esmf-8_8_1.sh"><span class="xref download myst">esmf-8_8_1.sh</span></a></p></li>
-<li><p><a class="reference download internal" download="" href="../../../_downloads/8d494730838f453955cd225a1972a858/jasper-4_2_5.sh"><span class="xref download myst">jasper-4_2_5.sh</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/3eb037aeedb664b274cb680f71fed0da/pio-2_6_6.sh"><span class="xref download myst">pio-2_6_6.sh</span></a></p>
+<ul>
+<li><p>To support ESMF.</p></li>
+</ul>
+</li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/8dfdecfebc44dbf9d308391cf18ba943/esmf-8_8_1.sh"><span class="xref download myst">esmf-8_8_1.sh</span></a></p>
+<ul>
+<li><p>Required by CTSM5.2 and later versions.</p></li>
+</ul>
+</li>
+<li><p><a class="reference download internal" download="" href="../../../_downloads/90d65a735fe34fcc01b057590d49270b/jasper-1_900_1.sh"><span class="xref download myst">jasper-1_900_1.sh</span></a></p>
+<ul>
+<li><p>WPS requires old jasper versions.</p></li>
+</ul>
+</li>
 <li><p><a class="reference download internal" download="" href="../../../_downloads/80c7a7552f91267e0a448c1e9d866247/libpng-1_6_39.sh"><span class="xref download myst">libpng-1_6_39.sh</span></a></p></li>
 <li><p><a class="reference download internal" download="" href="../../../_downloads/a1ab348014da847e2c53b95a376257fe/lapack-3_9_0.sh"><span class="xref download myst">lapack-3_9_0.sh</span></a></p></li>
 </ul>
@@ -284,9 +300,8 @@ git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
 </li>
 </ul>
 </li>
-<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl</span></code> by adding:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lake_depth</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LAKE_DEPTH</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
-<span class="n">lu_index</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LU_INDEX</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
+<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl</span></code> by adding code below after Line around 21:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lu_index</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LU_INDEX</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
 <span class="n">lakemask</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">lu_index</span><span class="o">.</span><span class="n">eq</span><span class="mf">.21</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> 
 <span class="n">landmask</span> <span class="o">=</span> <span class="n">where</span> <span class="p">(</span><span class="n">lakemask</span><span class="o">.</span><span class="n">eq</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">landmask</span><span class="p">)</span>
 </pre></div>
@@ -397,7 +412,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>v4.3
 <h3>Build geo_domain<a class="headerlink" href="#build-geo-domain" title="Link to this heading">¶</a></h3>
 <ul>
 <li><p>According to <a class="reference external" href="https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/">CTSM-Norway tutorial</a>, build the <code class="docutils literal notranslate"><span class="pre">gen_domain</span></code> tool:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/cime/tools
 touch configure_wrf-ctsm
 </pre></div>
 </div>
@@ -621,12 +636,16 @@ touch configure_wrf-ctsm
 <li><p>Run the scripts</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>chmod +x configure_wrf-ctsm
 
-cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/mapping/gen_domain_files/src/
+export NETCDF_PATH=${NETCDFFDIR}
+cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/cime/tools/mapping/gen_domain_files/src/
 ../../../configure_wrf-ctsm --machine ${MACHINENAME} --compiler gnu --mpilib mpich --macros-format Makefile 
 
 . ./.env_mach_specific.sh ; make 
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>Note: if build fails, run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> before re-build.</p></li>
+</ul>
 </li>
 </ul>
 </section>

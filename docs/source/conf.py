@@ -26,7 +26,6 @@ extensions = [
     #'nbsphinx', for ipynb
     #'nbconvert' # for ipynb
 ]
-
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 

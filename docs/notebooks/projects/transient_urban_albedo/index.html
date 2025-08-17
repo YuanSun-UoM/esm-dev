@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CESM-LCZ User Guide &#8212; esm-dev  documentation</title>
+    <title>CESM-TranUrbAlb User Guide &#8212; esm-dev  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="1 Code Modification" href="code_modification.html" />
-    <link rel="prev" title="3 Simulation" href="../transient_urban_albedo/simulation.html" />
+    <link rel="prev" title="Introduction" href="../../introduction.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
@@ -35,10 +35,10 @@
           <a href="code_modification.html" title="1 Code Modification"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../transient_urban_albedo/simulation.html" title="3 Simulation"
+          <a href="../../introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">CESM-LCZ User Guide</a></li> 
+        <li class="nav-item nav-item-this"><a href="">CESM-TranUrbAlb User Guide</a></li> 
       </ul>
     </div>  
 
@@ -47,31 +47,27 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="cesm-lcz-user-guide">
-<h1>CESM-LCZ User Guide<a class="headerlink" href="#cesm-lcz-user-guide" title="Link to this heading">¶</a></h1>
+  <section id="cesm-tranurbalb-user-guide">
+<h1>CESM-TranUrbAlb User Guide<a class="headerlink" href="#cesm-tranurbalb-user-guide" title="Link to this heading">¶</a></h1>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>You are viewing the CESM-LCZ documentation. Current development is for land-only simulation, based on CESM’s land component, CTSM. Please note that major infrastructure changes were introduced in CTSM compared to earlier versions (e.g., CLM5.0), which may not be compatible with this documentation.</p>
+<p>You are viewing the CESM-TranUrbAlb documentation. The early development is based on CLM5.0, but has been updated for CTSM. Please note that major infrastructure changes were introduced in CTSM compared to earlier versions, which may not be compatible with this documentation.</p>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">CESM-LCZ User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">CESM-TranUrbAlb User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="code_modification.html">1 Code Modification</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="code_modification.html#method-1-use-modified-code-based-on-ctsm5-2-005">1.1 Method 1: Use Modified Code Based on CTSM5.2.005</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_modification.html#method-1-use-modified-code-based-on-clm5-0-30">1.1 Method 1: Use Modified Code Based on <code class="docutils literal notranslate"><span class="pre">clm5.0.30</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="code_modification.html#method-2-manual-code-modifications-for-specific-ctsm-versions">1.2 Method 2: Manual Code Modifications for Specific CTSM Versions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="inputdata.html">2 Surface Input</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="inputdata.html#prepare-default-surface-dataset">2.1 Prepare Default Surface Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="inputdata.html#construct-grid-cell-boxes">2.2 Construct Grid Cell Boxes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="inputdata.html#calculate-lcz-fraction">2.2 Calculate LCZ fraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="inputdata.html#fit-ctsm-land-fraction">2.3 Fit CTSM land fraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="inputdata.html#assign-lcz-urban-parameters">2.4 Assign LCZ Urban Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inputdata.html">2 Input Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#for-global-simulations">2.1 For Global Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputdata.html#for-regional-simulations">2.3 For Regional Simulations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="simulation.html">3 Simulation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="simulation.html#modify-job-script">Modify job script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simulation.html#surface-initial-data">Surface initial data</a></li>
 </ul>
 </li>
 </ul>
@@ -87,8 +83,8 @@
         <div class="sphinxsidebarwrapper">
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="../transient_urban_albedo/simulation.html"
-                          title="previous chapter">3 Simulation</a></p>
+    <p class="topless"><a href="../../introduction.html"
+                          title="previous chapter">Introduction</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -98,7 +94,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../../_sources/notebooks/projects/lcz/index.rst.txt"
+      <li><a href="../../../_sources/notebooks/projects/transient_urban_albedo/index.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -126,10 +122,10 @@
           <a href="code_modification.html" title="1 Code Modification"
              >next</a> |</li>
         <li class="right" >
-          <a href="../transient_urban_albedo/simulation.html" title="3 Simulation"
+          <a href="../../introduction.html" title="Introduction"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">CESM-LCZ User Guide</a></li> 
+        <li class="nav-item nav-item-this"><a href="">CESM-TranUrbAlb User Guide</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

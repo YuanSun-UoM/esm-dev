@@ -24,8 +24,34 @@ open ${DOCS_DIR}/index.html
 touch docs/.nojekyll
 ```
 
+```
+conda activate testingenv
+export GITHUB_DIR=/Users/user/Desktop/YuanSun-UoM/
+export REPO_NAME=esm-dev
+export GITROPO_DIR=${GITHUB_DIR}${REPO_NAME}/
+export DOCS_DIR=${GITROPO_DIR}docs/
+cd ${DOCS_DIR}
+sphinx-quickstart
+```
+
+
+
 - change docs style in `conf.py`
 - For GitHub, enable **Discussions** and add **issue templates** in **Settings**.
 - For GitHub Page, set the source as `Deploy from a branch`, set the Branch as `main/docs/`
   - The HTML files should be directly in the `docs` rather than inner folder
   - `touch docs/.nojekyll` because GitHub Pages uses Jekyll by default, which **ignores _static/** folders unless you disable it.
+
+- 显示浏览者地图 https://clustrmaps.com/
+
+  - 在`docs/source/index.rst`添加
+
+    ```
+    .. raw:: html
+    
+        <a href="https://clustrmaps.com/site/1c7o9" title="ClustrMaps">
+            <img src="https://www.clustrmaps.com/map_v2.png?d=DU7e_v-cQ_KGxrS5rEOq8I6QI6Um3BnrHeQaFh2q6Do&cl=ffffff">
+        </a>
+    ```
+
+    
