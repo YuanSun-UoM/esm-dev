@@ -1,4 +1,5 @@
 # esm-dev
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16918447.svg)](https://doi.org/10.5281/zenodo.16918447)
 
 This repository hosts the [documentation](https://yuansun-uom.github.io/esm-dev/) for sharing code and methods related to Earth system modeling in climate research. 
 
