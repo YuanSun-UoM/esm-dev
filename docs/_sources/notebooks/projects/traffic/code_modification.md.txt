@@ -1,0 +1,1119 @@
+# 1 Code Modification
+
+The following scripts are provided by the author to enable urban traffic heat modeling within the [Community Terrestrial Systems Model (CTSM)](https://github.com/ESCOMP/CTSM), the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend **manual code modification** to ensure compatibility.
+
+## 1.1 Method 1: Use Modified CTSM Repo Based on CTSM5.3.024
+
+The author provides a modified CTSM repository with a branch [ctsm5.3.024-Traffic](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.3.024-wrf) for directly downloading code. 
+
+- This method pins CTSM to a specific tag/branch (i.e., `ctsm5.3.024-Traffic`).
+
+```bash
+export CTSMNAME=CTSMdev
+export VERSION=ctsm5.3.024-Traffic
+cd ${WRF_ROOT}/${WRFNAME}
+git clone --branch ${VERSION} https://github.com/YuanSun-UoM/esm-dev_code ${CTSMNAME}
+cd ${CTSMNAME}
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals -S
+```
+
+
+
+## 1.2 Method 2: Use Modified Code Based on CTSM5.3.024
+
+The author provides modified source files based on [CTSM version 5.3.024](https://github.com/ESCOMP/CTSM/tree/ctsm5.3.024). Users may directly replace the corresponding original files in their CTSM codebase with the modified versions listed below.
+
+- This method is flexible for similar tags.
+
+### Download Source Code
+
+```bash
+export CTSMNAME=CTSMdev
+export VERSION=ctsm5.3.024
+cd ${WRF_ROOT}/${WRFNAME}
+git clone --branch ${VERSION} https://github.com/ESCOMP/CTSM ${CTSMNAME}
+cd ${CTSMNAME}
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals -S
+```
+
+**Note:** ctsm5.3.024 is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using. Surface data for CTSM5.3.X is available at [/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.3.0](https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.3.0/)
+
+### Replace Modified Files
+
+- [src/biogeophys/UrbanVehicleType.F90](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/src/biogeophys/UrbanVehicleType.F90)
+- [src/biogeophys/UrbanParamsType.F90](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/src/biogeophys/UrbanParamsType.F90)
+
+- [src/biogeophys/EnergyFluxType.F90](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/src/biogeophys/EnergyFluxType.F90)
+- [src/biogeophys/UrbanFluxesMod.F90](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/src/biogeophys/UrbanFluxesMod.F90)
+- [src/main/clm_instMod.F90](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/src/main/clm_instMod.F90)
+- [src/main/clm_driver.F90](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/src/main/clm_driver.F90)
+- [bld/CLMBuildNamelist.pm](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/bld/CLMBuildNamelist.pm)
+- [bld/namelist_files/namelist_defaults_ctsm.xml](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/bld/namelist_files/namelist_defaults_ctsm.xml)
+- [bld/namelist_files/namelist_definition_ctsm.xml](https://github.com/envdes/code_CLMU_traffic/blob/main/1_code_modification/bld/namelist_files/namelist_definition_ctsm.xml)
+
+## 1.3 Method 3: Manual Code Modifications for Specific CTSM Versions
+
+For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language. 
+
+- This method is suitable for a user-targeted version. 
+
+**Modified code sections are denoted using the following markers:**
+
+```fortran
+!YS
+MODIFICATION CODE
+!YS
+```
+
+### Download Source Code
+
+```bash
+export CTSMNAME=CTSMdev
+export VERSION=ctsm5.3.024
+cd ${WRF_ROOT}/${WRFNAME}
+git clone https://github.com/ESCOMP/CTSM ${CTSMNAME}
+cd ${CTSMNAME}
+git checkout ${VERSION}
+./bin/git-fleximod update
+```
+
+- **Note:** The latest CTSM updates model infrastructure and removes the `mct` coupler, which was previously used in CLM5. 
+
+### Code Modification
+
+- Modify `bld/CLMBuildNamelist.pm`:
+
+  - At around Line 1772, add
+
+    ```perl
+      ####################################
+      # namelist group: vehicletv_streams  #
+      ####################################
+      setup_logic_vehicletv_streams($opts,  $nl_flags, $definition, $defaults, $nl);
+    ```
+
+  - After around Line 2363, change:
+
+    - From:
+
+      ```perl
+        add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'building_temp_method');
+        add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'urban_hac');
+        add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'urban_explicit_ac');
+      ```
+
+    - To:
+
+      ```perl
+        add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'building_temp_method');
+        add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'urban_hac');
+        add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'urban_explicit_ac');
+      #YS  
+        add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'urban_traffic');
+      #YS 
+      ```
+
+  - After around Line 4002, add:
+
+    ```perl
+    
+    sub setup_logic_vehicletv_streams {
+      my ($opts, $nl_flags, $definition, $defaults, $nl) = @_;
+    
+      add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'vehicletvmapalgo',
+                  'hgrid'=>$nl_flags->{'res'} );
+      add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'stream_year_first_vehicletv', 'phys'=>$nl_flags->{'phys'},
+                  'sim_year'=>$nl_flags->{'sim_year'},
+                  'sim_year_range'=>$nl_flags->{'sim_year_range'});
+      add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'stream_year_last_vehicletv', 'phys'=>$nl_flags->{'phys'},
+                  'sim_year'=>$nl_flags->{'sim_year'},
+                  'sim_year_range'=>$nl_flags->{'sim_year_range'});
+      # Set align year, if first and last years are different
+      if ( $nl->get_value('stream_year_first_vehicletv') !=
+           $nl->get_value('stream_year_last_vehicletv') ) {
+         add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl,
+                     'model_year_align_vehicletv', 'sim_year'=>$nl_flags->{'sim_year'},
+                     'sim_year_range'=>$nl_flags->{'sim_year_range'});
+      }
+    #YS
+      if ( &value_is_true($nl->get_value('urban_traffic')) ) {
+         add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'stream_fldfilename_vehicletv', 'phys'=>$nl_flags->{'phys'},
+                  'hgrid'=>"0.9x1.25" );
+         if ($opts->{'driver'} eq "nuopc" ) {
+            add_default($opts, $nl_flags->{'inputdata_rootdir'}, $definition, $defaults, $nl, 'stream_meshfile_vehicletv', 'phys'=>$nl_flags->{'phys'},
+                      'hgrid'=>"0.9x1.25" );
+         }  
+    #YS                
+      }
+    }
+    
+    #-------------------------------------------------------------------------------
+    ```
+
+  - At around Line 5230, change
+
+    - From:
+
+      ```perl
+      @groups = qw(clm_inparm ndepdyn_nml popd_streams urbantv_streams light_streams
+      ```
+
+    - To:
+
+      ```perl
+      @groups = qw(clm_inparm ndepdyn_nml popd_streams urbantv_streams vehicletv_streams light_streams
+      ```
+
+- Modify `bld/namelist_files/namelist_definition_ctsm.xml` by adding:
+
+  ```xml
+  <!-- ========================================================================================  -->
+  <!-- vehicletv_streams Namelist (when CLM4_5/CLM5_0 is active)                                   -->
+  <!-- ========================================================================================  -->
+  
+  <!-- vehicle time varying -->
+  
+  <entry id="stream_year_first_vehicletv" type="integer" category="datasets"
+         group="vehicletv_streams" valid_values="" >
+  First year to loop over for urban vehicle time varying data
+  </entry>
+  
+  <entry id="stream_year_last_vehicletv" type="integer" category="datasets"
+         group="vehicletv_streams" valid_values="" >
+  Last year to loop over for urban vehicle time varying data
+  </entry>
+  
+  <entry id="model_year_align_vehicletv" type="integer" category="datasets"
+         group="vehicletv_streams" valid_values="" >
+  Simulation year that aligns with stream_year_first_vehicletv value
+  </entry>
+  
+  <entry id="stream_fldfilename_vehicletv" type="char*256" category="datasets"
+         input_pathname="abs" group="vehicletv_streams" valid_values="" >
+  Filename of input stream data for urban vehicle time varying
+  </entry>
+  
+  <entry id="stream_meshfile_vehicletv" type="char*256" category="datasets"
+         input_pathname="abs" group="vehicletv_streams" valid_values="" >
+  mesh filename of input stream data for urban vehicle time varying
+  </entry>
+  
+  <entry id="vehicletv_tintalgo" type="char*80" category="datasets"
+         group="vehicletv_streams" valid_values="linear,nearest,lower,upper" >
+  Time interpolation method to use with urban vehicle time varying streams
+  </entry>
+  
+  <entry id="vehicletvmapalgo" type="char*256" category="datasets"
+         group="vehicletv_streams" valid_values="bilinear,nn,nnoni,nnonj,spval,copy" >
+  Mapping method from urban vehicle time varying input file to the model resolution
+      bilinear = bilinear interpolation
+      nn       = nearest neighbor
+      nnoni    = nearest neighbor on the "i" (longitude) axis
+      nnonj    = nearest neighbor on the "j" (latitude) axis
+      spval    = set to special value
+      copy     = copy using the same indices
+  </entry>
+  ```
+
+- Modify `src/biogeophys/UrbanFluxesMod.F90`
+
+  - After Line 17, add:
+
+    ```fortran
+    !YS  
+      use UrbanParamsType      , only : urban_traffic
+      use UrbanVehicleType     , only : urbanvehicle_type, traffic_flux 
+      use UrbanVehicleType     , only : vehicle_speed_env, vehicle_flow_env, ev_heat_scale
+      use clm_instur           , only : urban_valid
+    !YS 
+    ```
+
+  - At around Line 89, change
+
+    - From:
+
+      ```fortran
+             energyflux_inst, waterfluxbulk_inst, wateratm2lndbulk_inst,                      &
+             humanindex_inst) 
+      ```
+
+    - To:
+
+      ```fortran
+             energyflux_inst, waterfluxbulk_inst, wateratm2lndbulk_inst,  
+             humanindex_inst,  &
+      !YS
+             urbanvehicle_inst) 
+      !YS 
+      ```
+
+  - At around Line 131, after `type(wateratm2lndbulk_type)   , intent(inout) :: wateratm2lndbulk_inst `, add:
+
+    ```fortran
+    !YS
+        type(urbanvehicle_type), intent(inout) :: urbanvehicle_inst
+    !YS
+    ```
+
+  - After around Line 237, change
+
+    - From:
+
+      ```fortran
+      eflx_traffic_factor =>   urbanparams_inst%eflx_traffic_factor      , & ! Input:  [real(r8) (:)   ]  multiplicative urban traffic factor for sensible heat flux
+      ```
+
+    - To:
+
+      ```fortran
+      !YS         eflx_traffic_factor =>   urbanparams_inst%eflx_traffic_factor      , & ! Input:  [real(r8) (:)   ]  multiplicative urban traffic factor for sensible heat flux
+      !YS
+               nlane_traffic       =>   urbanparams_inst%nlane_traffic            , & ! Input: [integer (:)] number of lanes 
+               improad_width       =>   urbanparams_inst%improad_width            , & ! Input: [float (:)] impervious road width
+               forc_rain_g         =>   wateratm2lndbulk_inst%forc_rain_not_downscaled_grc, & ! Input: [float (:)] not downscaled atm rain rate  (mm/s)
+               forc_snow_g         =>   wateratm2lndbulk_inst%forc_snow_not_downscaled_grc, & ! Input: [float (:)] not downscaled atm snow rate (mm/s)
+               vehicle_flow_in     =>   urbanvehicle_inst%vehicle_flow            , & ! Input:  [real(r8) (:)   ] lun time varying vehicle flow in
+               heat_per_vehicle    =>   urbanvehicle_inst%heat_per_vehicle        , & ! Input:  [real(r8) (:)   ] lun time varying vehicle heat emission
+               ev_scaler_grc       =>   urbanvehicle_inst%ev_scaler_grc           , & ! Output: [real(r8) (:)   ] grc electric vehicle heat scaler considering secondary environmental factor  
+               vehicle_speed_grc   =>   urbanvehicle_inst%vehicle_speed_grc       , & ! Output: [real(r8) (:)   ] grc vehicel speed considering secondary environmental factor
+               vehicle_flow_lun    =>   urbanvehicle_inst%vehicle_flow_lun        , & ! Output: [real(r8) (:)   ] lun vehicel flow in impervious road
+      !YS
+      ```
+
+  - After around Line 348 ` endl                =>   bounds%endl                               , &`, add:
+
+    ```fortran
+    !YS
+             begg                =>   bounds%begg                               , &
+             endg                =>   bounds%endg                                 &
+    !YS
+    ```
+
+  - After around Line 627, change:
+
+    - From
+
+      ```
+                  eflx_traffic(l) = (1._r8-wtlunit_roof(l))*(1._r8-wtroad_perv(l))* &
+                       eflx_traffic_factor(l)
+      ```
+
+    - To
+
+      ```fortran
+      !YS            eflx_traffic(l) = (1._r8-wtlunit_roof(l))*(1._r8-wtroad_perv(l))* &
+      !YS                 eflx_traffic_factor(l)  
+      ```
+
+  - At around Line 664, change
+
+    - From
+
+      ```fortran
+                       wtuq_road_imperv(l) + wtuq_sunwall(l) + wtuq_shadewall(l)
+               end do
+            end do         
+      ```
+
+      
+
+    - To
+
+      ```fortran
+                       wtuq_road_imperv(l) + wtuq_sunwall(l) + wtuq_shadewall(l)
+               end do  
+      !YS   
+               do g = begg, endg
+                  if (urban_valid(g) .and. urban_traffic) then
+                     call ev_heat_scale(forc_t(g), ev_scaler_grc(g))
+                     call vehicle_speed_env(forc_rain_g(g), forc_snow_g(g), vehicle_speed_grc(g))  
+                     !write(iulog,*)'forc_rain_g(g)    = ',forc_rain_g(g)  
+                     !write(iulog,*)'forc_snow_g(g)    = ',forc_snow_g(g)
+                     !write(iulog,*)'vehicle_speed_grc(g)    = ',vehicle_speed_grc(g) 
+                  else
+                     ev_scaler_grc(g) = 0._r8  
+                     vehicle_speed_grc(g) = 0._r8 
+                  end if
+               end do 
+      
+               end do
+               do fl = 1, num_urbanl
+                  l = filter_urbanl(fl)
+                  if (urban_traffic) then
+                     call vehicle_flow_env(vehicle_flow_in(l), nlane_traffic(l), vehicle_flow_lun(l))
+                     !write(iulog,*)'l,fl,num_urbanl  = ',l,fl,num_urbanl 
+                     !write(iulog,*)'vehicle_flow_in(l)    = ',vehicle_flow_in(l) 
+                     !write(iulog,*)'nlane_traffic(l)      = ',nlane_traffic(l)
+                     !write(iulog,*)'vehicle_flow_lun(l)   = ',vehicle_flow_lun(l)  
+                  else
+                     vehicle_flow_lun(l) = 0._r8    
+                  end if
+               end do   
+      
+               do fl = 1, num_urbanl
+                  l = filter_urbanl(fl)
+                  g = lun%gridcell(l)
+                  if (urban_traffic) then
+                     call traffic_flux(vehicle_flow_lun(l), heat_per_vehicle(g), vehicle_speed_grc(g), &
+                                       improad_width(l), eflx_traffic(l)) 
+                     !write(iulog,*)'l  = ',l  
+                     !write(iulog,*)'vehicle_flow_lun(l)  = ',vehicle_flow_lun(l)                   
+                     !write(iulog,*)'heat_per_vehicle(g)  = ',heat_per_vehicle(g)   
+                     !write(iulog,*)'vehicle_speed_grc(g) = ',vehicle_speed_grc(g)
+                     !write(iulog,*)'improad_width(l)     = ',improad_width(l)                
+                     !write(iulog,*)'eflx_traffic(l)      = ',eflx_traffic(l)    
+                  else                    
+                     eflx_traffic(l) = 0._r8
+                  end if
+               end do   
+      !YS                
+      ```
+
+- Modify `src/biogeophys/UrbanParamsType.F90`
+
+  - At Line 91, change
+
+    - From
+
+      ```fortran
+           real(r8), pointer     :: eflx_traffic_factor (:)   ! lun multiplicative traffic factor for sensible heat flux from urban traffic (-)
+      ```
+
+    - To
+
+      ```fortran
+      !YS     real(r8), pointer     :: eflx_traffic_factor (:)   ! lun multiplicative traffic factor for sensible heat flux from urban traffic (-)
+      !YS
+           integer , pointer     :: nlane_traffic       (:)   ! lun number of lanes
+           real(r8), pointer     :: improad_width       (:)   ! width of impervious raod
+      !YS
+      ```
+
+  - After around Line 156 `integer             :: begg, endg`, add
+
+    ```fortran
+    !YS
+        real(r8)   :: lane_count
+    !YS  
+    ```
+
+  - At around Line 192, change
+
+    - From
+
+      ```fortran
+      allocate(this%eflx_traffic_factor (begl:endl))          ; this%eflx_traffic_factor (:)   = nan
+      ```
+
+    - To
+
+      ```fortran
+      !YS    allocate(this%eflx_traffic_factor (begl:endl))          ; this%eflx_traffic_factor (:)   = nan
+      !YS
+          allocate(this%nlane_traffic       (begl:endl))          ; this%nlane_traffic       (:)   = huge(1)
+          allocate(this%improad_width       (begl:endl))          ; this%improad_width       (:)   = nan
+      !YS 
+      ```
+
+  - After around Line 247 `if (urban_traffic) then`, change
+
+    - From
+
+      ```fortran
+                if (urban_traffic) then
+                   this%eflx_traffic_factor(l) = 3.6_r8 * (lun%canyon_hwr(l)-0.5_r8) + 1.0_r8
+                else
+                   this%eflx_traffic_factor(l) = 0.0_r8      
+      ```
+
+    - To
+
+      ```fortran
+      !YS          ! Inferred from Sailor and Lu 2004
+                if (urban_traffic) then 
+                   this%improad_width(l) = (lun%ht_roof(l) / lun%canyon_hwr(l)) * (1._r8 - lun%wtroad_perv(l))
+                   !write(iulog,*)'lun%ht_roof(l)  = ',lun%ht_roof(l)
+                   !write(iulog,*)'lun%canyon_hwr(l)  = ',lun%canyon_hwr(l)
+                   !write(iulog,*)'lun%wtroad_perv(l)  = ',lun%wtroad_perv(l)
+                   !write(iulog,*)'this%improad_width(l)  = ',this%improad_width(l)
+                   if ((this%improad_width(l) / 3.5) < 0.5) then
+                      this%nlane_traffic(l) = 0
+                   else if ((this%improad_width(l) / 3.5) < 1.0) then  
+                      this%nlane_traffic(l) = 1
+                   else 
+                      lane_count = floor(this%improad_width(l) / 3.5)
+                      if (mod(int(lane_count), 2) == 1) then
+                          this%nlane_traffic(l) = lane_count - 1
+                      else
+                          this%nlane_traffic(l) = lane_count
+                      end if
+                   end if 
+                else
+                   this%nlane_traffic(l) = 0
+      ```
+
+    - At around Line 376, change
+
+      - From
+
+        ```fortran
+                  this%eflx_traffic_factor(l) = spval
+        ```
+
+      - To
+
+        ```fortran
+        !YS          this%eflx_traffic_factor(l) = spval
+        !YS
+                  this%nlane_traffic(l) = huge(1)
+                  this%improad_width(l) = spval
+        !YS
+        ```
+
+    - At around Line 914, change
+
+      - From
+
+        ```fortran
+            if (urban_traffic) then
+               write(iulog,*)'Urban traffic fluxes are not implemented currently'
+               call endrun(msg=errMsg(sourcefile, __LINE__))
+            end if
+        ```
+
+      - To
+
+        ```fortran
+        !YS    if (urban_traffic) then
+        !YS       write(iulog,*)'Urban traffic fluxes are not implemented currently'
+        !YS       call endrun(msg=errMsg(sourcefile, __LINE__))
+        !YS     end if
+        ```
+
+- Modify `src/main/clm_driver.F90`
+
+  - After Line 118, add:
+
+    ```fortran
+    !YS
+        use UrbanParamsType       , only : urban_traffic
+    !YS 
+    ```
+
+  - After around Line 471 `call urbantv_inst%urbantv_interp(bounds_proc)`, add
+
+    ```fortran
+    !YS
+        if (urban_traffic) then
+            call urbanvehicle_inst%vehicletv_interp(bounds_proc)
+        end if    
+    !YS
+    ```
+
+  - At around Line 753, change
+
+    - From
+
+      ```fortran
+      water_inst%wateratm2lndbulk_inst, humanindex_inst)
+      ```
+
+    - To
+
+      ```fortran
+      !YS
+                  urbanvehicle_inst)
+      !YS  
+      ```
+
+- Modify `src/main/clm_instMod.F90`
+
+  - At around Line 50, add
+
+    ```fortran
+    !YS
+      use UrbanVehicleType                , only : urbanvehicle_type
+    !YS 
+    ```
+
+  - At around Line 109, add
+
+    ```fortran
+    !YS
+      type(urbanvehicle_type), public         :: urbanvehicle_inst
+    !YS 
+    ```
+
+  - At around Line 277, add
+
+    ```fortran
+    !YS
+        call urbanvehicle_inst%Init(bounds, NLFilename)         
+    !YS
+    ```
+
+- Create a new Fortran file `src/biogeophys/UrbanVehicleType.F90`
+
+  ```fortran
+  module UrbanVehicleType
+  !----------------------------------------------------------------------- 
+  ! DESCRIPTION:
+  ! Urban Traffic input data
+  ! USES:
+   use ESMF             , only : ESMF_LogFoundError, ESMF_LOGERR_PASSTHRU, ESMF_Finalize, ESMF_END_ABORT
+   use shr_kind_mod     , only : r8 => shr_kind_r8, CL => shr_kind_CL
+   use shr_log_mod      , only : errMsg => shr_log_errMsg
+   use abortutils       , only : endrun
+   use LandunitType     , only : lun
+   use dshr_strdata_mod , only : shr_strdata_type
+   use clm_varctl       , only : iulog
+   use decompMod        , only : bounds_type, subgrid_level_landunit
+   use clm_varcon       , only : spval
+   use UrbanParamsType  , only : urbanparams_type, urban_traffic
+   use WaterType        , only : water_type
+   implicit none
+   private
+   ! PUBLIC MEMBER
+      public  :: traffic_flux      ! Calculate urban traffic heat flux
+      public  :: vehicle_speed_env ! Calculate vehicle speed with environmental factors
+      public  :: ev_heat_scale     ! Calculate electric vehicle scaler
+      public  :: vehicle_flow_env  ! Calculate vehicle flow in impervious road
+   ! ! PUBLIC TYPE
+   type, public :: urbanvehicle_type
+      !
+      real(r8), pointer         :: vehicle_flow            (:)   ! traffic flow input
+      real(r8), pointer         :: heat_per_vehicle        (:)   ! heat emission per vehicle (J/m)
+      real(r8), pointer         :: ev_scaler_grc           (:)   ! electric vehicle heat scaler
+      real(r8), pointer         :: vehicle_speed_grc       (:)   ! vehicle speed considering environmental factors
+      real(r8), pointer         :: vehicle_flow_lun        (:)   ! vehicle flow in impervious road
+      type(shr_strdata_type)    :: sdat_vehicletv                ! annual urban time varying traffic data stream
+    contains
+      !! PUBLIC MEMBER FUNCTIONS
+      procedure, public  :: Init              ! Allocate and initialize urbantraffic
+      procedure, public  :: vehicletv_init    ! Initialize urban time varying vehicle counts
+      procedure, public  :: vehicletv_interp  ! Interpolate urban time varying vehicle counts
+      procedure, private :: InitHistory       ! setup history fields
+    end type urbanvehicle_type
+  
+    integer          , private              :: stream_varname_MIN       ! minimum index for stream_varnames
+    integer          , private              :: stream_varname_MAX       ! maximum index for stream_varnames
+    character(25)    , private, pointer     :: stream_varnames(:)       ! urban time varying variable names
+    character(len=*) , parameter, private   :: sourcefile = &
+         __FILE__
+  !-----------------------------------------------------------------------
+  contains
+  !-----------------------------------------------------------------------
+    subroutine Init(this, bounds, NLFilename)
+      !
+      ! ! USES:
+      use shr_infnan_mod   , only : nan => shr_infnan_nan, assignment(=)
+      !
+      ! ! ARGUMENTS:
+      class(urbanvehicle_type)                   :: this
+      type(bounds_type)        , intent(in)      :: bounds
+      character(len=*)         , intent(in)      :: NLFilename         ! Namelist filename
+      !
+      ! !LOCAL VARIABLES:
+      integer		:: begl, endl
+      integer		:: begg, endg
+      character(*), parameter :: subName = "('Init')"
+      !---------------------------------------------------------------------
+     
+      begl = bounds%begl; endl = bounds%endl
+      begg = bounds%begg; endg = bounds%endg
+      ! allocate  
+      allocate(this%vehicle_speed_grc(begg:endg))                    ; this%vehicle_speed_grc  (:)  = nan
+      allocate(this%vehicle_flow_lun(begl:endl))                     ; this%vehicle_flow_lun   (:)  = nan
+      allocate(this%ev_scaler_grc(begg:endg))                        ; this%ev_scaler_grc      (:)  = 1.0
+      
+      if (urban_traffic) then 
+          ! Determine the minimum and maximum indices for stream_varnames
+          stream_varname_MIN = 1
+          stream_varname_MAX = 7
+  
+          allocate(stream_varnames(stream_varname_MIN:stream_varname_MAX))
+          allocate(this%heat_per_vehicle(begg:endg))                 ; this%heat_per_vehicle   (:)  = 0._r8    ! should be 0._r8 rather than nan               
+          allocate(this%vehicle_flow(begl:endl))                     ; this%vehicle_flow       (:)  = nan 
+         
+          call this%vehicletv_init(bounds, NLFilename)
+          call this%vehicletv_interp(bounds)
+      end if
+  
+      call this%InitHistory(bounds)    
+  
+    end subroutine Init
+  
+    !==============================================================================
+    subroutine vehicletv_init(this, bounds, NLFilename)
+      !
+      ! ! DESCRIPTION:
+      ! Initialize data stream information for urban time varying traffic data
+      !
+      ! ! USES:
+      use clm_nlUtilsMod   , only : find_nlgroup_name
+      use spmdMod          , only : masterproc, mpicom, iam
+      use shr_mpi_mod      , only : shr_mpi_bcast
+      use landunit_varcon  , only : isturb_tbd, isturb_hd, isturb_md
+      use dshr_strdata_mod , only : shr_strdata_init_from_inline
+      use lnd_comp_shr     , only : mesh, model_clock
+      !
+      ! ! ARGUMENTS:
+      implicit none
+      class(urbanvehicle_type)       :: this
+      type(bounds_type) , intent(in) :: bounds
+      character(len=*)  , intent(in) :: NLFilename   ! Namelist filename
+      !
+      ! ! LOCAL VARIABLES:
+      integer            :: n
+      integer            :: stream_year_first_vehicletv       ! first year in urban vehicle tv stream to use
+      integer            :: stream_year_last_vehicletv        ! last year in urban vehicle tv stream to use
+      integer            :: model_year_align_vehicletv        ! align stream_year_first_vehicletv with this model year  
+      integer            :: nu_nml                            ! unit for namelist file
+      integer            :: nml_error                         ! namelist i/o error flag
+      character(len=CL)  :: stream_fldFileName_vehicletv      ! urban vehicle tv streams filename
+      character(len=CL)  :: stream_meshfile_vehicletv         ! urban vehicle tv streams filename
+      character(len=CL)  :: vehicletvmapalgo = 'nn'           ! mapping alogrithm for urban vehicle
+      character(len=CL)  :: vehicletv_tintalgo = 'linear'     ! time interpolation alogrithm
+      integer            :: rc                                ! error code
+      character(*), parameter :: subName = "('vehicletv_init')"
+      !-----------------------------------------------------------------------
+  
+      namelist /vehicletv_streams/       &
+           stream_year_first_vehicletv,  &
+           stream_year_last_vehicletv,   &
+           model_year_align_vehicletv,   &
+           vehicletvmapalgo,             &
+           stream_fldFileName_vehicletv, &
+           stream_meshfile_vehicletv,    &
+           vehicletv_tintalgo
+  
+      ! Default values for namelist
+      stream_year_first_vehicletv  = 1                  ! first year in stream to use
+      stream_year_last_vehicletv   = 1                  ! last  year in stream to use
+      model_year_align_vehicletv   = 1                  ! align stream_year_first_vehicletv with this model year
+      stream_fldFileName_vehicletv = ' '
+      stream_meshfile_vehicletv    = ' '
+      stream_varnames(1) = "vehicle_flow_TBD"           ! vehicle flow in TBD (unit: vehicles per lane per hour)
+      stream_varnames(2) = "vehicle_flow_HD"            ! vehicle flow in HD (unit: vehicles per lane per hour)
+      stream_varnames(3) = "vehicle_flow_MD"            ! vehicle flow in MD (unit: vehicles per lane per hour)
+      !
+      ! considering electric vehicles in future
+      stream_varnames(4) = "vehicle_percent_PETROL"     ! percentage of vehicles using petrol (unitless: 0-1)
+      stream_varnames(5) = "vehicle_percent_DIESEL"     ! percentage of vehicles using diesel (unitless: 0-1)
+      stream_varnames(6) = "vehicle_percent_ELECTRIC"   ! percentage of vehicles using electric (unitless: 0-1)
+      stream_varnames(7) = "vehicle_percent_HYBRID"     ! percentage of vehicles using hybrid (unitless: 0-1)
+      
+      ! Read vehicletv_streams namelist
+      if (masterproc) then
+         open(newunit=nu_nml, file=trim(NLFilename), status='old', iostat=nml_error )
+         call find_nlgroup_name(nu_nml, 'vehicletv_streams', status=nml_error)
+         if (nml_error == 0) then
+            read(nu_nml, nml=vehicletv_streams,iostat=nml_error)
+            if (nml_error /= 0) then
+               call endrun(msg='ERROR reading vehicletv_streams namelist'//errMsg(sourcefile, __LINE__))
+            end if
+         end if
+         close(nu_nml)
+      endif
+  
+      call shr_mpi_bcast(stream_year_first_vehicletv  , mpicom)
+      call shr_mpi_bcast(stream_year_last_vehicletv   , mpicom)
+      call shr_mpi_bcast(model_year_align_vehicletv   , mpicom)
+      call shr_mpi_bcast(stream_fldFileName_vehicletv , mpicom)
+      call shr_mpi_bcast(stream_meshfile_vehicletv    , mpicom)
+      call shr_mpi_bcast(vehicletv_tintalgo           , mpicom)
+  
+      if (masterproc) then
+         write(iulog,*) ' '
+         write(iulog,'(a)')    '  vehicletv_streams settings:    '
+         write(iulog,'(a,i8)') '  stream_year_first_vehicletv  = ',stream_year_first_vehicletv
+         write(iulog,'(a,i8)') '  stream_year_last_vehicletv   = ',stream_year_last_vehicletv
+         write(iulog,'(a,i8)') '  model_year_align_vehicletv   = ',model_year_align_vehicletv
+         write(iulog,'(a,a)' ) '  stream_fldFileName_vehicletv = ',stream_fldFileName_vehicletv
+         write(iulog,'(a,a)' ) '  stream_meshfile_vehicletv    = ',stream_meshfile_vehicletv
+         write(iulog,'(a,a)' ) '  vehicletv_tintalgo           = ',vehicletv_tintalgo
+         do n = stream_varname_MIN,stream_varname_MAX
+            write(iulog,'(a,a)' ) '  stream_varname            = ',trim(stream_varnames(n))
+         end do
+         write(iulog,*) ' '
+      endif
+  
+      ! Initialize the cdeps data type this%sdat_vehicletv
+      call shr_strdata_init_from_inline(this%sdat_vehicletv,             &
+           my_task             = iam,                                    &
+           logunit             = iulog,                                  &
+           compname            = 'LND',                                  &
+           model_clock         = model_clock,                            &
+           model_mesh          = mesh,                                   &
+           stream_meshfile     = trim(stream_meshfile_vehicletv),        &
+           stream_lev_dimname  = 'null',                                 &
+           stream_mapalgo      = trim(vehicletvmapalgo),                 &
+           stream_filenames    = (/trim(stream_fldfilename_vehicletv)/), &
+           stream_fldlistFile  = stream_varnames(stream_varname_MIN:stream_varname_MAX), &
+           stream_fldListModel = stream_varnames(stream_varname_MIN:stream_varname_MAX), &
+           stream_yearFirst    = stream_year_first_vehicletv,            &
+           stream_yearLast     = stream_year_last_vehicletv,             &
+           stream_yearAlign    = model_year_align_vehicletv,             &
+           stream_offset       = 0,                                      &
+           stream_taxmode      = 'extend',                               &
+           stream_dtlimit      = 1.0e30_r8,                              &
+           stream_tintalgo     = vehicletv_tintalgo,                     &
+           stream_name         = 'Urban time varying traffic data',      &
+           rc                  = rc)
+      if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, line=__LINE__, file=__FILE__)) then
+         call ESMF_Finalize(endflag=ESMF_END_ABORT)
+      end if
+  
+    end subroutine vehicletv_init
+  
+    !==============================================================================
+    subroutine vehicletv_interp(this, bounds)
+      !
+      ! ! DESCRIPTION:
+      ! Interpolate data stream information for urban time varying vehicle data.
+      !
+      ! ! USES:
+      use clm_time_manager , only : get_curr_date
+      use clm_instur       , only : urban_valid
+      use dshr_methods_mod , only : dshr_fldbun_getfldptr
+      use dshr_strdata_mod , only : shr_strdata_advance
+      use shr_infnan_mod   , only : nan => shr_infnan_nan, assignment(=)
+      use landunit_varcon  , only : isturb_MIN, isturb_MAX
+      use GridcellType     , only : grc
+      use clm_time_manager , only : get_local_time
+      ! isturb_MIN = 7
+      ! isturb_MAX = 9
+      !
+      ! ! ARGUMENTS:
+      class(urbanvehicle_type)           :: this
+      type(bounds_type), intent(in)      :: bounds
+      !
+      ! ! LOCAL VARIABLES:
+      logical :: found
+      integer :: l, ig, g, il, n
+      integer :: year    ! year (0, ...) for nstep+1
+      integer :: mon     ! month (1, ..., 12) for nstep+1
+      integer :: day     ! day of month (1, ..., 31) for nstep+1
+      integer :: sec     ! seconds into current date for nstep+1
+      integer :: hour    ! hour of the day
+      integer :: mcdate  ! Current model date (yyyymmdd)
+      integer :: lindx   ! landunit index
+      integer :: gindx   ! gridcell index
+      integer :: gsize
+      integer :: rc
+      integer :: begl, endl
+      integer :: begg, endg
+      integer :: num_urbl
+      real(r8), pointer                     :: scaler(:)      
+      real(r8), pointer                     :: dataptr1d(:)
+      real(r8), pointer                     :: dataptr2d(:,:)
+      real(r8), dimension(4)                :: heat_release                       ! Watt
+      real, dimension(24,3)                 :: diurnal_factors                    ! diurnal factors data (multiple dimensions)
+      real(r8), pointer                     :: vehicle_percent(:)                 ! percentage of vehicles
+      real(r8), pointer                     :: heat_sum(:)                        ! vehicle heat at grid-cell level
+      character(*), parameter               :: subName = "('vehicletv_interp')"
+      !-----------------------------------------------------------------------
+      
+      begl = bounds%begl; endl = bounds%endl
+      begg = bounds%begg; endg = bounds%endg
+      num_urbl = 1 + isturb_MAX - isturb_MIN
+      !
+      ! Check time zone if necessary
+      ! Initialize the diurnal factors
+      data diurnal_factors /  &
+      ! Tall building district (TBD)
+      0.6, 0.4, 0.3, 0.3, 0.5, 0.8, 1.2, 1.5, 1.8, 1.6, 1.4, 1.3, &
+      1.2, 1.3, 1.4, 1.5, 1.7, 1.9, 2.0, 1.8, 1.4, 1.2, 0.9, 0.7,  &
+      ! High-density area (HD)
+      0.5, 0.3, 0.2, 0.2, 0.4, 0.7, 1.1, 1.3, 1.5, 1.4, 1.3, 1.2, &
+      1.1, 1.2, 1.3, 1.4, 1.6, 1.8, 1.9, 1.7, 1.3, 1.1, 0.8, 0.6,  &
+      ! Medium-density area (MD)
+      0.04, 0.02, 0.02, 0.01, 0.01, 0.01, 0.02, 0.04, 0.08, 0.07, 0.06, 0.06, &
+      0.06, 0.05, 0.06, 0.06, 0.05, 0.06, 0.05, 0.05, 0.05, 0.05, 0.04, 0.04 /    
+      
+      data heat_release / 18900, 19340, 5240, 670 /
+  
+      ! Advance sdat stream
+      call get_curr_date(year, mon, day, sec)
+      mcdate = year*10000 + mon*100 + day
+  
+      call shr_strdata_advance(this%sdat_vehicletv, ymd=mcdate, tod=sec, logunit=iulog, istr='hdmdyn', rc=rc)
+      if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, line=__LINE__, file=__FILE__)) then
+         call ESMF_Finalize(endflag=ESMF_END_ABORT)
+      end if
+  
+      ! Create 2d array for all stream variable data
+      ! number of grids
+      gsize = endg - begg + 1 
+  
+      ! allocate 
+      allocate(vehicle_percent(begg:endg)) ; vehicle_percent(:)  = nan
+      allocate(heat_sum(begg:endg)) ; heat_sum(:) = 0._r8
+      allocate(dataptr2d(gsize, stream_varname_MIN:stream_varname_MAX))
+      allocate(scaler(begg:endg)); scaler(:) = 1.0
+      !
+      do n = stream_varname_MIN, stream_varname_MAX
+         call dshr_fldbun_getFldPtr(this%sdat_vehicletv%pstrm(1)%fldbun_model, trim(stream_varnames(n)), &
+              fldptr1=dataptr1d, rc=rc)
+         if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, line=__LINE__, file=__FILE__)) then
+            call ESMF_Finalize(endflag=ESMF_END_ABORT)
+         end if
+         do g = 1, gsize
+            dataptr2d(g,n) = dataptr1d(g)
+         end do
+      end do
+  
+      ! Determine 2D data for all landunits
+      do l = begl, endl
+         ! Note that since l is within [begl, endl] bounds, we can assume
+         ! lun%gricell(l) is within [begg, endg]
+         if (lun%urbpoi(l)) then
+            ig=lun%gridcell(l)-begg+1
+            g=lun%gridcell(l)
+            hour=get_local_time(grc%londeg(g)) / 3600 + 1
+            hour = max(1, min(24, hour))
+            do n = stream_varname_MIN, num_urbl
+               ! adjust vehicle flow with diurnal variation
+               ! the if condition is necessary!
+               if (stream_varnames((lun%itype(l)-isturb_MIN+1)) == stream_varnames(n)) then
+                  this%vehicle_flow(l) = dataptr2d(ig,n) * diurnal_factors(hour, n) 
+                  !write(iulog,*)'g,ig:            ',g,ig
+                  !write(iulog,*)'n:              ',n
+                  !write(iulog,*)'hour:           ',hour
+                  !write(iulog,*)'l, lun%itype(l):',l, lun%itype(l)
+                  !write(iulog,*)'dataptr2d(ig,n):',dataptr2d(ig,n) 
+                  !write(iulog,*)'diurnal_factors:',diurnal_factors(hour,n) 
+                  !write(iulog,*)'lun%itype(l)-isturb_MIN+1:',lun%itype(l)-isturb_MIN+1
+                  !write(iulog,*)'vehicle_flow:   ',this%vehicle_flow(l)   
+               end if
+            end do  
+          end if
+      end do
+      
+      ! Determine 2D data at grid-cell level
+      do g = begg, endg
+         do n = (num_urbl+1), stream_varname_MAX
+             vehicle_percent(g)=dataptr2d(g,n)
+             if (n == stream_varname_MAX) then 
+                scaler = this%ev_scaler_grc(g)
+             else
+                scaler(g) = 1.0
+             end if       
+             heat_sum(g)=heat_sum(g)+vehicle_percent(g)*heat_release(n-num_urbl)*scaler(g)
+             !write(iulog,*)'scaler:   ',scaler(g)
+             !write(iulog,*)'g:        ',g
+         end do
+         this%heat_per_vehicle(g) = heat_sum(g)
+         !write(iulog,*)'scaler:   ',scaler          
+      end do
+  
+      deallocate(dataptr2d)
+      deallocate(vehicle_percent)
+      deallocate(heat_sum)
+      deallocate(scaler)
+  
+      ! Error check
+      found = .false.
+      do l = begl, endl
+         if (lun%urbpoi(l)) then
+            do g = begg, endg
+               if (g == lun%gridcell(l)) exit
+            end do
+            ! Check for valid urban data
+            if ((.not. urban_valid(g)) .or. (this%heat_per_vehicle(g) <= 0._r8) &
+               .or. (this%vehicle_flow(l) <= 0._r8)) then   
+               found = .true.
+               gindx = g
+               lindx = l
+               exit
+            end if   
+         end if
+      end do
+  
+      if ( found ) then
+         write(iulog,*)'ERROR: no valid urban traffic flux data for g= ',gindx
+         write(iulog,*)'landunit type:   ',lun%itype(lindx)
+         write(iulog,*)'urban_valid:     ',urban_valid(gindx)
+         write(iulog,*)'heat_per_vehicle ',this%heat_per_vehicle(gindx)
+         write(iulog,*)'vehicle_flow:    ',this%vehicle_flow(lindx)
+         call endrun(subgrid_index=lindx, subgrid_level=subgrid_level_landunit, &
+              msg=errmsg(sourcefile, __LINE__))
+      end if
+    end subroutine vehicletv_interp
+     
+     !==============================================================================
+    subroutine InitHistory(this, bounds)
+      !
+      ! !DESCRIPTION:
+      ! Setup fields that can be output to history files
+      !
+      ! !USES:
+      use shr_infnan_mod   , only : nan => shr_infnan_nan, assignment(=)
+      use histFileMod      , only : hist_addfld1d
+      implicit none
+      !
+      ! !ARGUMENTS:
+      class(urbanvehicle_type)        :: this
+      type(bounds_type), intent(in)   :: bounds  
+      !
+      ! !LOCAL VARIABLES:
+      integer                 :: begl, endl
+      integer                 :: begg, endg
+      character(*), parameter :: subName = "('InitHistory')"
+      !------------------------------------------------------------------------
+      begl = bounds%begl; endl = bounds%endl
+      begg = bounds%begg; endg = bounds%endg
+      this%vehicle_flow_lun(begl:endl) = spval
+      call hist_addfld1d (fname='VEHICLE_FLOW', units='vehicle per hour',  &
+           avgflag='A', long_name='vehicle flow', &
+           ptr_lunit=this%vehicle_flow_lun, set_nourb=0._r8, &
+           default='inactive', l2g_scale_type='unity')
+      
+      this%vehicle_speed_grc(begg:endg) = spval
+      call hist_addfld1d (fname='VEHICLE_SPEED', units='m/s',  &
+           avgflag='A', long_name='vehicle speed', &
+           ptr_lnd=this%vehicle_speed_grc, set_nourb=0._r8, &
+           default='inactive')   
+  
+    end subroutine InitHistory  
+  
+     !==============================================================================
+    subroutine vehicle_speed_env(forc_rain, forc_snow, vehicle_speed_out)
+      !
+      ! ! DESCRIPTION:
+      ! Calculate traffic heat flux
+      !
+      ! ! USES:
+      use shr_kind_mod , only: r8 => shr_kind_r8
+      implicit none
+      ! ! ARGUMENTS:
+      real(r8), intent(in)        :: forc_rain                   ! unit: mm/s
+      real(r8), intent(in)        :: forc_snow                   ! unit: mm/s
+      real(r8), intent(out)       :: vehicle_speed_out
+      !
+      ! ! LOCAL:
+      real(r8)                    :: rain_scale_factor
+      real(r8)                    :: snow_scale_factor
+      real(r8), target            :: vehicle_speed = 11.1        ! unit: m/s
+      real(r8), target            :: rain_threshold = 0.00083    ! unit: mm/s
+      real(r8), target            :: snow_threshold = 0.000353   ! unit: mm/s
+      !-----------------------------------------------------------------------
+      !
+      ! secondary weather impact
+      ! https://doi.org/10.1260/2046-0430.1.1.25: 
+      ! 5% reduction over 0.3 cm/h = 0.00083 mm/s 
+      ! 8% 
+         
+      if ((forc_rain > 0._r8) .and. (forc_rain <= rain_threshold)) then
+          rain_scale_factor = 1.0 - 60 * forc_rain
+      elseif (forc_rain > rain_threshold) then
+          rain_scale_factor = 1.0 - (90 * forc_rain + 0.0425)
+      elseif (forc_rain .eq. 0._r8) then
+          rain_scale_factor = 1.0 
+      end if 
+      
+      rain_scale_factor = max(rain_scale_factor, 0._r8)
+  
+      ! https://doi.org/10.1080/01441647.2017.1293188
+      ! 
+      if ((forc_snow > 0._r8) .and. (forc_snow <= snow_threshold)) then
+          snow_scale_factor = 0.96
+      elseif ((forc_snow > snow_threshold) .and. (forc_snow <= snow_threshold *2)) then
+          snow_scale_factor = 0.92
+      elseif ((forc_snow > snow_threshold *2) .and. (forc_snow <= snow_threshold *10)) then
+          snow_scale_factor = 0.91
+      elseif (forc_snow > snow_threshold*10) then
+          snow_scale_factor = 0.87
+      elseif (forc_snow .eq. 0._r8) then 
+          snow_scale_factor = 1.0            
+      end if
+      snow_scale_factor = max(snow_scale_factor, 0._r8)
+  
+      vehicle_speed_out = rain_scale_factor * snow_scale_factor * vehicle_speed
+  
+    end subroutine vehicle_speed_env
+  
+     !==============================================================================
+    subroutine vehicle_flow_env(vehicle_flow_in, nlane_traffic, vehicle_flow_out)
+      !
+      ! ! DESCRIPTION:
+      ! Calculate traffic heat flux
+      !
+      ! ! USES:
+      use shr_kind_mod , only: r8 => shr_kind_r8
+      implicit none
+      ! ! ARGUMENTS:
+      real(r8), intent(in)        :: vehicle_flow_in
+      Integer , intent(in)        :: nlane_traffic
+      real(r8), intent(out)       :: vehicle_flow_out
+      !
+      ! ! LOCAL:
+      !-----------------------------------------------------------------------
+      !
+      vehicle_flow_out = vehicle_flow_in * nlane_traffic
+  
+    end subroutine vehicle_flow_env
+  
+     !==============================================================================
+    subroutine ev_heat_scale(forc_t, ev_scaler_out)
+      !
+      ! ! DESCRIPTION:
+      ! Calculate electric vehicle heat scaler
+      !
+      ! ! USES:
+      use shr_kind_mod , only: r8 => shr_kind_r8
+      implicit none
+      ! ! ARGUMENTS:
+      real(r8), intent(in)        :: forc_t
+      real(r8), intent(out)       :: ev_scaler_out
+      !
+      ! ! LOCAL:
+      real(r8), target            :: t_threshold = 293.15           ! unit: K
+      real(r8), target            :: t_threshold_zero = 273.15      ! unit: K
+      !-----------------------------------------------------------------------
+      !
+      if ((forc_t > t_threshold_zero) .and. (forc_t < t_threshold)) then
+          ev_scaler_out = 1.0 + 0.0165 * (t_threshold - forc_t)
+      elseif ((forc_t <= t_threshold_zero) .and. (forc_t >263.15)) then
+          ev_scaler_out =1.33
+      elseif ((forc_t <= 263.15) .and. (forc_t >253.15)) then
+          ev_scaler_out = 1.4
+      elseif (forc_t <= 253.15) then
+          ev_scaler_out = 1.55
+      else
+          ev_scaler_out = 1.0   
+      end if    
+    end subroutine ev_heat_scale
+  
+     !==============================================================================
+    subroutine traffic_flux(total_vehicle_flow, heat_per_vehicle_grid, vehicle_speed_out, improad_width, eflx_traffic)
+      !
+      ! ! DESCRIPTION:
+      ! Calculate traffic heat flux
+      ! ! USES:
+      use shr_kind_mod , only: r8 => shr_kind_r8
+  
+      implicit none
+      ! ! ARGUMENTS:
+      real(r8), intent(in)        :: total_vehicle_flow
+      real(r8), intent(in)        :: heat_per_vehicle_grid
+      real(r8), intent(in)        :: vehicle_speed_out
+      real(r8), intent(in)        :: improad_width
+      real(r8), intent(out)       :: eflx_traffic
+      !
+      ! ! LOCAL:
+      real(r8), target            :: minimum_vehicle_speed = 0.3        ! unit: m/s
+      !-----------------------------------------------------------------------
+      
+      if (vehicle_speed_out >= minimum_vehicle_speed) then
+          !write(iulog,*) 'total_vehicle_flow', total_vehicle_flow
+          !write(iulog,*) 'heat_per_vehicle_grid', heat_per_vehicle_grid
+          eflx_traffic = (total_vehicle_flow / 3600._r8 * heat_per_vehicle_grid) / (improad_width * vehicle_speed_out)
+      else
+          eflx_traffic = 0._r8
+      end if    
+    end subroutine traffic_flux
+  end module UrbanVehicleType
+  ```

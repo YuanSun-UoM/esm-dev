@@ -18,7 +18,7 @@
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="CESM-LCZ User Guide" href="../lcz/index.html" />
+    <link rel="next" title="WRF-CTSM User Guide" href="../wrf-ctsm/index.html" />
     <link rel="prev" title="2 Input Data" href="inputdata.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -32,13 +32,13 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../lcz/index.html" title="CESM-LCZ User Guide"
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM User Guide"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="inputdata.html" title="2 Input Data"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CESM-TranUrbAlb User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CESM-Traffic User Guide</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
       </ul>
     </div>  
@@ -50,36 +50,34 @@
             
   <section id="simulation">
 <h1>3 Simulation<a class="headerlink" href="#simulation" title="Link to this heading">¶</a></h1>
-<p>The following scripts are provided by the author for running CESM with the transient urban albedo functionality.</p>
+<p>The following scripts are provided by the author for running CESM with the urban traffic functionality.</p>
 <section id="modify-job-script">
 <h2>Modify job script<a class="headerlink" href="#modify-job-script" title="Link to this heading">¶</a></h2>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">transient_urbanalbedo_roof</span></code>: If true, roof albedo changes over time.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">urban_traffic</span></code>: If true, calculating urban traffic heat flux.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">stream_fldFileName_urbanalbtvroof</span></code>: Filename of input stream data for time varying urban roof albedo</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stream_meshfile_urbanalbtvroof</span></code>: Mesh filename of input stream data for time varying urban roof albedo</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stream_year_first_urbanalbtvroof</span></code>: First year to loop over for urban time varying roof albedo</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stream_year_last_urbanalbtvroof</span></code>: Last year to loop over for urban time varying roof albedo</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model_year_align_urbanalbtvroof</span></code>: Simulation year that aligns with <code class="docutils literal notranslate"><span class="pre">stream_year_first_urbanalbtvroof</span></code> value</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">urbanalbtvroofmapalgo</span></code>: Mapping method from urban time varying roof albedo file to the model resolution.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_fldFileName_vehicletv</span></code>: Filename of input stream data for time varying urban traffic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_meshfile_vehicletv</span></code>: Mesh filename of input stream data for time varying urban traffic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_year_first_vehicletv</span></code>: First year to loop over for urban time varying traffic data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_year_last_vehicletv</span></code>: Last year to loop over for urban time varying traffic data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_year_align_vehicletv</span></code>: Simulation year that aligns with <code class="docutils literal notranslate"><span class="pre">stream_year_first_vehicletv</span></code> value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vehicletvmapalgo</span></code>: Mapping method from urban time varying traffic file to the model resolution.</p>
 <ul>
 <li><p>Note that the mapping method has been updated in the new CTSM versions. Please refer to <a class="reference external" href="https://bb.cgd.ucar.edu/cesm/threads/error-map-algo-copy-is-not-supported.11495/#post-61402">ERROR: map algo copy is not supported</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">transient_urbanalbedo_improad</span></code>: If true, impervious road albedo changes over time.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">transient_urbanalbedo_wall</span></code>: If true, wall albedo changes over time</p></li>
-<li><p>Define the albedo stream input. Please refer to the last section <a class="reference internal" href="inputdata.html"><span class="std std-doc">2 Surface Input</span></a>.</p>
+<li><p>Define the urban traffic stream input. Please refer to the last section <a class="reference internal" href="inputdata.html"><span class="std std-doc">2 Surface Input</span></a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For example</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;transient_urbanalbedo_roof = .true.&quot;</span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;urban_traffic = .true.&quot;</span>&gt;&gt;<span class="w"> </span>user_nl_clm
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;fsurdat=&#39;</span><span class="si">${</span><span class="nv">SURF</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_fldFileName_urbanalbtvroof = &#39;</span><span class="si">${</span><span class="nv">INPUT</span><span class="si">}</span><span class="s2">/dyn_alb_roof_0.9x1.25_simyr2020-2025_c240930.nc&#39;&quot;</span>&gt;&gt;<span class="w"> </span>user_nl_clm<span class="w"> </span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_meshfile_urbanalbtvroof = &#39;</span><span class="si">${</span><span class="nv">INPUT</span><span class="si">}</span><span class="s2">/lnd_mesh.nc&#39;&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_year_first_urbanalbtvroof = 2000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_year_last_urbanalbtvroof = 2025&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;model_year_align_urbanalbtvroof = 2000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;urbanalbtvroofmapalgo = &#39;nn&#39;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_fldFileName_vehicletv = &#39;</span><span class="si">${</span><span class="nv">INPUT</span><span class="si">}</span><span class="s2">/urban_traffic_0.9x1.25_simyr2020-2025_c240930.nc&#39;&quot;</span>&gt;&gt;<span class="w"> </span>user_nl_clm<span class="w"> </span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_meshfile_vehicletv = &#39;</span><span class="si">${</span><span class="nv">INPUT</span><span class="si">}</span><span class="s2">/lnd_mesh.nc&#39;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_year_first_vehicletv = 2000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_year_last_vehicletv = 2025&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;model_year_align_vehicletv = 2000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;vehicletvmapalgo = &#39;nn&#39;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
 </pre></div>
 </div>
 </li>
@@ -111,13 +109,13 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="../lcz/index.html"
-                          title="next chapter">CESM-LCZ User Guide</a></p>
+    <p class="topless"><a href="../wrf-ctsm/index.html"
+                          title="next chapter">WRF-CTSM User Guide</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../../_sources/notebooks/projects/transient_urban_albedo/simulation.md.txt"
+      <li><a href="../../../_sources/notebooks/projects/traffic/simulation.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -142,13 +140,13 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../lcz/index.html" title="CESM-LCZ User Guide"
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM User Guide"
              >next</a> |</li>
         <li class="right" >
           <a href="inputdata.html" title="2 Input Data"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >CESM-TranUrbAlb User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >CESM-Traffic User Guide</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
       </ul>
     </div>

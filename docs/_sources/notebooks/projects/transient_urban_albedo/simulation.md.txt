@@ -10,7 +10,7 @@ The following scripts are provided by the author for running CESM with the trans
   - `stream_meshfile_urbanalbtvroof`: Mesh filename of input stream data for time varying urban roof albedo
   - `stream_year_first_urbanalbtvroof`: First year to loop over for urban time varying roof albedo
   - `stream_year_last_urbanalbtvroof`: Last year to loop over for urban time varying roof albedo
-  - `model_year_align_urbanalbtvroof`: Simulation year that aligns with stream_year_first_urbanalbtvroof value
+  - `model_year_align_urbanalbtvroof`: Simulation year that aligns with `stream_year_first_urbanalbtvroof` value
   - `urbanalbtvroofmapalgo`: Mapping method from urban time varying roof albedo file to the model resolution.
     - Note that the mapping method has been updated in the new CTSM versions. Please refer to [ERROR: map algo copy is not supported](https://bb.cgd.ucar.edu/cesm/threads/error-map-algo-copy-is-not-supported.11495/#post-61402)
 
@@ -21,6 +21,7 @@ The following scripts are provided by the author for running CESM with the trans
 - Define the albedo stream input. Please refer to the last section [2 Surface Input](./inputdata.md). 
 
   ```bash
+  # For example
   echo "transient_urbanalbedo_roof = .true.">> user_nl_clm
   echo "fsurdat='${SURF}'" >> user_nl_clm
   echo "stream_fldFileName_urbanalbtvroof = '${INPUT}/dyn_alb_roof_0.9x1.25_simyr2020-2025_c240930.nc'">> user_nl_clm 

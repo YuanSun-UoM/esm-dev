@@ -14,7 +14,7 @@ from rasterio.features import geometry_mask
 import netCDF4 as nc
 ```
 
-- Taking transient urban albedo as an example, the new stream file has three variables: `dyn_alb_roof_TBD`, `dyn_alb_roof_HD,` and `dyn_alb_roof_MD`
+- Taking transient urban albedo as an example, the new stream file has three variables: `dyn_alb_roof_TBD`, `dyn_alb_roof_HD`, and `dyn_alb_roof_MD`
 
 ## 2.1 For Global Simulations
 

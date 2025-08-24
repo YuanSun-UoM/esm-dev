@@ -14,7 +14,7 @@
 
 ## Representing Urban LCZ Land Cover in CESM (CESM-LCZ)
 
-- Paper "Enhancing Global-Scale Urban Land Cover Representation Using Local Climate Zones in the Community Earth System Model"
+- Preprint "Enhancing Global-Scale Urban Land Cover Representation Using Local Climate Zones in the Community Earth System Model" [10.31223/X5GX4K](https://doi.org/10.31223/X5GX4K)
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
   - Presentation: [21st AOGS](../files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf)
   
@@ -23,13 +23,13 @@
 
 - [CESM-LCZ User Guide](projects/lcz/index.rst)
 
-## Modeling Urban Traffic Heat Flux in CESM
+## Modeling Urban Traffic Heat Flux in CESM (CESM-Traffic)
 
-- Paper "Modeling urban traffic heat flux in the Community Earth System Model"
+- Preprint "Modeling urban traffic heat flux in the Community Earth System Model" [10.31223/X5ZX72](https://doi.org/10.31223/X5ZX72)
   - [GitHub Repository](https://github.com/envdes/code_CLMU_traffic)
   - Presentation: [30th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2025-06/2025cesmsun.pdf)
 
-- [CESM-Traffic User Guide]()
+- [CESM-Traffic User Guide](projects/traffic/index.rst)
 
 ## Coupling WRF and CTSM (WRF-CTSM)
 

@@ -300,8 +300,9 @@ git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
 </li>
 </ul>
 </li>
-<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl</span></code> by adding code below after Line around 21:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lu_index</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LU_INDEX</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
+<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/create_scrip_file.ncl</span></code> by adding code below after Line around 21:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lake_depth</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LAKE_DEPTH</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
+<span class="n">lu_index</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LU_INDEX</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
 <span class="n">lakemask</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">lu_index</span><span class="o">.</span><span class="n">eq</span><span class="mf">.21</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> 
 <span class="n">landmask</span> <span class="o">=</span> <span class="n">where</span> <span class="p">(</span><span class="n">lakemask</span><span class="o">.</span><span class="n">eq</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">landmask</span><span class="p">)</span>
 </pre></div>

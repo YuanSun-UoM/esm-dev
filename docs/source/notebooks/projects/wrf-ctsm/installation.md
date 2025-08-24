@@ -238,9 +238,10 @@ git checkout ctsm5.3.024
          !YS 
     ```
   
-- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/create_scrip_file.ncl` by adding code below after Line around 21:
+- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/create_scrip_file.ncl` by adding code below after Line around 21:
 
   ```
+  lake_depth = wrf_file->LAKE_DEPTH(0,:,:) 
   lu_index = wrf_file->LU_INDEX(0,:,:) 
   lakemask = where(lu_index.eq.21, 1,0) 
   landmask = where (lakemask.eq.1,1,landmask)

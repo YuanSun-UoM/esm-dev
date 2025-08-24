@@ -2,9 +2,27 @@
 
 The following scripts are provided by the author to enable transient urban albedo representation with the [Community Terrestrial Systems Model (CTSM)](https://github.com/ESCOMP/CTSM), the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend **manual code modification** to ensure compatibility.
 
-## 1.1 Method 1: Use Modified Code Based on `clm5.0.30`
+## 1.1 Method 1: Use Modified CTSM Repo Based on CTSM5.0.30
 
-The author provides modified source files based on CLM version `clm5.0.30`. Users may directly replace the corresponding original files in their CLM codebase with the modified versions listed below.
+The author provides a modified CTSM repository with a branch [ctsm5.0.030-TranUrbAlb](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.0.030-TranUrbAlb) for directly downloading code.
+
+- This method pins CTSM to a specific tag/branch (i.e., `release-ctsm5.0.30`).
+
+```bash
+export CTSMNAME=CTSMdev
+export VERSION=ctsm5.0.30-TranUrbAlb
+cd ${WRF_ROOT}/${WRFNAME}
+git clone --branch ${VERSION} https://github.com/YuanSun-UoM/esm-dev_code ${CTSMNAME}
+cd ${CTSMNAME}
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals -S
+```
+
+
+
+## 1.2 Method 2: Use Modified Code Based on `release-clm5.0.30`
+
+The author provides modified source files based on CLM version [release-clm5.0.30](https://github.com/ESCOMP/CTSM/tree/release-clm5.0.30). Users may directly replace the corresponding original files in their CLM codebase with the modified versions listed below.
 
 ### Download Source Code
 
@@ -24,16 +42,14 @@ cd ${CTSMNAME}
 - [src/biogeophys/UrbanDynAlbMod.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/biogeophys/UrbanDynAlbMod.F90)
 - [src/biogeophys/UrbanAlbedoMod.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/biogeophys/UrbanAlbedoMod.F90)
 - [src/biogeophys/UrbanParamsType.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/biogeophys/UrbanParamsType.F90)
-
 - [src/main/clm_varctl.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/main/clm_varctl.F90)
 - [src/main/controlMod.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/main/controlMod.F90)
 - [src/main/clm_driver.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/main/clm_driver.F90)
-- [bld/CLMBuildNamelist.pm](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/bld/CLMBuildNamelist.pm)
-- [bld/namelist_files/namelist_defaults_clm4_5.xml](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/bld/namelist_defaults_clm4_5.xml)
-- [bld/namelist_files/namelist_definition_clm4_5.xml](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/bld/namelist_definition_clm4_5.xml)
 - [src/main/clm_instMod.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/main/clm_instMod.F90)
+- [bld/CLMBuildNamelist.pm](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/bld/CLMBuildNamelist.pm)
+- [bld/namelist_files/namelist_definition_clm4_5.xml](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/bld/namelist_definition_clm4_5.xml)
 
-## 1.2 Method 2: Manual Code Modifications for Specific CTSM Versions
+## 1.3 Method 3: Manual Code Modifications for Specific CTSM Versions
 
 For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language. 
 
