@@ -596,7 +596,9 @@ git checkout v4.3
   cd ${WRF_ROOT}/${WRFNAME}
   ./clean -a
   ./configure
-  # - 34: (dmpar: distributed memory parallelization)
+  # - 34: dmpar: distributed memory parallelization, use MPI only, no OpenMP threads are used
+  # - 35: dm+sm, use MPI+OpenMP threads
+  
   # - 1: nesting option (basic)
   ```
 
@@ -656,6 +658,8 @@ git checkout v4.3
       ARCH_LOCAL      =       -DNONSTANDARD_SYSTEM_SUBR  -DWRF_USE_CTSM
       FCCOMPAT        = 
       ```
+
+      - Note: heare we use gfortran-9 and gcc-9.
 
   - Adding include path
 

@@ -14,7 +14,7 @@
 
 ## Representing Urban LCZ Land Cover in CESM (CESM-LCZ)
 
-- Preprint "Enhancing Global-Scale Urban Land Cover Representation Using Local Climate Zones in the Community Earth System Model" [10.31223/X5GX4K](https://doi.org/10.31223/X5GX4K)
+- Preprint "Enhancing Global-Scale Urban Land Cover Representation Using Local Climate Zones in the Community Earth System Model." [10.31223/X5GX4K](https://doi.org/10.31223/X5GX4K)
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
   - Presentation: [21st AOGS](../files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf)
   
@@ -25,7 +25,7 @@
 
 ## Modeling Urban Traffic Heat Flux in CESM (CESM-Traffic)
 
-- Preprint "Modeling urban traffic heat flux in the Community Earth System Model" [10.31223/X5ZX72](https://doi.org/10.31223/X5ZX72)
+- Preprint "Modeling urban traffic heat flux in the Community Earth System Model." [10.31223/X5ZX72](https://doi.org/10.31223/X5ZX72)
   - [GitHub Repository](https://github.com/envdes/code_CLMU_traffic)
   - Presentation: [30th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2025-06/2025cesmsun.pdf)
 
@@ -49,7 +49,7 @@
   - [WRF User Guide](https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/index.html)
   - [CTSM User Guide](https://escomp.github.io/CTSM/release-clm5.0/index.html#)
   - [CTSM-LILAC user guide](https://escomp.github.io/CTSM/lilac/index.html)
-- WRF-CTSM tutorial
+- WRF-CTSM Tutorial
   - [Using CTSM with WRF](https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf.html)
   - [WRF-CTSM on the SIGMA2 HPC](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/)
 - Forum

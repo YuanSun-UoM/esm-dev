@@ -4,7 +4,7 @@ The following scripts are provided by the author to enable urban traffic heat mo
 
 ## 1.1 Method 1: Use Modified CTSM Repo Based on CTSM5.3.024
 
-The author provides a modified CTSM repository with a branch [ctsm5.3.024-Traffic](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.3.024-wrf) for directly downloading code. 
+The author provides a modified CTSM repository with a branch [ctsm5.3.024-Traffic](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.3.024-Traffic) for directly downloading code. 
 
 - This method pins CTSM to a specific tag/branch (i.e., `ctsm5.3.024-Traffic`).
 

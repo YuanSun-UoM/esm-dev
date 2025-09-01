@@ -659,7 +659,9 @@ cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/cime/tools/mapping/gen_domain_files/src/
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
 ./clean<span class="w"> </span>-a
 ./configure
-<span class="c1"># - 34: (dmpar: distributed memory parallelization)</span>
+<span class="c1"># - 34: dmpar: distributed memory parallelization, use MPI only, no OpenMP threads are used</span>
+<span class="c1"># - 35: dm+sm, use MPI+OpenMP threads</span>
+
 <span class="c1"># - 1: nesting option (basic)</span>
 </pre></div>
 </div>
@@ -718,6 +720,9 @@ ARCH_LOCAL      =       -DNONSTANDARD_SYSTEM_SUBR  -DWRF_USE_CTSM
 FCCOMPAT        = 
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>Note: heare we use gfortran-9 and gcc-9.</p></li>
+</ul>
 </li>
 </ul>
 </li>
