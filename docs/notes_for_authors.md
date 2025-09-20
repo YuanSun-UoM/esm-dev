@@ -34,9 +34,10 @@ export GITHUB_DIR=/Users/user/Desktop/YuanSun-UoM/
 export REPO_NAME=esm-dev
 export GITROPO_DIR=${GITHUB_DIR}${REPO_NAME}/
 export DOCS_DIR=${GITROPO_DIR}docs/
+export LOCAL_DOCS=${DOCS_DIR}local
 cd ${DOCS_DIR}
-sphinx-build -b html ${DOCS_DIR}source ${DOCS_DIR}
-open ${DOCS_DIR}/index.html
+sphinx-build -b html ${DOCS_DIR}source ${LOCAL_DOCS}
+open ${LOCAL_DOCS}/index.html
 ```
 
 - Change the docs style in `conf.py`

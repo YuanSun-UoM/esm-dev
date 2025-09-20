@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3 Simulation &#8212; esm-dev  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="WRF-CTSM User Guide" href="../wrf-ctsm/index.html" />
+    <link rel="prev" title="2 Input Data" href="inputdata.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM User Guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inputdata.html" title="2 Input Data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">CESM-Traffic User Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="simulation">
+<h1>3 Simulation<a class="headerlink" href="#simulation" title="Link to this heading">¶</a></h1>
+<p>The following scripts are provided by the author for running CESM with the urban traffic functionality.</p>
+<section id="modify-job-script">
+<h2>Modify job script<a class="headerlink" href="#modify-job-script" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">urban_traffic</span></code>: If true, calculating urban traffic heat flux.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_fldFileName_vehicletv</span></code>: Filename of input stream data for time varying urban traffic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_meshfile_vehicletv</span></code>: Mesh filename of input stream data for time varying urban traffic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_year_first_vehicletv</span></code>: First year to loop over for urban time varying traffic data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream_year_last_vehicletv</span></code>: Last year to loop over for urban time varying traffic data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_year_align_vehicletv</span></code>: Simulation year that aligns with <code class="docutils literal notranslate"><span class="pre">stream_year_first_vehicletv</span></code> value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vehicletvmapalgo</span></code>: Mapping method from urban time varying traffic file to the model resolution.</p>
+<ul>
+<li><p>Note that the mapping method has been updated in the new CTSM versions. Please refer to <a class="reference external" href="https://bb.cgd.ucar.edu/cesm/threads/error-map-algo-copy-is-not-supported.11495/#post-61402">ERROR: map algo copy is not supported</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Define the urban traffic stream input. Please refer to the last section <a class="reference internal" href="inputdata.html"><span class="std std-doc">2 Surface Input</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For example</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;urban_traffic = .true.&quot;</span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;fsurdat=&#39;</span><span class="si">${</span><span class="nv">SURF</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_fldFileName_vehicletv = &#39;</span><span class="si">${</span><span class="nv">INPUT</span><span class="si">}</span><span class="s2">/urban_traffic_0.9x1.25_simyr2020-2025_c240930.nc&#39;&quot;</span>&gt;&gt;<span class="w"> </span>user_nl_clm<span class="w"> </span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_meshfile_vehicletv = &#39;</span><span class="si">${</span><span class="nv">INPUT</span><span class="si">}</span><span class="s2">/lnd_mesh.nc&#39;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_year_first_vehicletv = 2000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;stream_year_last_vehicletv = 2025&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;model_year_align_vehicletv = 2000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;vehicletvmapalgo = &#39;nn&#39;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>user_nl_clm
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">3 Simulation</a><ul>
+<li><a class="reference internal" href="#modify-job-script">Modify job script</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="inputdata.html"
+                          title="previous chapter">2 Input Data</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../wrf-ctsm/index.html"
+                          title="next chapter">WRF-CTSM User Guide</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/notebooks/projects/traffic/simulation.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../wrf-ctsm/index.html" title="WRF-CTSM User Guide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inputdata.html" title="2 Input Data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">esm-dev  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >CESM-Traffic User Guide</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">3 Simulation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yuan Sun.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>
