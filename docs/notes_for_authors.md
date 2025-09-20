@@ -34,7 +34,7 @@ export GITHUB_DIR=/Users/user/Desktop/YuanSun-UoM/
 export REPO_NAME=esm-dev
 export GITROPO_DIR=${GITHUB_DIR}${REPO_NAME}/
 export DOCS_DIR=${GITROPO_DIR}docs/
-export LOCAL_DOCS=${DOCS_DIR}local
+export LOCAL_DOCS=${DOCS_DIR}_build
 cd ${DOCS_DIR}
 sphinx-build -b html ${DOCS_DIR}source ${LOCAL_DOCS}
 open ${LOCAL_DOCS}/index.html
