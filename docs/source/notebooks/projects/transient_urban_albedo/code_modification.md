@@ -4,13 +4,13 @@ The following scripts are provided by the author to enable transient urban albed
 
 ## 1.1 Method 1: Use Modified CTSM Repo Based on CTSM5.0.30
 
-The author provides a modified CTSM repository with a branch [ctsm5.0.030-TranUrbAlb](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.0.030-TranUrbAlb) for directly downloading code.
+There is a modified CTSM repository with a branch [clm5.0.030-TranUrbAlb](https://github.com/YuanSun-UoM/esm-dev_code/tree/clm5.0.30-TranUrbAlb) for direct code download.
 
-- This method pins CTSM to a specific tag/branch (i.e., `release-ctsm5.0.30`).
+- This method pins CTSM to a specific tag/branch (i.e., [release-clm5.0.30](https://github.com/ESCOMP/CTSM/tree/release-clm5.0.30)).
 
 ```bash
 export CTSMNAME=CTSMdev
-export VERSION=ctsm5.0.30-TranUrbAlb
+export VERSION=clm5.0.30-TranUrbAlb
 cd ${WRF_ROOT}/${WRFNAME}
 git clone --branch ${VERSION} https://github.com/YuanSun-UoM/esm-dev_code ${CTSMNAME}
 cd ${CTSMNAME}
@@ -22,7 +22,9 @@ cd ${CTSMNAME}
 
 ## 1.2 Method 2: Use Modified Code Based on `release-clm5.0.30`
 
-The author provides modified source files based on CLM version [release-clm5.0.30](https://github.com/ESCOMP/CTSM/tree/release-clm5.0.30). Users may directly replace the corresponding original files in their CLM codebase with the modified versions listed below.
+The author provides modified source files based on the CLM version [release-clm5.0.30](https://github.com/ESCOMP/CTSM/tree/release-clm5.0.30). Users may directly replace the corresponding original files in their CLM codebase with the modified versions listed below.
+
+- Learn about [SourceMods](https://ncar.github.io/CESM-Tutorial/notebooks/sourcemods/overview.html)
 
 ### Download Source Code
 
@@ -35,9 +37,9 @@ cd ${CTSMNAME}
 ./manage_externals/checkout_externals -S
 ```
 
-- **Note:** clm5.0.30 is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using.
+- **Note:** `clm5.0.30` is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using.
 
-### Copy/Replace Modified files
+### Copy/Replace Modified Files or Use `SourceMods`
 
 - [src/biogeophys/UrbanDynAlbMod.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/biogeophys/UrbanDynAlbMod.F90)
 - [src/biogeophys/UrbanAlbedoMod.F90](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/biogeophys/UrbanAlbedoMod.F90)
@@ -50,8 +52,6 @@ cd ${CTSMNAME}
 - [bld/namelist_files/namelist_definition_clm4_5.xml](https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/bld/namelist_definition_clm4_5.xml)
 
 ## 1.3 Method 3: Manual Code Modifications for Specific CTSM Versions
-
-For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language. 
 
 For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language. 
 

@@ -53,12 +53,12 @@
 <p>The following scripts are provided by the author to enable transient urban albedo representation with the <a class="reference external" href="https://github.com/ESCOMP/CTSM">Community Terrestrial Systems Model (CTSM)</a>, the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend <strong>manual code modification</strong> to ensure compatibility.</p>
 <section id="method-1-use-modified-ctsm-repo-based-on-ctsm5-0-30">
 <h2>1.1 Method 1: Use Modified CTSM Repo Based on CTSM5.0.30<a class="headerlink" href="#method-1-use-modified-ctsm-repo-based-on-ctsm5-0-30" title="Link to this heading">¶</a></h2>
-<p>The author provides a modified CTSM repository with a branch <a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.0.030-TranUrbAlb">ctsm5.0.030-TranUrbAlb</a> for directly downloading code.</p>
+<p>There is a modified CTSM repository with a branch <a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code/tree/clm5.0.30-TranUrbAlb">clm5.0.030-TranUrbAlb</a> for direct code download.</p>
 <ul class="simple">
-<li><p>This method pins CTSM to a specific tag/branch (i.e., <code class="docutils literal notranslate"><span class="pre">release-ctsm5.0.30</span></code>).</p></li>
+<li><p>This method pins CTSM to a specific tag/branch (i.e., <a class="reference external" href="https://github.com/ESCOMP/CTSM/tree/release-clm5.0.30">release-clm5.0.30</a>).</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CTSMdev
-<span class="nb">export</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span>ctsm5.0.30-TranUrbAlb
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span>clm5.0.30-TranUrbAlb
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
 git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="w"> </span>https://github.com/YuanSun-UoM/esm-dev_code<span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
@@ -69,7 +69,10 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 </section>
 <section id="method-2-use-modified-code-based-on-release-clm5-0-30">
 <h2>1.2 Method 2: Use Modified Code Based on <code class="docutils literal notranslate"><span class="pre">release-clm5.0.30</span></code><a class="headerlink" href="#method-2-use-modified-code-based-on-release-clm5-0-30" title="Link to this heading">¶</a></h2>
-<p>The author provides modified source files based on CLM version <a class="reference external" href="https://github.com/ESCOMP/CTSM/tree/release-clm5.0.30">release-clm5.0.30</a>. Users may directly replace the corresponding original files in their CLM codebase with the modified versions listed below.</p>
+<p>The author provides modified source files based on the CLM version <a class="reference external" href="https://github.com/ESCOMP/CTSM/tree/release-clm5.0.30">release-clm5.0.30</a>. Users may directly replace the corresponding original files in their CLM codebase with the modified versions listed below.</p>
+<ul class="simple">
+<li><p>Learn about <a class="reference external" href="https://ncar.github.io/CESM-Tutorial/notebooks/sourcemods/overview.html">SourceMods</a></p></li>
+</ul>
 <section id="download-source-code">
 <h3>Download Source Code<a class="headerlink" href="#download-source-code" title="Link to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CLM
@@ -81,11 +84,11 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><strong>Note:</strong> clm5.0.30 is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using.</p></li>
+<li><p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">clm5.0.30</span></code> is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using.</p></li>
 </ul>
 </section>
-<section id="copy-replace-modified-files">
-<h3>Copy/Replace Modified files<a class="headerlink" href="#copy-replace-modified-files" title="Link to this heading">¶</a></h3>
+<section id="copy-replace-modified-files-or-use-sourcemods">
+<h3>Copy/Replace Modified Files or Use <code class="docutils literal notranslate"><span class="pre">SourceMods</span></code><a class="headerlink" href="#copy-replace-modified-files-or-use-sourcemods" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/biogeophys/UrbanDynAlbMod.F90">src/biogeophys/UrbanDynAlbMod.F90</a></p></li>
 <li><p><a class="reference external" href="https://github.com/envdes/code_DynamicUrbanAlbedo/blob/main/1_code_modification/src/biogeophys/UrbanAlbedoMod.F90">src/biogeophys/UrbanAlbedoMod.F90</a></p></li>
@@ -101,7 +104,6 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 </section>
 <section id="method-3-manual-code-modifications-for-specific-ctsm-versions">
 <h2>1.3 Method 3: Manual Code Modifications for Specific CTSM Versions<a class="headerlink" href="#method-3-manual-code-modifications-for-specific-ctsm-versions" title="Link to this heading">¶</a></h2>
-<p>For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language.</p>
 <p>For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language.</p>
 <p><strong>Modified code sections are denoted using the following markers:</strong></p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
@@ -1573,7 +1575,7 @@ Mapping<span class="w"> </span>method<span class="w"> </span>from<span class="w"
 <li><a class="reference internal" href="#method-1-use-modified-ctsm-repo-based-on-ctsm5-0-30">1.1 Method 1: Use Modified CTSM Repo Based on CTSM5.0.30</a></li>
 <li><a class="reference internal" href="#method-2-use-modified-code-based-on-release-clm5-0-30">1.2 Method 2: Use Modified Code Based on <code class="docutils literal notranslate"><span class="pre">release-clm5.0.30</span></code></a><ul>
 <li><a class="reference internal" href="#download-source-code">Download Source Code</a></li>
-<li><a class="reference internal" href="#copy-replace-modified-files">Copy/Replace Modified files</a></li>
+<li><a class="reference internal" href="#copy-replace-modified-files-or-use-sourcemods">Copy/Replace Modified Files or Use <code class="docutils literal notranslate"><span class="pre">SourceMods</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#method-3-manual-code-modifications-for-specific-ctsm-versions">1.3 Method 3: Manual Code Modifications for Specific CTSM Versions</a><ul>

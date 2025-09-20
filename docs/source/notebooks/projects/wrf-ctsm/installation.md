@@ -11,26 +11,26 @@ The following scripts are provided by the author for installing WRF-CTSM on a Li
 - [git-lfs](https://git-lfs.com/)
 - [ncl](https://www.ncl.ucar.edu/Download/)
 - [nco](https://nco.sourceforge.net/#bld)
-- [mpich-4_0_2.sh](scripts/software/mpich-4_0_2.sh)
-- [zlib-1_3_1.sh](scripts/software/zlib-1_3_1.sh)
-- [hdf5-1_12_3.sh](scripts/software/hdf5-1_12_3.sh)
-- [pnetcdf-1_12_3.sh](scripts/software/pnetcdf-1_12_3.sh)
+- [mpich-4_0_2.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/mpich-4_0_2.sh)
+- [zlib-1_3_1.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/zlib-1_3_1.sh)
+- [hdf5-1_12_3.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/hdf5-1_12_3.sh)
+- [pnetcdf-1_12_3.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/pnetcdf-1_12_3.sh)
   - To support netcdf-c and netcdf-fortran with parallel enabled.
 
-- [netcdfc-4_9_2.sh](scripts/software/netcdfc-4_9_2.sh)
-- [netcdff-4_6_1.sh](scripts/software/netcdff-4_6_1.sh)
-- [pio-2_6_6.sh](scripts/software/pio-2_6_6.sh)
+- [netcdfc-4_9_2.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/netcdfc-4_9_2.sh)
+- [netcdff-4_6_1.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/netcdff-4_6_1.sh)
+- [pio-2_6_6.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/pio-2_6_6.sh)
   - To support ESMF.
 
-- [esmf-8_8_1.sh](scripts/software/esmf-8_8_1.sh)
+- [esmf-8_8_1.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/esmf-8_8_1.sh)
   - Required by CTSM5.2 and later versions. 
 
-- [jasper-1_900_1.sh](scripts/software/jasper-1_900_1.sh)
-  - WPS requires old jasper versions. 
+- [jasper-1_900_1.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/jasper-1_900_1.sh)
+  - WPS requires old Jasper versions. 
 
 
-- [libpng-1_6_39.sh](scripts/software/libpng-1_6_39.sh)
-- [lapack-3_9_0.sh](scripts/software/lapack-3_9_0.sh)
+- [libpng-1_6_39.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/libpng-1_6_39.sh)
+- [lapack-3_9_0.sh](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/notebooks/projects/wrf-ctsm/scripts/software/lapack-3_9_0.sh)
 
 ### Set environment
 

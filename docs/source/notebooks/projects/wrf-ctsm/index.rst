@@ -16,3 +16,4 @@ WRF-CTSM User Guide
    simulation.md
    nest_simulation.md
    restart.md
+   error_diagnosis.md

@@ -6,7 +6,7 @@
   - [GitHub Repository](https://github.com/envdes/code_DynamicUrbanAlbedo)
   - [(Open Access) Simulation Input and Output Data & Job Scripts](https://doi.org/10.48420/27867357)
   
-  - Presentation: [29th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2024-06/2024cesmlmwgsun.pdf), [12th ICUC](../files/ICUC12-33.pdf)
+  - Presentation: [29th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2024-06/2024cesmlmwgsun.pdf), [12th ICUC](https://github.com/YuanSun-UoM/esm-dev/tree/main/docs/source/files/ICUC12-33.pdf)
 
 - [CESM-TranUrbAlb User Guide](projects/transient_urban_albedo/index.rst)
 
@@ -16,7 +16,7 @@
 
 - Preprint "Enhancing Global-Scale Urban Land Cover Representation Using Local Climate Zones in the Community Earth System Model." [10.31223/X5GX4K](https://doi.org/10.31223/X5GX4K)
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
-  - Presentation: [21st AOGS](../files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf)
+  - Presentation: [21st AOGS](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf)
   
 - Paper ""
   - [GitHub Repository]()
@@ -33,7 +33,7 @@
 
 ## Coupling WRF and CTSM (WRF-CTSM)
 
-- Paper ""
+- Preprint ""
   - [GitHub Repository]()
 - [WRF-CTSM User Guide](projects/wrf-ctsm/index.rst)
 
