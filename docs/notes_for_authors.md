@@ -28,6 +28,8 @@ touch docs/.nojekyll
 
 ## Update
 
+- I need to use `sphinx-build` instead of GitHub action for building the webpage.
+
 ```
 conda activate testingenv
 export GITHUB_DIR=/Users/user/Desktop/YuanSun-UoM/

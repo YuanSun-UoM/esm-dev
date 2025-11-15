@@ -52,11 +52,11 @@
 <p>Which are NaNs =  F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F T F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F F
 NaN found in field Faxa_bcphidry at gridcell index/lon/lat:          127   358.19271850585938        53.250572204589844<br />
 ERROR:  ERROR: One or more of the CTSM cap output fields are NaN</p>
-<p><strong>note</strong>: This is the most common error from CTSM simulations, suggesting that CTSM does not get forcings on time. This could be caused by multiple factors, and I could not find a way to avoid it yet.</p>
+<p><strong>note</strong>: This is the most common error from CTSM simulations, suggesting that CTSM does not get forcings on time. This could be caused by multiple factors, and I could not find a way to avoid it yet. In my understanding, CTSM is a heavy land surface model and uses hundreds of CPUs. But the number of CPUs for WRF simulations is constrained by grid spacing. Thus, it is challenging to run WRF-CTSM at ultra high spatial resolution, for example, 1 km.</p>
 <p><strong>solution</strong>:</p>
 <ul class="simple">
 <li><p>Increase the time step to leave sufficient time for computing.</p></li>
-<li><p>Decrease threads.</p></li>
+<li><p>Increase threads and CPU cores.</p></li>
 <li><p>Restart simulations based on <code class="docutils literal notranslate"><span class="pre">wrfrst</span></code> and ctsm restart files.</p></li>
 </ul>
 </section>
