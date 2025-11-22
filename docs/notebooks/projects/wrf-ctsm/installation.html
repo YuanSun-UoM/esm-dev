@@ -307,6 +307,9 @@ git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
 <span class="n">landmask</span> <span class="o">=</span> <span class="n">where</span> <span class="p">(</span><span class="n">lakemask</span><span class="o">.</span><span class="n">eq</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">landmask</span><span class="p">)</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lake_depth</span> <span class="pre">=</span> <span class="pre">wrf_file-&gt;LAKE_DEPTH(0,:,:)</span> </code> means using the <code class="docutils literal notranslate"><span class="pre">lake_depth</span></code> data from the wrf’s file, i,e., <code class="docutils literal notranslate"><span class="pre">geo_em.d01.nc</span></code>. The source data is from the wrf inputdata <code class="docutils literal notranslate"><span class="pre">./geog/WPS_GEOG/lake_depth/</span></code>.</p></li>
+</ul>
 </li>
 <li><p>According to <a class="reference external" href="https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/">CTSM-Norway tutorial</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/mkunitymap.ncl</span></code>, around Line 74:</p>
 <ul>

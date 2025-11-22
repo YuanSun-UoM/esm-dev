@@ -41,7 +41,7 @@ sphinx-build -b html ${DOCS_DIR}source ${DOCS_DIR}
 open ${DOCS_DIR}/index.html
 ```
 
-- Change the docs style in `conf.py`
+- Change the docs' style in `conf.py`
 - For GitHub, enable **Discussions** and add **issue templates** in **Settings**.
 - For GitHub Page, set the source as `Deploy from a branch`, set the Branch as `main/docs/`
   - The HTML files should be directly in the `docs` rather than inner folder

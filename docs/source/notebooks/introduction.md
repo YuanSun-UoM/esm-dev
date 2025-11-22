@@ -10,12 +10,11 @@
 
 - [CESM-TranUrbAlb User Guide](projects/transient_urban_albedo/index.rst)
 
-
-
 ## Representing Urban LCZ Land Cover in CESM (CESM-LCZ)
 
 - Sun, Y., et al. (2025). Enhancing Global-Scale Urban Land Cover Representation Using Local Climate Zones in the Community Earth System Model. *Journal of Advances in Modeling Earth Systems*, 17(11), e2025MS004934. [10.1029/2025MS004934](https://doi.org/10.1029/2025MS004934)
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
+  - [(Open Access) Simulation Input and Output Data & Job Scripts]()
   - Presentation: [21st AOGS](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf), [AMS 2026]()
 - [CESM-LCZ User Guide](projects/lcz/index.rst)
 
@@ -29,8 +28,9 @@
 
 ## Coupling WRF and CTSM (WRF-CTSM)
 
-- Preprint ""
-  - [GitHub Repository]()
+- Preprint "Advancing CLMU for regional climate simulations through WRF coupling: intercomparison with NOAH–SLUCM." []()
+  - [GitHub Repository](https://github.com/envdes/code_WRF-CLMU)
+  - Presentation: []()
 - [WRF-CTSM User Guide](projects/wrf-ctsm/index.rst)
 
 # Support

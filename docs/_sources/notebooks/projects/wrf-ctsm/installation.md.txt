@@ -247,6 +247,8 @@ git checkout ctsm5.3.024
   landmask = where (lakemask.eq.1,1,landmask)
   ```
   
+  - `lake_depth = wrf_file->LAKE_DEPTH(0,:,:) ` means using the `lake_depth` data from the wrf's file, i,e., `geo_em.d01.nc`. The source data is from the wrf inputdata `./geog/WPS_GEOG/lake_depth/`. 
+  
 - According to [CTSM-Norway tutorial](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/mkunitymap.ncl`, around Line 74:
 
   - From:

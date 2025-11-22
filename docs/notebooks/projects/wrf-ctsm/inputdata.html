@@ -91,21 +91,8 @@ mv<span class="w"> </span>*nc<span class="w"> </span><span class="si">${</span><
 rm<span class="w"> </span>geo_em.d01.nc
 </pre></div>
 </div>
-<ul>
-<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">wrf2clm_land.nc</span></code> and <code class="docutils literal notranslate"><span class="pre">wrf2clm_ocean.nc</span></code> should be created.</p></li>
-<li><p>Then, unstructure the <code class="docutils literal notranslate"><span class="pre">wrf2cl_land.nc</span></code> to get unstructured mesh files.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ESMF</span><span class="o">=</span><span class="si">${</span><span class="nv">ESMFDIR</span><span class="si">}</span>/bin
-<span class="nb">export</span><span class="w"> </span><span class="nv">GRIDFILE</span><span class="o">=</span>wrf2clm_land.nc
-<span class="nb">export</span><span class="w"> </span><span class="nv">LANDMESHFILE</span><span class="o">=</span>lnd_mesh.nc
-<span class="si">${</span><span class="nv">ESMF</span><span class="si">}</span>/ESMF_Scrip2Unstruct<span class="w"> </span><span class="si">${</span><span class="nv">GRIDFILE</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">LANDMESHFILE</span><span class="si">}</span><span class="w"> </span><span class="m">0</span>
-ncap2<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;elementMask(:)=0&#39;</span><span class="w"> </span><span class="si">${</span><span class="nv">LANDMESHFILE</span><span class="si">}</span><span class="w"> </span>mask_<span class="si">${</span><span class="nv">LANDMESHFILE</span><span class="si">}</span><span class="w"> </span>--overwrite
-</pre></div>
-</div>
 <ul class="simple">
-<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">lnd_mesh.nc</span></code> and <code class="docutils literal notranslate"><span class="pre">mask_lnd_mesh.nc</span></code> should be created</p></li>
-</ul>
-</li>
+<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">wrf2clm_land.nc</span></code> and <code class="docutils literal notranslate"><span class="pre">wrf2clm_ocean.nc</span></code> should be created.</p></li>
 </ul>
 </section>
 <section id="run-mkunitymap-ncl">
@@ -121,7 +108,11 @@ ncl<span class="w"> </span>mkunitymap.ncl<span class="w"> </span>&gt;<span class
 <ul class="simple">
 <li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">wrf2clm_mapping.nc</span></code> should be created.</p></li>
 </ul>
-<p>Then, unstructure the file:</p>
+<p>Then, unstructure the <code class="docutils literal notranslate"><span class="pre">wrf2cl_land.nc</span></code> to get the unstructured mesh files <code class="docutils literal notranslate"><span class="pre">lnd_mesh.nc</span></code> and <code class="docutils literal notranslate"><span class="pre">mask_lnd_mesh.nc</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lnd_mesh.nc</span></code> includes 0 and 1.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mask_lnd_mesh.nc</span></code> contains only 1.</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">ESMF</span><span class="o">=</span><span class="si">${</span><span class="nv">ESMFDIR</span><span class="si">}</span>/bin
 <span class="nb">export</span><span class="w"> </span><span class="nv">GRIDFILE</span><span class="o">=</span>wrf2clm_land.nc
@@ -132,11 +123,12 @@ ncap2<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;ele
 </div>
 <ul class="simple">
 <li><p>Check <code class="docutils literal notranslate"><span class="pre">PET0.ESMF_logFile</span></code> to see if <code class="docutils literal notranslate"><span class="pre">ESMF_Scrip2Unstruct</span></code> works successfully.</p></li>
+<li><p>If run successfully, <code class="docutils literal notranslate"><span class="pre">lnd_mesh.nc</span></code> and <code class="docutils literal notranslate"><span class="pre">mask_lnd_mesh.nc</span></code> should be created</p></li>
 </ul>
 </section>
 <section id="run-gen-domain">
 <h2>2.5 Run <code class="docutils literal notranslate"><span class="pre">gen_domain</span></code><a class="headerlink" href="#run-gen-domain" title="Link to this heading">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/tools/mapping/gen_domain_files
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>/cime/tools/mapping/gen_domain_files
 ./gen_domain<span class="w"> </span>-m<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>/wrf2clm_mapping.nc<span class="w"> </span>-o<span class="w"> </span>wrf2clm_ocn_noneg<span class="w"> </span>-l<span class="w"> </span>wrf2clm_lnd_noneg<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">runs_ctsm</span><span class="si">}</span>/gen_domain.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 mv<span class="w"> </span>domain.*<span class="w"> </span><span class="si">${</span><span class="nv">CTSMINPUT_DIR</span><span class="si">}</span>
 </pre></div>
