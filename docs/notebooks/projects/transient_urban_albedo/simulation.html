@@ -52,7 +52,7 @@
 <h1>3 Simulation<a class="headerlink" href="#simulation" title="Link to this heading">¶</a></h1>
 <p>The following scripts are provided by the author for running CESM with the transient urban albedo functionality.</p>
 <section id="modify-job-script">
-<h2>Modify job script<a class="headerlink" href="#modify-job-script" title="Link to this heading">¶</a></h2>
+<h2>Modify Job Script<a class="headerlink" href="#modify-job-script" title="Link to this heading">¶</a></h2>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">transient_urbanalbedo_roof</span></code>: If true, roof albedo changes over time.</p>
 <ul class="simple">
@@ -61,9 +61,18 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">stream_year_first_urbanalbtvroof</span></code>: First year to loop over for urban time varying roof albedo</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">stream_year_last_urbanalbtvroof</span></code>: Last year to loop over for urban time varying roof albedo</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">model_year_align_urbanalbtvroof</span></code>: Simulation year that aligns with <code class="docutils literal notranslate"><span class="pre">stream_year_first_urbanalbtvroof</span></code> value</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">urbanalbtvroofmapalgo</span></code>: Mapping method from urban time varying roof albedo file to the model resolution.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">urbanalbtvroofmapalgo</span></code>: Spatial mapping method from urban time varying roof albedo file to the model resolution.</p>
 <ul>
-<li><p>Note that the mapping method has been updated in the new CTSM versions. Please refer to <a class="reference external" href="https://bb.cgd.ucar.edu/cesm/threads/error-map-algo-copy-is-not-supported.11495/#post-61402">ERROR: map algo copy is not supported</a></p></li>
+<li><p>Please note that the spatial mapping method has been updated in the latest CTSM versions. Please refer to <a class="reference external" href="https://bb.cgd.ucar.edu/cesm/threads/error-map-algo-copy-is-not-supported.11495/#post-61402">ERROR: map algo copy is not supported</a> and <a class="reference external" href="https://github.com/ESCOMP/CDEPS/blob/main/streams/dshr_stream_mod.F90">supported mapping algorithms</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">bilinear</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redist</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nn</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">consf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">consd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -98,7 +107,7 @@
     <h3><a href="../../../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">3 Simulation</a><ul>
-<li><a class="reference internal" href="#modify-job-script">Modify job script</a></li>
+<li><a class="reference internal" href="#modify-job-script">Modify Job Script</a></li>
 </ul>
 </li>
 </ul>

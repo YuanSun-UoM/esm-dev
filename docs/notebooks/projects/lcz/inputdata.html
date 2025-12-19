@@ -126,7 +126,7 @@
 <section id="calculate-lcz-fraction">
 <h2>2.2 Calculate LCZ fraction<a class="headerlink" href="#calculate-lcz-fraction" title="Link to this heading">¶</a></h2>
 <ul>
-<li><p>We calculate LCZ fractions by aggregating LCZ pixels from a high-resolution LCZ map.</p></li>
+<li><p>We calculate built LCZ fractions by aggregating built LCZ pixels from a high-resolution LCZ map.</p></li>
 <li><p>Scripts below use a clipped TIFF from <a class="reference external" href="https://doi.org/10.5194/essd-14-3835-2022">a global 100 m LCZ map</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;LCZ_MCR.tif&#39;</span> 
 <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
@@ -185,9 +185,9 @@ If<span class="w"> </span>true,<span class="w"> </span>this<span class="w"> </sp
 </ul>
 </section>
 <section id="fit-ctsm-land-fraction">
-<h2>2.3 Fit CTSM land fraction<a class="headerlink" href="#fit-ctsm-land-fraction" title="Link to this heading">¶</a></h2>
+<h2>2.3 Fit CTSM Land Fraction<a class="headerlink" href="#fit-ctsm-land-fraction" title="Link to this heading">¶</a></h2>
 <ul>
-<li><p>Different from the LCZ classification, CTSM has natural vegetation, crop, glacier, lake, and three urban classes. The sum of land fractions is 100%. That is,</p>
+<li><p>Different from the built LCZ land cover classification, CTSM has natural vegetation, crop, glacier, lake, and three urban classes. The sum of land fractions is 100%. That is,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">check_sum</span> <span class="o">=</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_CROP&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_CROP&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_LAKE&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;PCT_URBAN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;numurbl&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ds_std</span><span class="p">[</span><span class="s1">&#39;PCT_OCEAN&#39;</span><span class="p">]</span> 
 </pre></div>
 </div>
@@ -335,7 +335,7 @@ If<span class="w"> </span>true,<span class="w"> </span>this<span class="w"> </sp
 </div>
 <p><strong>Note:</strong> After changing the urban fraction, we need to manipulate the rest of the fractions to ensure the sum of all fractions is 100%.</p>
 </li>
-<li><p>In addition to surface data, CTSM requires separate data for the time-varying <code class="docutils literal notranslate"><span class="pre">T_BUILDING_MAX</span></code> stream (maximum building indoor temperature) for calculating air conditioning flux.</p>
+<li><p>In addition to surface data, CTSM requires separate data for the time-varying <code class="docutils literal notranslate"><span class="pre">T_BUILDING_MAX</span></code> data stream (maximum building indoor temperature) for calculating air conditioning flux.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds_std_tmax</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">home_path</span><span class="si">}</span><span class="s1">dataset/inputdata/lnd/clm2/urbandata/CTSM52_tbuildmax_OlesonFeddema_2020_0.9x1.25_simyr1849-2106_c200605.nc&#39;</span><span class="p">)</span>
 <span class="n">ds_template</span> <span class="o">=</span> <span class="n">ds_all</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">171</span><span class="p">,</span> <span class="mi">177</span><span class="p">))</span> <span class="c1"># 2020-2025</span>
 <span class="n">output_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;CTSM52_tbuildmax_LCZ_0.9x1.25_simyr2020-2025_c240930.nc&#39;</span>
@@ -409,7 +409,7 @@ If<span class="w"> </span>true,<span class="w"> </span>this<span class="w"> </sp
       <span class="n">T_BUILDING_LCZ</span><span class="p">[:,:,:]</span> <span class="o">=</span> <span class="mi">350</span>
 </pre></div>
 </div>
-<p><strong>Note:</strong> 350 K is a dummy value for maximum indoor temperature, effectively disabling air conditioning. Users should assign more realistic T_BUILDING_MAX values tailored to each LCZ class.</p>
+<p><strong>Note:</strong> 350 K is a dummy value for maximum indoor temperature, effectively disabling air conditioning. Users should assign more realistic <code class="docutils literal notranslate"><span class="pre">T_BUILDING_MAX</span></code> values tailored to each LCZ class.</p>
 </li>
 </ul>
 </section>
@@ -429,7 +429,7 @@ If<span class="w"> </span>true,<span class="w"> </span>this<span class="w"> </sp
 <li><a class="reference internal" href="#prepare-default-surface-dataset">2.1 Prepare Default Surface Dataset</a></li>
 <li><a class="reference internal" href="#construct-grid-cell-boxes">2.2 Construct Grid Cell Boxes</a></li>
 <li><a class="reference internal" href="#calculate-lcz-fraction">2.2 Calculate LCZ fraction</a></li>
-<li><a class="reference internal" href="#fit-ctsm-land-fraction">2.3 Fit CTSM land fraction</a></li>
+<li><a class="reference internal" href="#fit-ctsm-land-fraction">2.3 Fit CTSM Land Fraction</a></li>
 <li><a class="reference internal" href="#assign-lcz-urban-parameters">2.4 Assign LCZ Urban Parameters</a></li>
 </ul>
 </li>

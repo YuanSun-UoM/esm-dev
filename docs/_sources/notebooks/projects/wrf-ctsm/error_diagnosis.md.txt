@@ -1,6 +1,6 @@
 # 6 Error Diagnosis
 
-## NaN found
+## Error 1: NaN found
 
 of NaNs =            1
 

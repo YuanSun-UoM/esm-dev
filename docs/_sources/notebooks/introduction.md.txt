@@ -14,7 +14,7 @@
 
 - Sun, Y., et al. (2025). Enhancing Global-Scale Urban Land Cover Representation Using Local Climate Zones in the Community Earth System Model. *Journal of Advances in Modeling Earth Systems*, 17(11), e2025MS004934. [10.1029/2025MS004934](https://doi.org/10.1029/2025MS004934)
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
-  - [(Open Access) Simulation Input and Output Data & Job Scripts]()
+  - [(Open Access) Simulation Input and Output Data & Job Scripts](https://doi.org/10.6084/m9.figshare.30665966)
   - Presentation: [21st AOGS](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf), [AMS 2026]()
 - [CESM-LCZ User Guide](projects/lcz/index.rst)
 
@@ -28,7 +28,7 @@
 
 ## Coupling WRF and CTSM (WRF-CTSM)
 
-- Preprint "Advancing CLMU for regional climate simulations through WRF coupling: intercomparison with NOAH–SLUCM." []()
+- Preprint "Advancing CLMU for regional climate simulations through WRF coupling: intercomparison with NOAH–SLUCM." [10.31223/X5MT9P](https://doi.org/10.31223/X5MT9P)
   - [GitHub Repository](https://github.com/envdes/code_WRF-CLMU)
   - Presentation: []()
 - [WRF-CTSM User Guide](projects/wrf-ctsm/index.rst)

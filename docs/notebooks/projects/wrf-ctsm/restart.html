@@ -18,6 +18,7 @@
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="6 Error Diagnosis" href="error_diagnosis.html" />
     <link rel="prev" title="4 Nest Simulation" href="nest_simulation.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
@@ -30,6 +31,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="error_diagnosis.html" title="6 Error Diagnosis"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="nest_simulation.html" title="4 Nest Simulation"
              accesskey="P">previous</a> |</li>
@@ -106,7 +110,7 @@
 <ul>
 <li><p>In case we want to restart based on <code class="docutils literal notranslate"><span class="pre">wrfrst_d01_2022-03-04_00:00:00</span></code>, we need to change the time for <code class="docutils literal notranslate"><span class="pre">*.clm2.r.*</span></code> and <code class="docutils literal notranslate"><span class="pre">*.lilac.r.*</span></code> .</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">RESTART_DATE</span><span class="o">=</span><span class="s2">&quot;2022-03-10&quot;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">start_ymd</span><span class="o">=</span><span class="m">20220310</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">start_ymd</span><span class="o">=</span><span class="s2">&quot;20220310&quot;</span>
 
 ncap2<span class="w"> </span>-O<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;timemgr_rst_start_ymd=</span><span class="si">${</span><span class="nv">start_ymd</span><span class="si">}</span><span class="s2">; timemgr_rst_ref_ymd=</span><span class="si">${</span><span class="nv">start_ymd</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">PREV_RESTART_DIR</span><span class="si">}${</span><span class="nv">PREV_LILAC_NAME</span><span class="si">}</span>.clm2.r.<span class="si">${</span><span class="nv">RESTART_DATE</span><span class="si">}</span>-00000.nc<span class="w"> </span><span class="si">${</span><span class="nv">runs_ctsm</span><span class="si">}</span>/input/restart_<span class="si">${</span><span class="nv">NUM_RESTART</span><span class="si">}</span>/<span class="si">${</span><span class="nv">PREV_LILAC_NAME</span><span class="si">}</span>.clm2.r.<span class="si">${</span><span class="nv">RESTART_DATE</span><span class="si">}</span>-00000.nc
 
@@ -182,6 +186,11 @@ ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><
     <p class="topless"><a href="nest_simulation.html"
                           title="previous chapter">4 Nest Simulation</a></p>
   </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="error_diagnosis.html"
+                          title="next chapter">6 Error Diagnosis</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -209,6 +218,9 @@ ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="error_diagnosis.html" title="6 Error Diagnosis"
+             >next</a> |</li>
         <li class="right" >
           <a href="nest_simulation.html" title="4 Nest Simulation"
              >previous</a> |</li>

@@ -137,10 +137,10 @@ export WRFNAME=WRF-CTSM
 export CTSMNAME=CTSMdev
 export CASE_DIR=${WRF_ROOT}/cases/
 export CASENAME="TestSingleDomain"
-export CASERUN_DIR=${CASE_DIR}${CASENAME}/runs/
-export CASEINPUT_DIR=${CASE_DIR}${CASENAME}/input/
-export CTSMINPUT_DIR=${CASEINPUT_DIR}ctsm/
-export WRFINPUT_DIR=${CASEINPUT_DIR}wrf/
+export CASERUN_DIR="${CASE_DIR}${CASENAME}/runs/"
+export CASEINPUT_DIR="${CASE_DIR}${CASENAME}/input/"
+export CTSMINPUT_DIR="${CASEINPUT_DIR}ctsm/"
+export WRFINPUT_DIR="${CASEINPUT_DIR}wrf/"
 
 # add scripts to the run path
 cd ${sub_dir}
