@@ -1,4 +1,4 @@
-# Introduction
+# New functionalities
 
 ## Prescribing Transient Urban Albedo in CESM (CESM-TranUrbAlb)
 
@@ -7,8 +7,7 @@
   - [(Open Access) Simulation Input and Output Data & Job Scripts](https://doi.org/10.48420/27867357)
   
   - Presentation: [29th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2024-06/2024cesmlmwgsun.pdf), [12th ICUC](https://github.com/YuanSun-UoM/esm-dev/tree/main/docs/source/files/ICUC12-33.pdf)
-
-- [CESM-TranUrbAlb User Guide](projects/transient_urban_albedo/index.rst)
+-  [CESM-TranUrbAlb **User Guide**](projects/transient_urban_albedo/index.rst)
 
 ## Representing Urban LCZ Land Cover in CESM (CESM-LCZ)
 
@@ -16,38 +15,56 @@
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
   - [(Open Access) Simulation Input and Output Data & Job Scripts](https://doi.org/10.6084/m9.figshare.30665966)
   - Presentation: [21st AOGS](https://github.com/YuanSun-UoM/esm-dev/blob/main/docs/source/files/aogs_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf), [AMS 2026]()
-- [CESM-LCZ User Guide](projects/lcz/index.rst)
+- [CESM-LCZ **User Guide**](projects/lcz/index.rst)
 
 ## Modeling Urban Traffic Heat Flux in CESM (CESM-Traffic)
 
 - Preprint "Modeling urban traffic heat flux in the Community Earth System Model." [10.31223/X5ZX72](https://doi.org/10.31223/X5ZX72)
   - [GitHub Repository](https://github.com/envdes/code_CLMU_traffic)
-  - Presentation: [30th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2025-06/2025cesmsun.pdf)
+  - Presentation: [30th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2025-06/2025cesmsun.pdf), [EGU26]()
 
-- [CESM-Traffic User Guide](projects/traffic/index.rst)
+- [CESM-Traffic **User Guide**](projects/traffic/index.rst)
 
 ## Coupling WRF and CTSM (WRF-CTSM)
 
 - Preprint "Advancing CLMU for regional climate simulations through WRF coupling: intercomparison with NOAH–SLUCM." [10.31223/X5MT9P](https://doi.org/10.31223/X5MT9P)
   - [GitHub Repository](https://github.com/envdes/code_WRF-CLMU)
-  - Presentation: []()
-- [WRF-CTSM User Guide](projects/wrf-ctsm/index.rst)
+  - Presentation: [CESM 2026 Winter Group Meeting]()
+- [WRF-CTSM **User Guide**](projects/wrf-ctsm/index.rst)
+
+# Applications
+
+## WRF-CTSM ＋ TranUrbAlb
+
+- Preprint "."
+  -  [GitHub Repository]()
+
+  -  Presentation: []()
+
+## Transient Urban Land Representation
+
+- Preprint "."
+  - [GitHub Repository]()
+  - [(Open Access) Simulation Input and Output Data & Job Scripts]()
+
+
 
 # Support
 
 ## Useful Links
 
 - GitHub Repository
-  - [WRF](https://github.com/wrf-model/WRF)
+  - [CESM](https://github.com/ESCOMP/CESM)
   - [CTSM](https://github.com/ESCOMP/CTSM)
+  - [WRF](https://github.com/wrf-model/WRF)
 - User Guide
   - [WPS User Guide](https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/wps.html)
   - [WRF User Guide](https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/index.html)
   - [CTSM User Guide](https://escomp.github.io/CTSM/release-clm5.0/index.html#)
   - [CTSM-LILAC user guide](https://escomp.github.io/CTSM/lilac/index.html)
-- WRF-CTSM Tutorial
-  - [Using CTSM with WRF](https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf.html)
-  - [WRF-CTSM on the SIGMA2 HPC](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/)
+- Tutorial
+  - WRF-CTSM: [Using CTSM with WRF](https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf.html), [WRF-CTSM on the SIGMA2 HPC](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/)
+  
 - Forum
   - [WRF & MPAS-A Support Forum](https://forum.mmm.ucar.edu)
   - [DiscussCESM Forums](https://bb.cgd.ucar.edu/cesm/)
