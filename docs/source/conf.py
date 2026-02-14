@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'esm-dev'
-copyright = '2025, Yuan Sun'
+copyright = '2026, Yuan Sun'
 author = 'Yuan Sun'
 
 # -- General configuration ---------------------------------------------------
@@ -28,8 +28,14 @@ extensions = [
 ]
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
-
+html_sidebars = {
+    "**": ["localtoc.html", "relations.html", "sourcelink.html", "searchbox.html"]
+}
+html_sidebars["index"] = [
+    "searchbox.html",
+    "clustrmaps.html",
+    "github_star.html"
+]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
