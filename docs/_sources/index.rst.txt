@@ -3,7 +3,7 @@ Homepage
 
 .. important::
 
-   You are viewing the esm-dev documentation written by `Yuan Sun <https://yuansun-uom.github.io>`_, sharing code and methods for Earth system modeling in climate research.
+   You are viewing the esm-dev documentation written by `Yuan Sun <https://yuansun-uom.github.io>`_, sharing code and methods for Earth system modeling in climate research. The source scripts are stored at `esm-dev <https://github.com/YuanSun-UoM/esm-dev>`_.
 
    Currently, the author have developed several new functionalities under the supervision for the Community Terrestrial System Model (CTSM) of `Keith Oleson <https://scholar.google.com/citations?user=k4_7Io0AAAAJ&hl=en&oi=aoo>`_ and `Zhonghua Zheng <https://zhonghuazheng.com/>`_.
    

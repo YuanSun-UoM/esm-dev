@@ -2,7 +2,7 @@
 
 The following scripts are provided by the author for running CESM with LCZs. 
 
-## Modify Job Script
+## 3.1 Modify Job Script
 
 - `use_lcz`: If true, use 10-LCZ urban land cover representation instead of the default 3-class scheme.
 
@@ -24,7 +24,7 @@ The following scripts are provided by the author for running CESM with LCZs.
 - (optional) Enable `collapse_urban = .true.` to represent a single dominant LCZ class for each grid cell containing urban fractions.
   - This is cost-efficient for high-resolution simulations. 
 
-## Surface Initial Data
+## 3.2 Surface Initial Data
 
 - Currently, we do not have global initial data that fits well for LCZ urban classes. Thus, we need to spin up the model from a cold start. 
 - Generating LCZ-based initial data by interpolating the existing initial data across three urban classes may introduce an error. 
