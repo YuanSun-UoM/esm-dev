@@ -19,7 +19,7 @@
 
 ## Modeling Urban Traffic Heat Flux in CESM (CESM-Traffic)
 
-- Preprint "Modeling urban traffic heat flux in the Community Earth System Model." [10.31223/X5ZX72](https://doi.org/10.31223/X5ZX72)
+- Sun, Y., et al. (2026). Modeling urban traffic heat flux in the Community Earth System Model: Formulation and validation for two test sites." *Journal of Advances in Modeling Earth Systems*, e2025MS005435 (accepted). [10.31223/X5ZX72](https://doi.org/10.31223/X5ZX72)
   - [GitHub Repository](https://github.com/envdes/code_CLMU_traffic)
   - Presentation: [30th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2025-06/2025cesmsun.pdf), [EGU26]()
 
