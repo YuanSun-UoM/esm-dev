@@ -30,19 +30,30 @@ touch docs/.nojekyll
 
 - I need to use `sphinx-build` instead of GitHub action for building the webpage.
 
-```
+```bash
 conda activate testingenv
 export GITHUB_DIR=/Users/user/Desktop/YuanSun-UoM/
 export REPO_NAME=esm-dev
 export GITROPO_DIR=${GITHUB_DIR}${REPO_NAME}/
 export DOCS_DIR=${GITROPO_DIR}docs/
 cd ${DOCS_DIR}
-sphinx-build -b html ${DOCS_DIR}source ${DOCS_DIR}
+sphinx-build -b html ${DOCS_DIR}source ${DOCS_DIR} > build.log 2>&1
 open ${DOCS_DIR}/index.html
 ```
 
 - Change the docs' style in `conf.py`
+
+- 如果要重新编译
+
+  ```bash
+  make clean
+  make html
+  ```
+
+  
+
 - For GitHub, enable **Discussions** and add **issue templates** in **Settings**.
+
 - For GitHub Page, set the source as `Deploy from a branch`, set the Branch as `main/docs/`
   - The HTML files should be directly in the `docs` rather than inner folder
   - `touch docs/.nojekyll` because GitHub Pages uses Jekyll by default, which **ignores _static/** folders unless you disable it.
@@ -59,4 +70,6 @@ open ${DOCS_DIR}/index.html
         </a>
     ```
 
-    
+
+- 'Back to Top' bottom:
+  - in `docs/_static/`, 添加`back_to_top.js`和`custom.css`这两个文件

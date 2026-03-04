@@ -42,3 +42,5 @@ html_sidebars["index"] = [
 
 html_theme = 'bizstyle'
 html_static_path = ['_static']
+html_css_files = ['custom.css']
+html_js_files = ['back_to_top.js']
