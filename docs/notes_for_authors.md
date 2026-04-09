@@ -26,7 +26,7 @@ open ${DOCS_DIR}/index.html
 touch docs/.nojekyll
 ```
 
-## Update
+## Update script
 
 - I need to use `sphinx-build` instead of GitHub action for building the webpage.
 
@@ -71,5 +71,33 @@ open ${DOCS_DIR}/index.html
     ```
 
 
-- 'Back to Top' bottom:
+- `Back to Top` bottom:
+  
   - in `docs/_static/`, 添加`back_to_top.js`和`custom.css`这两个文件
+  
+  - 修改`conf.py`文件，添加：
+  
+    ```python
+    html_static_path = ['_static']
+    html_css_files = ['custom.css']
+    html_js_files = ['back_to_top.js']
+    ```
+
+  - 在
+  
+- (Last updated: date)
+
+  - in `docs/_static/`, 添加`last_updated.js`
+
+  - 修改`conf.py`文件，添加：
+
+    ```python
+    html_js_files = ['back_to_top.js', 'last_updated.js']
+    ```
+
+    
+
+## Manage esm-dev_code repository
+
+- 代码修改在default或者已知的branch上进行，在github中选择一个branch之后，`New Branch`
+- The `main` branch only merges the default code from the official CTSM repository

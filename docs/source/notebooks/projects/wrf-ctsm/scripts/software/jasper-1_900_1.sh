@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for zlib 
+# Install script for JASPER 
 # cd /home/yuansun/jobscript/software/
 # bash 'jasper-4_2_5.sh' > './log/jasper-4_2_5.log' 2>&1
 set -e

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for zlib 
+# Install script for LAPACK 
 # cd /home/yuansun/jobscript/software/
 # bash 'lapack-3_9_0.sh' > './log/lapack-3_9_0.log' 2>&1
 set -e

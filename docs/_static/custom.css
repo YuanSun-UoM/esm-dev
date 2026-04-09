@@ -1,10 +1,10 @@
 #backToTop {
   display: none;
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 100px; /* the larger, more away from bottom */
+  right: 80px; /* the larger, more central; if 30px -> right corner */
   z-index: 9999;
-  background-color: #336699; /* dark blue */ /* #444; */
+  background-color: #336699; /* #336699 is dark blue */ /* #444 is gray */
   color: white;
   border: none;
   padding: 10px 14px;

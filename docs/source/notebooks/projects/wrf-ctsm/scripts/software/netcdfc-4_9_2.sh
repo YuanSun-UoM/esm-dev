@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for hdf5 parralel
+# Install script for NETCDF-C
 # cd /home/yuansun/jobscript/software/
 # bash 'netcdfc-4_9_2.sh' > './log/netcdfc-4_9_2.log' 2>&1
 set -e

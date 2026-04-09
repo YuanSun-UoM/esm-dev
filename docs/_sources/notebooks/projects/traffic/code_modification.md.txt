@@ -2,9 +2,9 @@
 
 The following scripts are provided by the author to enable urban traffic heat modeling within the [Community Terrestrial Systems Model (CTSM)](https://github.com/ESCOMP/CTSM), the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend **manual code modification** to ensure compatibility.
 
-## 1.1 Method 1: Use Modified CTSM Repo Based on CTSM5.3.024
+## 1.1 Method 1: Use the Modified CTSM Repo Based on CTSM5.3.024
 
-The author provides a modified CTSM repository with a branch [ctsm5.3.024-Traffic](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.3.024-Traffic) for directly downloading code. 
+The author provides a modified CTSM repository with a branch [ctsm5.3.024-Traffic](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.3.024-Traffic) for downloading code directly. 
 
 - This method pins CTSM to a specific tag/branch (i.e., `ctsm5.3.024-Traffic`).
 
@@ -20,7 +20,7 @@ cd ${CTSMNAME}
 
 
 
-## 1.2 Method 2: Use Modified Code Based on CTSM5.3.024
+## 1.2 Method 2: Use the Modified Code Based on CTSM5.3.024
 
 The author provides modified source files based on [CTSM version 5.3.024](https://github.com/ESCOMP/CTSM/tree/ctsm5.3.024). Users may directly replace the corresponding original files in their CTSM codebase with the modified versions listed below.
 

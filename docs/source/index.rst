@@ -2,9 +2,9 @@ Homepage
 ======================
 
 .. important:: 
-   You are viewing the esm-dev documentation written by `Yuan Sun <https://yuansun-uom.github.io>`_, sharing code and methods for Earth system modeling in climate research. The source scripts are stored at `esm-dev <https://github.com/YuanSun-UoM/esm-dev>`_.
+   You are viewing the esm-dev documentation written by `Yuan Sun <https://yuansun-uom.github.io>`_, sharing code and methods for Earth system modeling in climate research. The source scripts are stored at `esm-dev <https://github.com/YuanSun-UoM/esm-dev>`_. 
 
-   Currently, the author have developed several new functionalities under the supervision for the Community Terrestrial System Model (CTSM) of `Keith Oleson <https://scholar.google.com/citations?user=k4_7Io0AAAAJ&hl=en&oi=aoo>`_ and `Zhonghua Zheng <https://zhonghuazheng.com/>`_.
+   Currently, the author have developed several new functionalities for the Community Terrestrial System Model (CTSM) under the supervision of `Keith Oleson <https://scholar.google.com/citations?user=k4_7Io0AAAAJ&hl=en&oi=aoo>`_ and `Zhonghua Zheng <https://zhonghuazheng.com/>`_.
    
    But these are not yet included in the official `CTSM code repository  <https://github.com/ESCOMP/CTSM>`_. Model users are encouraged to taste these functionalities following the guidance in this documentation.
 
@@ -29,3 +29,4 @@ Homepage
    <!--<a href="https://clustrmaps.com/site/1c7o9" title="ClustrMaps">
        <img src="https://www.clustrmaps.com/map_v2.png?d=DU7e_v-cQ_KGxrS5rEOq8I6QI6Um3BnrHeQaFh2q6Do&cl=ffffff">
    </a> -->
+   <p style="text-align: right;">(Last updated: <span id="last-updated"></span>)</p>

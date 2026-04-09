@@ -10,13 +10,14 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=a7fdf6b6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=ebbe5b1c" />
     
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
-    <script src="../../../_static/back_to_top.js?v=12bd052d"></script>
+    <script src="../../../_static/back_to_top.js?v=34c4fa71"></script>
+    <script src="../../../_static/last_updated.js?v=75caeb14"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -228,6 +229,26 @@ git<span class="w"> </span>checkout<span class="w"> </span>release-v4.7.0
 </section>
 <section id="download-ctsm-code">
 <h3>Download CTSM code<a class="headerlink" href="#download-ctsm-code" title="Link to this heading">¶</a></h3>
+<section id="method-1-use-the-modified-ctsm-repository-based-on-ctsm5-3-024">
+<h4>Method 1: Use the modified CTSM repository based on CTSM5.3.024<a class="headerlink" href="#method-1-use-the-modified-ctsm-repository-based-on-ctsm5-3-024" title="Link to this heading">¶</a></h4>
+<p>The author provides a modified CTSM repository with a branch <a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.3.024-wrf">ctsm5.3.024-wrf</a> for downloading code directly.</p>
+<ul class="simple">
+<li><p>This method pins CTSM to a specific tag/branch (i.e., <code class="docutils literal notranslate"><span class="pre">ctsm5.3.024-wrf</span></code>).</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CTSMdev
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span>ctsm5.3.024-wrf
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
+git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="w"> </span>https://github.com/YuanSun-UoM/esm-dev_code<span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals<span class="w"> </span>-S
+</pre></div>
+</div>
+</section>
+<section id="method-2-manual-code-modification-for-a-specific-ctsm-version">
+<h4>Method 2: Manual code modification for a specific CTSM version<a class="headerlink" href="#method-2-manual-code-modification-for-a-specific-ctsm-version" title="Link to this heading">¶</a></h4>
+<section id="download-code-from-the-official-ctsm-repository">
+<h5>Download code from the official CTSM repository<a class="headerlink" href="#download-code-from-the-official-ctsm-repository" title="Link to this heading">¶</a></h5>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CTSMdev
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ESCOMP/CTSM<span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
@@ -238,7 +259,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
 </div>
 </section>
 <section id="modify-ctsm-code">
-<h3>Modify CTSM code<a class="headerlink" href="#modify-ctsm-code" title="Link to this heading">¶</a></h3>
+<h5>Modify CTSM code<a class="headerlink" href="#modify-ctsm-code" title="Link to this heading">¶</a></h5>
 <ul>
 <li><p>Modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/src/cpl/lilac/lnd_comp_esmf.F90</span></code>, around Line 38,</p>
 <ul>
@@ -302,15 +323,16 @@ git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
 </li>
 </ul>
 </li>
-<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/create_scrip_file.ncl</span></code> by adding code below after Line around 21:</p>
+<li><p>According to <a class="reference external" href="https://github.com/ESCOMP/CTSM/discussions/1832">using the CTSM lake model</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/create_scrip_file.ncl</span></code> by adding code below after Line around 21 (optional):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lake_depth</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LAKE_DEPTH</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
 <span class="n">lu_index</span> <span class="o">=</span> <span class="n">wrf_file</span><span class="o">-&gt;</span><span class="n">LU_INDEX</span><span class="p">(</span><span class="mi">0</span><span class="p">,:,:)</span> 
 <span class="n">lakemask</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">lu_index</span><span class="o">.</span><span class="n">eq</span><span class="mf">.21</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> 
-<span class="n">landmask</span> <span class="o">=</span> <span class="n">where</span> <span class="p">(</span><span class="n">lakemask</span><span class="o">.</span><span class="n">eq</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">landmask</span><span class="p">)</span>
+<span class="n">landmask</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">lakemask</span><span class="o">.</span><span class="n">eq</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">landmask</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">lake_depth</span> <span class="pre">=</span> <span class="pre">wrf_file-&gt;LAKE_DEPTH(0,:,:)</span> </code> means using the <code class="docutils literal notranslate"><span class="pre">lake_depth</span></code> data from the wrf’s file, i,e., <code class="docutils literal notranslate"><span class="pre">geo_em.d01.nc</span></code>. The source data is from the wrf inputdata <code class="docutils literal notranslate"><span class="pre">./geog/WPS_GEOG/lake_depth/</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lake_depth</span> <span class="pre">=</span> <span class="pre">wrf_file-&gt;LAKE_DEPTH(0,:,:)</span> </code> means using the <code class="docutils literal notranslate"><span class="pre">lake_depth</span></code> data from the wrf’s default file, i,e., <code class="docutils literal notranslate"><span class="pre">geo_em.d01.nc</span></code>. The source data is from the wrf inputdata. <code class="docutils literal notranslate"><span class="pre">./geog/WPS_GEOG/lake_depth/</span></code>. Ensure that this WRF lake data is available in your workspace</p></li>
+<li><p>Otherwise, no need to add these lines. CTSM would use its coarse-resolution lake data instead.</p></li>
 </ul>
 </li>
 <li><p>According to <a class="reference external" href="https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/">CTSM-Norway tutorial</a>, modify <code class="docutils literal notranslate"><span class="pre">${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/mkunitymap.ncl</span></code>, around Line 74:</p>
@@ -351,8 +373,10 @@ git<span class="w"> </span>checkout<span class="w"> </span>ctsm5.3.024
 </li>
 </ul>
 </section>
-<section id="download-wps-code">
-<h3>Download WPS code<a class="headerlink" href="#download-wps-code" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+<section id="download-the-wps-code">
+<h3>Download the WPS code<a class="headerlink" href="#download-the-wps-code" title="Link to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">WPSNAME</span><span class="o">=</span>WPS
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wrf-model/WPS<span class="w"> </span><span class="si">${</span><span class="nv">WPSNAME</span><span class="si">}</span><span class="w"> </span>
@@ -697,7 +721,7 @@ cd ${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/cime/tools/mapping/gen_domain_files/src/
 </li>
 </ul>
 </li>
-<li><p>Setting:</p>
+<li><p>Modify compiler settings:</p>
 <ul>
 <li><p>From:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SFC             =       gfortran
@@ -731,7 +755,7 @@ FCCOMPAT        =
 </li>
 </ul>
 </li>
-<li><p>Adding include path</p>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">include</span></code> path</p>
 <ul>
 <li><p>From:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>INCLUDE_MODULES =    $(MODULE_SRCH_FLAG) \
@@ -834,9 +858,16 @@ LAPACKPATH      =    /home/yuansun/software/gcc/lapack/3.9.0
 <li><a class="reference internal" href="#source-code-download">1.2 Source Code Download</a><ul>
 <li><a class="reference internal" href="#download-wrf-code">Download WRF code</a></li>
 <li><a class="reference internal" href="#modify-wrf-code">Modify WRF code</a></li>
-<li><a class="reference internal" href="#download-ctsm-code">Download CTSM code</a></li>
+<li><a class="reference internal" href="#download-ctsm-code">Download CTSM code</a><ul>
+<li><a class="reference internal" href="#method-1-use-the-modified-ctsm-repository-based-on-ctsm5-3-024">Method 1: Use the modified CTSM repository based on CTSM5.3.024</a></li>
+<li><a class="reference internal" href="#method-2-manual-code-modification-for-a-specific-ctsm-version">Method 2: Manual code modification for a specific CTSM version</a><ul>
+<li><a class="reference internal" href="#download-code-from-the-official-ctsm-repository">Download code from the official CTSM repository</a></li>
 <li><a class="reference internal" href="#modify-ctsm-code">Modify CTSM code</a></li>
-<li><a class="reference internal" href="#download-wps-code">Download WPS code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#download-the-wps-code">Download the WPS code</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#build-model">1.3 Build Model</a><ul>
@@ -902,6 +933,7 @@ LAPACKPATH      =    /home/yuansun/software/gcc/lapack/3.9.0
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2026, Yuan Sun.
+      Last updated on 01 April 2026.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     </div>
   </body>

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for hdf5 parralel
+# Install script for ESMF
 # cd /home/yuansun/jobscript/software/
 # bash 'esmf-8_8_1.sh' > './log/esmf-8_8_1.log' 2>&1
 # screen -S install_esmf

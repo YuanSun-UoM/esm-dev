@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for hdf5 parralel
+# Install script for NETCDF-FORTRAN
 # cd /home/yuansun/jobscript/software/
 # bash 'netcdff-4_6_1.sh' > './log/netcdff-4_6_1.log' 2>&1
 set -e

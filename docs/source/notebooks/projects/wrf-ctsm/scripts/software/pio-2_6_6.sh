@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for hdf5 parralel
+# Install script for pio-parralel
 # cd /home/yuansun/jobscript/software/
 # bash 'pio-2_6_6.sh' > './log/pio-2_6_6.log' 2>&1
 set -e

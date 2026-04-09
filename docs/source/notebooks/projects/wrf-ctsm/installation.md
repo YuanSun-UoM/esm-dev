@@ -163,8 +163,27 @@ git checkout release-v4.7.0
           ENDIF
     ```
 
-
 ### Download CTSM code
+
+#### Method 1: Use the modified CTSM repository based on CTSM5.3.024
+
+The author provides a modified CTSM repository with a branch [ctsm5.3.024-wrf](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.3.024-wrf) for downloading code directly.
+
+-  This method pins CTSM to a specific tag/branch (i.e., `ctsm5.3.024-wrf`).
+
+```bash
+export CTSMNAME=CTSMdev
+export VERSION=ctsm5.3.024-wrf
+cd ${WRF_ROOT}/${WRFNAME}
+git clone --branch ${VERSION} https://github.com/YuanSun-UoM/esm-dev_code ${CTSMNAME}
+cd ${CTSMNAME}
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals -S
+```
+
+#### Method 2: Manual code modification for a specific CTSM version
+
+##### Download code from the official CTSM repository 
 
 ```bash
 export CTSMNAME=CTSMdev
@@ -175,7 +194,7 @@ git checkout ctsm5.3.024
 ./bin/git-fleximod update
 ```
 
-### Modify CTSM code
+##### Modify CTSM code
 
 - Modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/src/cpl/lilac/lnd_comp_esmf.F90`, around Line 38,
 
@@ -238,16 +257,17 @@ git checkout ctsm5.3.024
          !YS 
     ```
   
-- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/create_scrip_file.ncl` by adding code below after Line around 21:
+- According to [using the CTSM lake model](https://github.com/ESCOMP/CTSM/discussions/1832), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/contrib/create_scrip_file.ncl` by adding code below after Line around 21 (optional):
 
   ```
   lake_depth = wrf_file->LAKE_DEPTH(0,:,:) 
   lu_index = wrf_file->LU_INDEX(0,:,:) 
   lakemask = where(lu_index.eq.21, 1,0) 
-  landmask = where (lakemask.eq.1,1,landmask)
+  landmask = where(lakemask.eq.1,1,landmask)
   ```
   
-  - `lake_depth = wrf_file->LAKE_DEPTH(0,:,:) ` means using the `lake_depth` data from the wrf's file, i,e., `geo_em.d01.nc`. The source data is from the wrf inputdata `./geog/WPS_GEOG/lake_depth/`. 
+  - `lake_depth = wrf_file->LAKE_DEPTH(0,:,:) ` means using the `lake_depth` data from the wrf's default file, i,e., `geo_em.d01.nc`. The source data is from the wrf inputdata. `./geog/WPS_GEOG/lake_depth/`. Ensure that this WRF lake data is available in your workspace
+  - Otherwise, no need to add these lines. CTSM would use its coarse-resolution lake data instead.
   
 - According to [CTSM-Norway tutorial](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/), modify `${WRF_ROOT}/${WRFNAME}/${CTSMNAME}/tools/site_and_regional/mkunitymap.ncl`, around Line 74:
 
@@ -285,7 +305,7 @@ git checkout ctsm5.3.024
       chkvars = (/ "grid_center_lat", "grid_center_lon", "grid_corner_lat", "grid_corner_lon" /);
     ```
 
-### Download WPS code
+### Download the WPS code
 
 ```bash
 export WPSNAME=WPS
@@ -630,7 +650,7 @@ git checkout v4.3
                             -lgomp -lm -ldl 
       ```
 
-  - Setting:
+  - Modify compiler settings:
 
     - From:
 
@@ -663,7 +683,7 @@ git checkout v4.3
 
       - Note: heare we use gfortran-9 and gcc-9.
 
-  - Adding include path
+  - Add `include` path
 
     - From:
 

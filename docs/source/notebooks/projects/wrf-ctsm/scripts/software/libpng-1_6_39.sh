@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for zlib 
+# Install script for LIBPNG
 # cd /home/yuansun/jobscript/software/
 # bash 'libpng-1_6_39.sh' > './log/libpng-1_6_39.log' 2>&1
 set -e

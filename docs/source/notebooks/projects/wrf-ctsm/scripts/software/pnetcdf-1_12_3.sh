@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install script for hdf5 parralel
+# Install script for parralel-netcdf
 # cd /home/yuansun/jobscript/software/
 # bash 'pnetcdf-1_12_3.sh' > './log/pnetcdf-1_12_3.log' 2>&1
 set -e

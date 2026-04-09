@@ -10,13 +10,14 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=5283bb3d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=a7fdf6b6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=5c190687" />
     
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
-    <script src="../../../_static/back_to_top.js?v=12bd052d"></script>
+    <script src="../../../_static/back_to_top.js?v=34c4fa71"></script>
+    <script src="../../../_static/last_updated.js?v=75caeb14"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -53,14 +54,14 @@
   <section id="code-modification">
 <h1>1 Code Modification<a class="headerlink" href="#code-modification" title="Link to this heading">¶</a></h1>
 <p>The following scripts are provided by the author to enable urban LCZ (Local Climate Zone) classification within the <a class="reference external" href="https://github.com/ESCOMP/CTSM">Community Terrestrial Systems Model (CTSM)</a>, the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend <strong>manual code modification</strong> to ensure compatibility.</p>
-<section id="method-1-use-modified-ctsm-repo-based-on-ctsm5-1dev166-ctsm5-2-005">
-<h2>1.1 Method 1: <strong>Use Modified CTSM Repo Based on CTSM5.1dev166/CTSM5.2.005</strong><a class="headerlink" href="#method-1-use-modified-ctsm-repo-based-on-ctsm5-1dev166-ctsm5-2-005" title="Link to this heading">¶</a></h2>
-<p>The author provides a modified CTSM repository with LCZ branches (<a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.1.dev166-LCZ">ctsm5.1.dev166-LCZ</a> and <a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.2.005">ctsm5.2.005</a>) for directly downloading code.</p>
+<section id="method-1-use-the-modified-ctsm-repo-based-on-ctsm5-1dev166-ctsm5-2-005">
+<h2>1.1 Method 1: <strong>Use the Modified CTSM Repo Based on CTSM5.1dev166/CTSM5.2.005</strong><a class="headerlink" href="#method-1-use-the-modified-ctsm-repo-based-on-ctsm5-1dev166-ctsm5-2-005" title="Link to this heading">¶</a></h2>
+<p>The author provides a modified CTSM repository with LCZ branches (<a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.1.dev166-LCZ">ctsm5.1.dev166-LCZ</a> and <a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.2.005-LCZ">ctsm5.2.005-LCZ</a>) for directly downloading code.</p>
 <ul class="simple">
 <li><p>This method pins CTSM to a specific tag/branch (i.e., <code class="docutils literal notranslate"><span class="pre">ctsm5.1.dev166</span></code>, <code class="docutils literal notranslate"><span class="pre">ctsm5.2.005</span></code>)</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CTSMdev
-<span class="nb">export</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span>ctsm5.2.005-LCZ
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span>ctsm5.2.005-LCZ<span class="w"> </span><span class="c1"># use the ctsm5.2.005 with LCZ</span>
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
 git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="w"> </span>https://github.com/YuanSun-UoM/esm-dev_code<span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
@@ -68,9 +69,31 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 ./manage_externals/checkout_externals<span class="w"> </span>-S
 </pre></div>
 </div>
+<p>Or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CTSMNAME</span><span class="o">=</span>CTSMdev
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span>ctsm5.1.dev166-LCZ<span class="w"> </span><span class="c1"># use the ctsm5.1.dev166 with LCZ</span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">WRF_ROOT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">WRFNAME</span><span class="si">}</span>
+git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="w"> </span>https://github.com/YuanSun-UoM/esm-dev_code<span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">CTSMNAME</span><span class="si">}</span>
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals<span class="w"> </span>-S
+</pre></div>
+</div>
+<ul>
+<li><p><strong>Note</strong>: If you want to run single-point simulations over Urban-PLUMBER sites using data from <a class="reference external" href="https://doi.org/10.6084/m9.figshare.30665966.v2">figshare</a>, please install the <code class="docutils literal notranslate"><span class="pre">ctsm5.1.dev166-LCZ</span></code> version.</p></li>
+<li><p><strong>Note</strong>: Since only the land component is downloaded, please ensure in the <code class="docutils literal notranslate"><span class="pre">cime/CIME/data/config/cesm/config_files.xml</span></code>, around Line 255, change:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;value</span><span class="w"> </span><span class="na">component=</span><span class="s">&quot;clm&quot;</span><span class="w">                         </span><span class="nt">&gt;</span>$SRCROOT/components/clm<span class="nt">&lt;/value&gt;</span>
+</pre></div>
+</div>
+<p>to:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;value</span><span class="w"> </span><span class="na">component=</span><span class="s">&quot;clm&quot;</span><span class="w">                         </span><span class="nt">&gt;</span>$SRCROOT/<span class="nt">&lt;/value&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
 </section>
-<section id="method-2-use-modified-code-based-on-ctsm5-2-005">
-<h2>1.2 Method 2: Use Modified Code Based on CTSM5.2.005<a class="headerlink" href="#method-2-use-modified-code-based-on-ctsm5-2-005" title="Link to this heading">¶</a></h2>
+<section id="method-2-use-the-modified-code-based-on-ctsm5-2-005">
+<h2>1.2 Method 2: Use the Modified Code Based on CTSM5.2.005<a class="headerlink" href="#method-2-use-the-modified-code-based-on-ctsm5-2-005" title="Link to this heading">¶</a></h2>
 <p>The author provides modified source files based on <a class="reference external" href="https://github.com/ESCOMP/CTSM/tree/ctsm5.2.005">CTSM version 5.2.005</a>. Users may directly replace the corresponding original files in their CTSM codebase with the modified versions listed below.</p>
 <section id="download-source-code">
 <h3>Download Source Code<a class="headerlink" href="#download-source-code" title="Link to this heading">¶</a></h3>
@@ -84,7 +107,7 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><strong>Note:</strong> ctsm5.2.025 is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using. Surface data for CTSM5.2.X is available at <a class="reference external" href="https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0/">/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0</a></p></li>
+<li><p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">ctsm5.2.025</span></code> is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using. Surface data for CTSM5.2.X is available at <a class="reference external" href="https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0/">/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0</a></p></li>
 </ul>
 </section>
 <section id="replace-modified-files">
@@ -111,8 +134,8 @@ git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w">
 </ul>
 </section>
 </section>
-<section id="method-3-manual-code-modifications-for-specific-ctsm-versions">
-<h2>1.3 Method 3: Manual Code Modifications for Specific CTSM Versions<a class="headerlink" href="#method-3-manual-code-modifications-for-specific-ctsm-versions" title="Link to this heading">¶</a></h2>
+<section id="method-3-manual-code-modifications-for-a-specific-ctsm-version">
+<h2>1.3 Method 3: Manual Code Modifications for A Specific CTSM Version<a class="headerlink" href="#method-3-manual-code-modifications-for-a-specific-ctsm-version" title="Link to this heading">¶</a></h2>
 <p>For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language.</p>
 <p><strong>Modified code sections are denoted using the following markers:</strong></p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!YS</span>
@@ -956,13 +979,13 @@ If<span class="w"> </span>TRUE,<span class="w"> </span>urban<span class="w"> </s
     <h3><a href="../../../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">1 Code Modification</a><ul>
-<li><a class="reference internal" href="#method-1-use-modified-ctsm-repo-based-on-ctsm5-1dev166-ctsm5-2-005">1.1 Method 1: <strong>Use Modified CTSM Repo Based on CTSM5.1dev166/CTSM5.2.005</strong></a></li>
-<li><a class="reference internal" href="#method-2-use-modified-code-based-on-ctsm5-2-005">1.2 Method 2: Use Modified Code Based on CTSM5.2.005</a><ul>
+<li><a class="reference internal" href="#method-1-use-the-modified-ctsm-repo-based-on-ctsm5-1dev166-ctsm5-2-005">1.1 Method 1: <strong>Use the Modified CTSM Repo Based on CTSM5.1dev166/CTSM5.2.005</strong></a></li>
+<li><a class="reference internal" href="#method-2-use-the-modified-code-based-on-ctsm5-2-005">1.2 Method 2: Use the Modified Code Based on CTSM5.2.005</a><ul>
 <li><a class="reference internal" href="#download-source-code">Download Source Code</a></li>
 <li><a class="reference internal" href="#replace-modified-files">Replace Modified Files</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#method-3-manual-code-modifications-for-specific-ctsm-versions">1.3 Method 3: Manual Code Modifications for Specific CTSM Versions</a><ul>
+<li><a class="reference internal" href="#method-3-manual-code-modifications-for-a-specific-ctsm-version">1.3 Method 3: Manual Code Modifications for A Specific CTSM Version</a><ul>
 <li><a class="reference internal" href="#id1">Download Source Code</a></li>
 <li><a class="reference internal" href="#id2">Code Modification</a></li>
 </ul>
@@ -1022,6 +1045,7 @@ If<span class="w"> </span>TRUE,<span class="w"> </span>urban<span class="w"> </s
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2026, Yuan Sun.
+      Last updated on 09 April 2026.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     </div>
   </body>

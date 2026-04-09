@@ -2,15 +2,15 @@
 
 The following scripts are provided by the author to enable urban LCZ (Local Climate Zone) classification within the [Community Terrestrial Systems Model (CTSM)](https://github.com/ESCOMP/CTSM), the land component of CESM. These scripts are intended for a specific version of CTSM, and we recommend **manual code modification** to ensure compatibility.
 
-## 1.1 Method 1: **Use Modified CTSM Repo Based on CTSM5.1dev166/CTSM5.2.005**
+## 1.1 Method 1: **Use the Modified CTSM Repo Based on CTSM5.1dev166/CTSM5.2.005**
 
-The author provides a modified CTSM repository with LCZ branches ([ctsm5.1.dev166-LCZ](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.1.dev166-LCZ) and [ctsm5.2.005](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.2.005)) for directly downloading code. 
+The author provides a modified CTSM repository with LCZ branches ([ctsm5.1.dev166-LCZ](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.1.dev166-LCZ) and [ctsm5.2.005-LCZ](https://github.com/YuanSun-UoM/esm-dev_code/tree/ctsm5.2.005-LCZ)) for directly downloading code. 
 
 - This method pins CTSM to a specific tag/branch (i.e., `ctsm5.1.dev166`, `ctsm5.2.005`)
 
 ```bash
 export CTSMNAME=CTSMdev
-export VERSION=ctsm5.2.005-LCZ
+export VERSION=ctsm5.2.005-LCZ # use the ctsm5.2.005 with LCZ
 cd ${WRF_ROOT}/${WRFNAME}
 git clone --branch ${VERSION} https://github.com/YuanSun-UoM/esm-dev_code ${CTSMNAME}
 cd ${CTSMNAME}
@@ -18,7 +18,35 @@ cd ${CTSMNAME}
 ./manage_externals/checkout_externals -S
 ```
 
-## 1.2 Method 2: Use Modified Code Based on CTSM5.2.005
+Or 
+
+```bash
+export CTSMNAME=CTSMdev
+export VERSION=ctsm5.1.dev166-LCZ # use the ctsm5.1.dev166 with LCZ
+cd ${WRF_ROOT}/${WRFNAME}
+git clone --branch ${VERSION} https://github.com/YuanSun-UoM/esm-dev_code ${CTSMNAME}
+cd ${CTSMNAME}
+./manage_externals/checkout_externals
+./manage_externals/checkout_externals -S
+```
+
+- **Note**: If you want to run single-point simulations over Urban-PLUMBER sites using data from [figshare](https://doi.org/10.6084/m9.figshare.30665966.v2), please install the `ctsm5.1.dev166-LCZ` version.
+
+- **Note**: Since only the land component is downloaded, please ensure in the `cime/CIME/data/config/cesm/config_files.xml`, around Line 255, change:
+
+  ```xml
+  <value component="clm"                         >$SRCROOT/components/clm</value>
+  ```
+
+  to:
+
+  ```xml
+  <value component="clm"                         >$SRCROOT/</value>
+  ```
+
+  
+
+## 1.2 Method 2: Use the Modified Code Based on CTSM5.2.005
 
 The author provides modified source files based on [CTSM version 5.2.005](https://github.com/ESCOMP/CTSM/tree/ctsm5.2.005). Users may directly replace the corresponding original files in their CTSM codebase with the modified versions listed below.
 
@@ -34,7 +62,7 @@ cd ${CTSMNAME}
 ./manage_externals/checkout_externals -S
 ```
 
-- **Note:** ctsm5.2.025 is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using. Surface data for CTSM5.2.X is available at [/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0](https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0/) 
+- **Note:** `ctsm5.2.025` is provided for the existing code modification. Users should manually modify the code based on the specific version of CTSM they are using. Surface data for CTSM5.2.X is available at [/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0](https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/lnd/clm2/surfdata_esmf/ctsm5.2.0/) 
 
 ### Replace Modified Files
 
@@ -53,7 +81,7 @@ cd ${CTSMNAME}
 - [src/main/clm_varctl.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/clm_varctl.F90)
 - [src/main/controlMod.F90](https://github.com/envdes/code_CESM_LCZ/blob/main/1_code_modification/src/main/controlMod.F90)
 
-## 1.3 Method 3: Manual Code Modifications for Specific CTSM Versions
+## 1.3 Method 3: Manual Code Modifications for A Specific CTSM Version
 
 For a specific CTSM version, users need to manually modify the source code, which requires a basic understanding of the Fortran programming language. 
 

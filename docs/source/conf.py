@@ -24,7 +24,8 @@ extensions = [
     #'sphinx_markdown_tables', # not 'sphinx-markdown-tables',
     'sphinx_design', # for grid layout
     #'nbsphinx', for ipynb
-    #'nbconvert' # for ipynb
+    #'nbconvert' # for ipynb,
+    #'sphinx_last_updated_by_git'
 ]
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -37,10 +38,12 @@ html_sidebars["index"] = [
     "github_star.html"
 ]
 
+html_last_updated_fmt = "%d %B %Y"
+
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'bizstyle'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
-html_js_files = ['back_to_top.js']
+html_js_files = ['back_to_top.js', 'last_updated.js']
