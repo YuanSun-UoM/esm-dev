@@ -6,8 +6,15 @@
 
 - Sun, Y., et al. (2025). Enhancing global-scale urban land cover representation using local climate zones in the Community Earth System Model. *Journal of Advances in Modeling Earth Systems*, 17(11), e2025MS004934. [10.1029/2025MS004934](https://doi.org/10.1029/2025MS004934)
   - [GitHub Repository](https://github.com/envdes/code_CESM_LCZ)
-  - [(Open Access) Simulation Input and Output Data & Job Scripts](https://doi.org/10.6084/m9.figshare.30665966)
-  - Presentation: [21st AOGS](https://yuansun-uom.github.io/files/Yuan_Sun_AOGS_poster.png), [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf), [AMS 2026](https://yuansun-uom.github.io/files/Yuan_Sun_AMS26_poster.pdf)
+  
+  - [Simulation Input and Output Data & Job Scripts](https://doi.org/10.6084/m9.figshare.30665966)
+  
+  - Presentation: [21st AOGS](https://yuansun-uom.github.io/files/Yuan_Sun_AOGS_poster.png)*, [CESM 2025 Winter Group Meeting](https://www.cesm.ucar.edu/sites/default/files/2025-02/2025-cesm-lmwgbgcwg-ysun.pdf), [AMS 2026](https://yuansun-uom.github.io/files/Yuan_Sun_AMS26_poster.pdf)**
+  
+    *Best Student Poster Award
+  
+    **Third Place Best Urban Student Poster Presentation Award 
+  
 - [CESM-LCZ **User Guide**](projects/lcz/index.rst)
 
 ## 1.2 Explicitly Parameterizing Urban Physical Process
@@ -27,7 +34,7 @@
 
 -  Sun, Y., et al. (2024). Improving urban climate adaptation modelling in the Community Earth System Model (CESM) through transient urban surface albedo representation. *Journal of Advances in Modeling Earth Systems*, 16(12), e2024MS004380. [10.1029/2024MS004380](https://doi.org/10.1029/2024MS004380)
   - [GitHub Repository](https://github.com/envdes/code_DynamicUrbanAlbedo)
-  - [(Open Access) Simulation Input and Output Data & Job Scripts](https://doi.org/10.48420/27867357)
+  - [Simulation Input and Output Data & Job Scripts](https://doi.org/10.48420/27867357)
   
   - Presentation: [29th CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2024-06/2024cesmlmwgsun.pdf), [12th ICUC](https://yuansun-uom.github.io/files/Yuan_Sun_ICUC12-33_slides.pdf)
 -  [CESM-TranUrbAlb **User Guide**](projects/transient_urban_albedo/index.rst)
@@ -51,7 +58,7 @@
 
 - Sun, Y., et al. (2026). Linking urban population exposure to heatwaves with land cover change across the UK. *Sustainable Cities and Society*. 107349. [10.1016/j.scs.2026.107349](https://doi.org/10.1016/j.scs.2026.107349)
   - [GitHub Repository](https://github.com/envdes/code_CLMU_UK_2000_2014)
-  - [(Open Access) Simulation Input and Output Data & Job Scripts]()
+  - [Simulation Input and Output Data & Job Scripts](https://doi.org/10.48420/31996764)
 
 ## 2.2 Evaluating Urban Climate Adaptation Strategies
 
