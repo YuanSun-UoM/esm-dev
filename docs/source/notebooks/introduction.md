@@ -56,7 +56,7 @@
 
 ### Transient Urban Land Representation
 
-- Sun, Y., et al. (2026). Linking urban population exposure to heatwaves with land cover change across the UK. *Sustainable Cities and Society*. 107349. [10.1016/j.scs.2026.107349](https://doi.org/10.1016/j.scs.2026.107349)
+- Sun, Y., et al. (2026). Linking urban population exposure to heatwaves with land cover change across the UK. *Sustainable Cities and Society*. 144, 107349. [10.1016/j.scs.2026.107349](https://doi.org/10.1016/j.scs.2026.107349)
   - [GitHub Repository](https://github.com/envdes/code_CLMU_UK_2000_2014)
   - [Simulation Input and Output Data & Job Scripts](https://doi.org/10.48420/31996764)
 
@@ -82,9 +82,16 @@
   - [WRF User Guide](https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/index.html)
   - [CTSM User Guide](https://escomp.github.io/CTSM/release-clm5.0/index.html#)
   - [CTSM-LILAC user guide](https://escomp.github.io/CTSM/lilac/index.html)
+- Technical Note
+  - [Technical Description of an Urban Parameterization for the Community Land Model (CLMU)](https://doi.org/10.5065/D6K35RM9)
+  
+  - [Technical Description of version 5.0 of the Community Land Model (CLM)](https://files.cesm.ucar.edu/models/clm/5.0/CLM50_Tech_Note.pdf)
+  
+  - [A Description of the Advanced Research WRF Model Version 4](https://doi.org/10.5065/1dfh-6p97)
+  
 - Tutorial
   - WRF-CTSM: [Using CTSM with WRF](https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf.html), [WRF-CTSM on the SIGMA2 HPC](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/)
-  
+
 - Forum
   - [WRF & MPAS-A Support Forum](https://forum.mmm.ucar.edu)
   - [DiscussCESM Forums](https://bb.cgd.ucar.edu/cesm/)
