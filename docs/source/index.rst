@@ -28,16 +28,4 @@ Homepage
    <!--<a href="https://r.com/site/1c7o9" title="ClustrMaps">
        <img src="https://www.clustrmaps.com/map_v2.png?d=DU7e_v-cQ_KGxrS5rEOq8I6QI6Um3BnrHeQaFh2q6Do&cl=ffffff">
    </a> -->
-
-   <div style="text-align:center; margin-top:20px;">
-     <script
-         id="mapmyvisitors"
-         src="https://statable.com/js/T33127Cb0a/t/mw.js"
-         data-id="3251235"
-         data-period="90d"
-         data-display-mode="cities"
-         data-show-stats="false"
-         data-ocean-color="#FFFFFF00">
-     </script>
-   </div>
    <p style="text-align: right;">(Last updated: <span id="last-updated"></span>)</p>

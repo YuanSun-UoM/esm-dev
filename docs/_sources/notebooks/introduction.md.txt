@@ -15,9 +15,7 @@
   
     **Third Place Best Urban Student Poster Presentation Award 
   
-- Sun, Y., et al. (2026).
-
-  - 
+- Sun, Y., et al. (2026). 
 
   - Presentation: [31st CESM Workshop](https://www.cesm.ucar.edu/sites/default/files/2026-06/2026cesmworkshopsun.pdf)
 
@@ -102,16 +100,12 @@
       - [Webpage version with modifications](technotes/CLMU/index.rst)
   
   - [CTSM-LILAC user guide](https://escomp.github.io/CTSM/lilac/index.html)
-<<<<<<< Updated upstream
 - Technical Note
   - [Technical Description of an Urban Parameterization for the Community Land Model (CLMU)](https://doi.org/10.5065/D6K35RM9)
   
   - [Technical Description of version 5.0 of the Community Land Model (CLM)](https://files.cesm.ucar.edu/models/clm/5.0/CLM50_Tech_Note.pdf)
   
   - [A Description of the Advanced Research WRF Model Version 4](https://doi.org/10.5065/1dfh-6p97)
-=======
->>>>>>> Stashed changes
-  
 - Tutorial
   - WRF-CTSM: [Using CTSM with WRF](https://escomp.github.io/CTSM/lilac/specific-atm-models/wrf.html), [WRF-CTSM on the SIGMA2 HPC](https://metos-uio.github.io/CTSM-Norway-Documentation/wrf-ctsm/)
 

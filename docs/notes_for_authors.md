@@ -147,7 +147,7 @@ pandoc main.tex \
 
 - Visitor map: https://clustrmaps.com/
 
-  - In `docs/source/index.rst`, add:
+  - In `docs/source/index.rst`, add: (不用，这个是加在页面底部)
 
     ```
     .. raw:: html
@@ -168,31 +168,31 @@ pandoc main.tex \
     ]
     ```
 
-    
-
-
+    - 并且在`docs/source/_templates/`中新建`mapmyvisistors.html`文件
 
 - Vistor map2: 
 
 
-  - In `docs/source/index.rst`, add:
+    - In `docs/source/index.rst`, add: (不用，这个是加在页面底部)
 
-    ```
-    <!-- mapmyvisitors.html -->
-    <div style="margin-top:20px; text-align:center;">
-    
-      <script
-          id="mapmyvisitors"
-          src="https://statable.com/js/T33127Cb0a/t/mw.js"
-          data-id="3251235"
-          data-period="90d"
-          data-display-mode="cities"
-          data-show-stats="false"
-          data-ocean-color="#FFFFFF00">
-      </script>
-    
-    </div>
-    ```
+      ```
+      <!-- mapmyvisitors.html -->
+      <div style="margin-top:20px; text-align:center;">
+      
+        <script
+            id="mapmyvisitors"
+            src="https://statable.com/js/T33127Cb0a/t/mw.js"
+            data-id="3251235"
+            data-period="90d"
+            data-display-mode="cities"
+            data-show-stats="false"
+            data-ocean-color="#FFFFFF00">
+        </script>
+      
+      </div>
+      ```
+
+
 
 - `Back to Top` bottom:
 
