@@ -8,12 +8,12 @@
 
     <title>Homepage &#8212; esm-dev  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
-    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=658d757c" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a8894e31" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e6f65cbf" />
     
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script src="_static/back_to_top.js?v=34c4fa71"></script>
@@ -51,8 +51,7 @@
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>You are viewing the esm-dev documentation written by <a class="reference external" href="https://yuansun-uom.github.io">Yuan Sun</a>, sharing code and methods for Earth system modeling in climate research. The source scripts are stored at <a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev">esm-dev</a>.</p>
-<p>Currently, the author have developed several new functionalities for the Community Terrestrial System Model (CTSM) under the supervision of <a class="reference external" href="https://scholar.google.com/citations?user=k4_7Io0AAAAJ&amp;hl=en&amp;oi=aoo">Keith Oleson</a> and <a class="reference external" href="https://zhonghuazheng.com/">Zhonghua Zheng</a>.</p>
-<p>But these are not yet included in the official <a class="reference external" href="https://github.com/ESCOMP/CTSM">CTSM code repository</a>. Model users are encouraged to taste these functionalities following the guidance in this documentation.</p>
+<p>The authors have developed several new functionalities for the Community Terrestrial System Model (CTSM) under the supervision of <a class="reference external" href="https://scholar.google.com/citations?user=k4_7Io0AAAAJ&amp;hl=en&amp;oi=aoo">Keith Oleson</a> and <a class="reference external" href="https://zhonghuazheng.com/">Zhonghua Zheng</a>. But these are not yet included in the official <a class="reference external" href="https://github.com/ESCOMP/CTSM">CTSM code repository</a>. Model users are encouraged to taste these functionalities following the guidance in this documentation.</p>
 <p>Related model source code for out-of-the-box application is open access at <a class="reference external" href="https://github.com/YuanSun-UoM/esm-dev_code">esm-dev_code</a> with respective branch.</p>
 </div>
 <div class="toctree-wrapper compound">
@@ -60,7 +59,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/introduction.html">1 New Model Functionalities</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/introduction.html#improving-urban-land-surface-representation">1.1 Improving Urban Land Surface Representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/introduction.html#explicitly-parameterizing-urban-physical-process">1.2 Explicitly Parameterizing Urban Physical Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/introduction.html#explicitly-parameterizing-urban-physical-processes">1.2 Explicitly Parameterizing Urban Physical Processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/introduction.html#incorporating-adaptation-oriented-process">1.3 Incorporating Adaptation-oriented Process</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/introduction.html#enhancing-model-scalability">1.4 Enhancing Model Scalability</a></li>
 </ul>
@@ -80,15 +79,28 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Quick Guide</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/technotes/CLMU/index.html">CLMU4.0 Technical Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/projects/transient_urban_albedo/index.html">CESM-TranUrbAlb User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/projects/lcz/index.html">CESM-LCZ User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/projects/traffic/index.html">CESM-Traffic User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/projects/wrf-ctsm/index.html">WRF-CTSM User Guide</a></li>
 </ul>
 </div>
-<!--<a href="https://clustrmaps.com/site/1c7o9" title="ClustrMaps">
+<!--<a href="https://r.com/site/1c7o9" title="ClustrMaps">
     <img src="https://www.clustrmaps.com/map_v2.png?d=DU7e_v-cQ_KGxrS5rEOq8I6QI6Um3BnrHeQaFh2q6Do&cl=ffffff">
 </a> -->
+
+<div style="text-align:center; margin-top:20px;">
+  <script
+      id="mapmyvisitors"
+      src="https://statable.com/js/T33127Cb0a/t/mw.js"
+      data-id="3251235"
+      data-period="90d"
+      data-display-mode="cities"
+      data-show-stats="false"
+      data-ocean-color="#FFFFFF00">
+  </script>
+</div>
 <p style="text-align: right;">(Last updated: <span id="last-updated"></span>)</p></section>
 
 
@@ -107,12 +119,7 @@
     </form>
     </div>
 </search>
-<script>document.getElementById('searchbox').style.display = "block"</script><!-- clustrmaps.html -->
-<div style="margin-top: 20px; text-align: center;">
-  <a href="https://clustrmaps.com/site/1c7o9" title="ClustrMaps" target="_blank">
-      <img src="https://www.clustrmaps.com/map_v2.png?d=DU7e_v-cQ_KGxrS5rEOq8I6QI6Um3BnrHeQaFh2q6Do&cl=ffffff" alt="ClustrMaps">
-  </a>
-</div><!-- _templates/github_star.html -->
+<script>document.getElementById('searchbox').style.display = "block"</script><!-- _templates/github_star.html -->
 <div style="text-align: center; margin-top: 20px;">
   <a class="github-button"
      href="https://github.com/YuanSun-UoM/esm-dev"
@@ -124,7 +131,20 @@
   </a>
 </div>
 
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script><!-- mapmyvisitors.html -->
+<div style="margin-top:20px; text-align:center;">
+
+  <script
+      id="mapmyvisitors"
+      src="https://statable.com/js/T33127Cb0a/t/mw.js"
+      data-id="3251235"
+      data-period="90d"
+      data-display-mode="cities"
+      data-show-stats="false"
+      data-ocean-color="#FFFFFF00">
+  </script>
+
+</div>
         </div>
       </div>
       <div class="clearer"></div>
@@ -144,8 +164,8 @@
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2026, Yuan Sun.
-      Last updated on 15 April 2026.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+      Last updated on 14 August 2026.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     </div>
   </body>
 </html>

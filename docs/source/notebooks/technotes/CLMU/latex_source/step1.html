@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>main</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+html, body { margin:0; padding:0; height:100%; overflow:hidden; }
+body { max-width:none; }
+.container { display:grid; grid-template-columns:2fr 1fr; height:100vh; overflow:hidden; }
+.paper, .references { overflow-y:auto; padding:20px; }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+</head>
+<body>
+<div class="titlepage">
+<div class="flushright">
+<p><span><strong>Technical Description of an Urban Parameterization for
+the Community Land Model (CLMU)</strong></span><br />
+Keith W. Oleson<br />
+Gordon B. Bonan<br />
+Johannes J. Feddema<br />
+Mariana Vertenstein<br />
+Erik Kluzek<br />
+</p>
+</div>
+</div>
+<h1 data-number="1" id="sec:intro"><span
+class="header-section-number">1</span> Introduction</h1>
+<p>This technical note describes the physical parameterizations and
+numerical implementation of a Community Land Model Urban (CLMU)
+parameterization as coupled to version 4 of the Community Land Model
+(CLM4). CLM4 serves as the land surface model component of the Community
+Atmosphere Model (CAM) and the Community Climate System Model (CCSM).
+This note documents the global implementation of the urban model. Other
+model versions may exist for specific applications.</p>
+<p>Chapters 1–5 constitute the description of the urban parameterization
+when coupled to CAM or CCSM, while Chapter 6 describes processes that
+pertain specifically to the operation of the urban parameterization in
+offline mode (uncoupled to an atmospheric model). Chapter 7 describes
+efforts to evaluate the urban model. The model formulation and some
+quantitative and qualitative evaluation are also documented in<span
+class="citation"
+data-cites="OLESONETAL08J.Appl.Meteorol.Climatol.a OLESONETAL08J.Appl.Meteorol.Climatol.b"><sup>[<a
+href="#ref-OLESONETAL08J.Appl.Meteorol.Climatol.a"
+role="doc-biblioref">1</a>,<a
+href="#ref-OLESONETAL08J.Appl.Meteorol.Climatol.b"
+role="doc-biblioref">2</a>]</sup></span>. A heat island mitigation study
+using the model is presented in<span class="citation"
+data-cites="OLESONETAL10Geophys.Res.Lett."><sup>[<a
+href="#ref-OLESONETAL10Geophys.Res.Lett."
+role="doc-biblioref">3</a>]</sup></span>. Note that CLMU and CLM4 have
+some parameterizations in common (e.g., snow and sub-surface hydrology).
+This technical note contains material duplicated from the CLM4 technical
+note<span class="citation" data-cites="OLESONETAL10"><sup>[<a
+href="#ref-OLESONETAL10" role="doc-biblioref">4</a>]</sup></span> where
+appropriate. This is done so that users interested in just the urban
+model do not have to refer to the CLM4 technical note</p>
+<h2 data-number="1.1" id="model-overview"><span
+class="header-section-number">1.1</span> Model Overview</h2>
+<h3 data-number="1.1.1" id="motivation"><span
+class="header-section-number">1.1.1</span> Motivation</h3>
+<p>Land use and land cover change is increasingly being recognized as an
+important yet poorly quantified component of global climate change<span
+class="citation" data-cites="houghtonClimateChange20012002"><sup>[<a
+href="#ref-houghtonClimateChange20012002"
+role="doc-biblioref">5</a>]</sup></span>. Land use/cover change
+mechanisms include both the transformation of natural land surfaces to
+those serving human needs (i.e., direct anthropogenic change) (e.g., the
+conversion of tropical forest to agriculture) as well as changes in land
+cover on longer time-scales due to biogeophysical feedbacks between the
+atmosphere and the land (i.e., indirect change)<span class="citation"
+data-cites="cramerGlobalResponseTerrestrial2001 foleyGlobalConsequencesLand2005"><sup>[<a
+href="#ref-cramerGlobalResponseTerrestrial2001"
+role="doc-biblioref">6</a>,<a
+href="#ref-foleyGlobalConsequencesLand2005"
+role="doc-biblioref">7</a>]</sup></span>. Global and regional models
+have been used extensively to investigate the effects of direct and
+indirect land use/cover change mechanisms on climate<span
+class="citation"
+data-cites="copelandPotentialClimaticImpacts1996 stohlgrenEvidenceThatLocal1998"><sup>[<a
+href="#ref-copelandPotentialClimaticImpacts1996"
+role="doc-biblioref">8</a>,<a href="#ref-stohlgrenEvidenceThatLocal1998"
+role="doc-biblioref">9</a>]</sup></span></p>
+<p>(Betts 2001, Eastman et al. 2001, Bounoua et al. 2002, Pielke et al.
+2002, Fu 2003, Myhre and Myhre 2003, Narisma and Pitman 2003, Wang et
+al. 2003, Brovkin et al. 2004, Mathews et al. 2004, Feddema et al.
+2005). However, all of these studies have focused on land use/cover
+related to changes in vegetation types. Urbanization, or the expansion
+of built-up areas, is an important yet less studied aspect of
+anthropogenic land use/cover change in climate science.</p>
+<p>Although currently only about 1–3% of the global land surface is
+urbanized, the spatial extent and intensity of urban development is
+expected to increase dramatically in the future (Shepherd 2005, CIESIN
+et al. 2004). More than one-half of the world’s population currently
+lives in urban areas and in Europe, North America, and Japan at least
+80% of the population resides in urban areas (Elvidge et al. 2004).
+Policymakers and the public are most interested in the effects of
+climate change on people where they live. Because urban and non-urban
+areas may have different sensitivities to climate change, it is possible
+that the true climate change signal within urban areas may only be
+estimated if urban areas are explicitly modeled in climate change
+simulations (Best 2006). Indeed, the “footprint” of urbanization on
+climate can be detected from surface observations and satellite data
+(Changnon 1992, Kalnay and Cai 2003, Zhou et al. 2004, Jin et al. 2005).
+Changnon (1992) points out that the average urban warming over the last
+100 years in certain regions is comparable to the increase in global
+surface temperature predicted by climate models for the next 100 years.
+Thus, it is important for developers of land surface models to begin to
+consider the parameterization of urban surfaces.</p>
+<p>Urbanization now appropriates significant proportions of land in
+certain regions. For example, the expansion of service-based industries
+and conversion of farmland for housing in the Chicago area has increased
+the amount of developed land from about 800 square miles in 1973 to 1000
+square miles in 1992 (Auch et al. 2004). A T85 resolution climate model
+grid cell (the resolution of the CCSM3 climate change simulations
+submitted for the IPCC AR4) encompassing the Chicago region represents
+about 7100 square miles, which suggests that this grid cell should be
+modeled as about 14% urbanized land. For mesoscale or regional models,
+where grid cells are on the order of a few kilometers, an urban area
+this size will occupy a significant number of grid cells that would
+otherwise be modeled as natural surfaces. The now common use of multiple
+“tiles” in models enables the co-existence of multiple surface types
+within a single gridcell. Thus, urban areas should and can be included
+in a global climate model (Best 2006).</p>
+<p>Numerical modeling of the urban energy budget was first attempted
+nearly 40 years ago [see Brown (2000) for a comprehensive historical
+overview of modeling efforts]. However, until recently, most modern land
+surface models [i.e., second- or third-generation models (Sellers et al.
+1997)] have not formally included urban parameterizations. Masson (2006)
+classifies urban parameterizations in three general categories: 1)
+empirical models, 2) vegetation models, with and without drag terms,
+adapted to include an urban canopy, 3) single-layer and multi-layer
+models that include a three-dimensional representation of the urban
+canopy. Empirical models (e.g., Oke and Cleugh 1987) rely on statistical
+relationships determined from observed data. As such, they are generally
+limited to the range of conditions experienced during the observation
+campaign. Vegetation models adapted for the urban canopy generally focus
+on modifying important surface parameters to better represent urban
+surfaces [e.g., surface albedo, roughness length, displacement height,
+surface emissivity, heat capacity, thermal conductivity (Taha 1999,
+Atkinson 2003, Best 2005).</p>
+<p>These relatively simple approaches (i.e., categories 1 and 2 above)
+may arguably be justified based on the fact that detail in complex
+models may be lost when averaged to a coarse grid (Taha 1999). However,
+they may not have sufficient functionality to be suitable for inclusion
+in global climate models and may require the global derivation of
+parameters that are difficult to interpret physically [e.g., the surface
+type-dependent empirical coefficients for storage heat flux in the
+Objective Hysteresis Model (Grimmond et al. 1991)]. Furthermore, such
+approaches may not fully describe the fundamental processes that
+determine urban effects on climate (Piringer et al. 2002). For example,
+cities are known to have unique characteristics that cause them to be
+warmer than surrounding rural areas, an effect known as the urban heat
+island (Oke 1987). In the absence of anthropogenic heat flux, the urban
+heat island is thought to be greatest on clear, calm nights when local
+conditions generally dominate over synoptic. Candidate causes for this
+phenomenon include decreased surface longwave radiation loss and
+increased absorption of solar radiation because of canyon geometry,
+anthropogenic emissions of heat, reduction of evapotranspiration due to
+the replacement of vegetation with impervious surfaces, increased
+downwelling longwave radiation from the atmosphere due to pollution and
+warmer atmospheric temperatures, increased storage of sensible heat
+within urban materials, and reduced transfer of heat due to sheltering
+from buildings (Oke 1982, Oke 1987, Oke et al. 1991). Single-layer or
+multi-layer urban canopy models are likely needed to investigate the
+relative contribution of these factors to the heat island effect
+(Piringer et al. 2002). For example, specification of an urban albedo
+may provide no insight into the effects of the individual albedo of
+roofs, walls, and roads and the interaction of shortwave radiation
+between these surfaces that yields urban albedos that are typically
+lower than those of most rural sites. Similarly, assessments of the
+effectiveness of techniques proposed to ameliorate heat islands, such as
+“green roofs” or tree planting, require more detailed models</p>
+<p>On the other hand, the level of complexity in a model is limited by
+the availability of data that the model requires, the computational
+burden imposed, and difficulty in understanding the complex behavior of
+the model. Here, following recent developments in detailed urban
+parameterizations designed for mesoscale models (Masson 2000, Martilli
+et al. 2002, Grimmond and Oke 2002, Kusaka and Kimura 2004, Otte et al.
+2004, Dandou et al. 2005), we describe a model that is simple enough to
+be compatible with structural, computational, and data constraints of a
+land surface model coupled to a global climate model, yet complex enough
+to enable exploration of physically-based processes known to be
+important in determining urban climatology. Several of the
+parameterizations are based on the Town Energy Balance (TEB) Model
+(Masson 2000, Masson et al. 2002, Lemonsu et al. 2004).</p>
+<h1 class="unnumbered" id="references">References</h1>
+<h1 class="unnumbered" id="appendix-a-supplemental-materials">Appendix
+A: Supplemental Materials</h1>
+<p>Brief description of supplemental files<br />
+</p>
+<h1 class="unnumbered" id="appendix-b-change-log">Appendix B: Change
+Log</h1>
+<p>If updating document with errata, detail changes made to document –
+delete if not applicable.<br />
+</p>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+data-line-spacing="2" role="list">
+<div id="ref-OLESONETAL08J.Appl.Meteorol.Climatol.a" class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">1. </div><div
+class="csl-right-inline">Oleson, K. W., Bonan, G. B., Feddema, J. J.,
+Vertenstein, M., &amp; Grimmond, C. S. B. (2008). An urban
+parameterization for a global climate model. <span>Part I</span>:
+<span>Formulation</span> and evaluation for two cities. <em>Journal of
+Applied Meteorology and Climatology</em>, <em>47</em>(4), 1038–1060. <a
+href="https://doi.org/10.1175/2007JAMC1597.1">https://doi.org/10.1175/2007JAMC1597.1</a></div>
+</div>
+<div id="ref-OLESONETAL08J.Appl.Meteorol.Climatol.b" class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">2. </div><div
+class="csl-right-inline">Oleson, K. W., Bonan, G. B., Feddema, J., &amp;
+Vertenstein, M. (2008). An urban parameterization for a global climate
+model. <span>Part II</span>: <span>Sensitivity</span> to input
+parameters and the simulated urban heat island in offline simulations.
+<em>Journal of Applied Meteorology and Climatology</em>, <em>47</em>(4),
+1061–1076. <a
+href="https://doi.org/10.1175/2007JAMC1598.1">https://doi.org/10.1175/2007JAMC1598.1</a></div>
+</div>
+<div id="ref-OLESONETAL10Geophys.Res.Lett." class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">3. </div><div
+class="csl-right-inline">Oleson, K. W., Bonan, G. B., &amp; Feddema, J.
+J. (2010). Effects of white roofs on urban temperature in a global
+climate model. <em>Geophysical Research Letters</em>, <em>37</em>(3),
+L03701. <a
+href="https://doi.org/10.1029/2009GL042194">https://doi.org/10.1029/2009GL042194</a></div>
+</div>
+<div id="ref-OLESONETAL10" class="csl-entry" role="listitem">
+<div class="csl-left-margin">4. </div><div
+class="csl-right-inline">Oleson, K. W., Lawrence, D. M., Bonan, G. B.,
+Flanner, M., Kluzek, E., Lawrence, P., Levis, S., Swenson, S., Thornton,
+P., Dai, A., Decker, M., Dickinson, R., Feddema, J., Heald, C., Hoffman,
+F., Lamarque, J.-F., Mahowald, N., Niu, G.-Y., Qian, T., … Zeng, X.
+(2010). <em>Technical description of version 4.0 of the <span>Community
+Land Model</span> (<span>CLM</span>)</em>. University Corporation for
+Atmospheric Research. <a
+href="https://doi.org/10.5065/D6FB50WZ">https://doi.org/10.5065/D6FB50WZ</a></div>
+</div>
+<div id="ref-houghtonClimateChange20012002" class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">5. </div><div
+class="csl-right-inline">Houghton, J. T., Ding, Y., Griggs, D. J.,
+Noguer, M., Linden, P. J. van der, Dai, X., Maskell, K., &amp; Johnson,
+C. A. (2002). <em>Climate <span>Change</span> 2001: <span>The Scientific
+Basis</span></em>. Cambridge University Press.</div>
+</div>
+<div id="ref-cramerGlobalResponseTerrestrial2001" class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">6. </div><div
+class="csl-right-inline">Cramer, W., Bondeau, A., Woodward, F. I.,
+Prentice, I. C., Betts, R. A., Brovkin, V., Cox, P. M., Fisher, V.,
+Foley, J. A., Friend, A. D., Kucharik, C., Lomas, M. R., Ramankutty, N.,
+Sitch, S., Smith, B., White, A., &amp; Young-Molling, C. (2001). Global
+response of terrestrial ecosystem structure and function to
+<span>CO2</span> and climate change: Results from six dynamic global
+vegetation models. <em>Global Change Biology</em>, <em>7</em>(4),
+357–373. <a
+href="https://doi.org/10.1046/j.1365-2486.2001.00383.x">https://doi.org/10.1046/j.1365-2486.2001.00383.x</a></div>
+</div>
+<div id="ref-foleyGlobalConsequencesLand2005" class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">7. </div><div
+class="csl-right-inline">Foley, J. A., DeFries, R., Asner, G. P.,
+Barford, C., Bonan, G., Carpenter, S. R., Chapin, F. S., Coe, M. T.,
+Daily, G. C., Gibbs, H. K., Helkowski, J. H., Holloway, T., Howard, E.
+A., Kucharik, C. J., Monfreda, C., Patz, J. A., Prentice, I. C.,
+Ramankutty, N., &amp; Snyder, P. K. (2005). Global consequences of land
+use. <em>Science</em>, <em>309</em>(5734), 570–574. <a
+href="https://doi.org/10.1126/science.1111772">https://doi.org/10.1126/science.1111772</a></div>
+</div>
+<div id="ref-copelandPotentialClimaticImpacts1996" class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">8. </div><div
+class="csl-right-inline">Copeland, J. H., Pielke, R. A., &amp; Kittel,
+T. G. F. (1996). Potential climatic impacts of vegetation change:
+<span>A</span> regional modeling study. <em>Journal of Geophysical
+Research: Atmospheres</em>, <em>101</em>(D3), 7409–7418. <a
+href="https://doi.org/10.1029/95JD02676">https://doi.org/10.1029/95JD02676</a></div>
+</div>
+<div id="ref-stohlgrenEvidenceThatLocal1998" class="csl-entry"
+role="listitem">
+<div class="csl-left-margin">9. </div><div
+class="csl-right-inline">Stohlgren, T. J., Chase, T. N., Pielke Sr, R.
+A., Kittel, T. G. F., &amp; Baron, J. S. (1998). Evidence that local
+land use practices influence regional climate, vegetation, and stream
+flow patterns in adjacent natural areas. <em>Global Change Biology</em>,
+<em>4</em>(5), 495–504. <a
+href="https://doi.org/10.1046/j.1365-2486.1998.t01-1-00182.x">https://doi.org/10.1046/j.1365-2486.1998.t01-1-00182.x</a></div>
+</div>
+</div>
+</body>
+</html>

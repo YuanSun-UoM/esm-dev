@@ -16,3 +16,12 @@
 #backToTop:hover {
   background-color: #222;
 }
+
+.document {
+    overflow: hidden;
+}
+.body {
+    max-width: none !important;
+    width: 95% !important;
+    padding-bottom: 0 !important;
+}/* adjust parent container */

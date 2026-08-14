@@ -28,16 +28,16 @@ extensions = [
     #'sphinx_last_updated_by_git'
 ]
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['Thumbs.db', '.DS_Store'] #'_build', 
 html_sidebars = {
     "**": ["localtoc.html", "relations.html", "sourcelink.html", "searchbox.html"]
 }
 html_sidebars["index"] = [
     "searchbox.html",
-    "clustrmaps.html",
-    "github_star.html"
+    #"clustrmaps.html",
+    "github_star.html",
+    "mapmyvisitors.html"
 ]
-
 html_last_updated_fmt = "%d %B %Y"
 
 # -- Options for HTML output -------------------------------------------------
@@ -47,3 +47,4 @@ html_theme = 'bizstyle'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
 html_js_files = ['back_to_top.js', 'last_updated.js']
+html_extra_path = []
